@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albany Cub Scouts Pack 3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --green: #1B5E20;
+            --green-dark: #0D3B10;
+            --orange: #FF6F00;
+            --orange-dark: #E65100;
+            --cream: #FDF8F3;
+            --white: #FFFFFF;
+            --text: #1a1a1a;
+            --text-light: #666666;
+            --border: #e5e5e5;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--text); line-height: 1.6; background: var(--white); }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Header */
+        .header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo img { width: 48px; height: 48px; object-fit: contain; }
+        .logo-text { font-family: 'Montserrat', sans-serif; }
+        .logo-text .name { font-weight: 800; font-size: 20px; color: var(--green); line-height: 1; }
+        .logo-text .loc { font-size: 12px; color: var(--text-light); }
+        .nav { display: none; gap: 32px; }
+        .nav a { font-size: 14px; font-weight: 600; color: var(--text); transition: color 0.2s; }
+        .nav a:hover { color: var(--orange); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; transition: all 0.2s; }
+        .btn-primary { background: var(--orange); color: var(--white); }
+        .btn-primary:hover { background: var(--orange-dark); }
+        .btn-outline { background: transparent; border: 2px solid var(--green); color: var(--green); }
+        .btn-outline:hover { background: var(--green); color: var(--white); }
+        .menu-btn { display: flex; background: none; border: none; cursor: pointer; padding: 8px; }
+        
+        /* Hero */
+        .hero { background: linear-gradient(135deg, var(--green) 0%, var(--green-dark) 100%); color: var(--white); padding: 80px 0; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: url('images/hero-new.jpg') center/cover; opacity: 0.3; }
+        .hero-content { position: relative; z-index: 1; max-width: 600px; }
+        .badge { display: inline-block; background: var(--orange); color: var(--white); padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; }
+        .hero h1 { font-size: 48px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+        .hero p { font-size: 18px; opacity: 0.9; margin-bottom: 32px; }
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+        
+        /* Section */
+        .section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 48px; }
+        .section-label { display: inline-block; color: var(--orange); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        .section-title { font-size: 36px; color: var(--text); margin-bottom: 16px; }
+        .section-title span { color: var(--green); }
+        .section-subtitle { color: var(--text-light); font-size: 16px; max-width: 600px; margin: 0 auto; }
+        
+        /* Cards Grid */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+        .card { background: var(--white); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.12); }
+        .card-image { height: 180px; position: relative; }
+        .card-image img { width: 100%; height: 100%; object-fit: cover; }
+        .card-image::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.4), transparent); }
+        .card-content { padding: 24px; }
+        .card-content h3 { font-size: 18px; margin-bottom: 8px; }
+        .card-content p { font-size: 14px; color: var(--text-light); margin-bottom: 16px; }
+        .card-link { font-size: 14px; font-weight: 600; color: var(--green); display: flex; align-items: center; gap: 8px; }
+        .card-link:hover { color: var(--orange); }
+        
+        /* About Preview */
+        .about-preview { background: var(--cream); }
+        .about-grid { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: center; }
+        .about-text h2 { font-size: 32px; margin-bottom: 20px; }
+        .about-text p { color: var(--text-light); margin-bottom: 16px; }
+        .about-image { border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15); }
+        .about-image img { width: 100%; height: auto; }
+        
+        /* Dens */
+        .dens { background: var(--white); }
+        .dens-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
+        .den-item { text-align: center; padding: 32px 16px; border-radius: 12px; background: var(--cream); transition: all 0.2s; }
+        .den-item:hover { background: var(--green); color: var(--white); }
+        .den-item .icon { width: 56px; height: 56px; margin: 0 auto 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .den-item.lion .icon { background: #FCD34D; }
+        .den-item.tiger .icon { background: #FB923C; }
+        .den-item.wolf .icon { background: #60A5FA; }
+        .den-item.bear .icon { background: #A78BFA; }
+        .den-item.webelos .icon { background: #F87171; }
+        .den-item.aol .icon { background: var(--green); color: var(--white); }
+        .den-item:hover .icon { background: var(--white) !important; color: var(--green) !important; }
+        .den-item h4 { font-size: 16px; margin-bottom: 4px; }
+        .den-item span { font-size: 13px; opacity: 0.7; }
+        
+        /* Activities */
+        .activities { background: var(--cream); }
+        .activity-list { display: grid; gap: 16px; }
+        .activity-item { display: flex; align-items: center; gap: 20px; padding: 24px; background: var(--white); border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .activity-icon { width: 56px; height: 56px; border-radius: 12px; background: var(--green); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .activity-icon svg { width: 28px; height: 28px; color: var(--white); }
+        .activity-info h4 { font-size: 18px; margin-bottom: 4px; }
+        .activity-info p { font-size: 14px; color: var(--text-light); }
+        .activity-date { margin-left: auto; text-align: right; flex-shrink: 0; }
+        .activity-date .month { font-size: 12px; font-weight: 700; color: var(--orange); text-transform: uppercase; }
+        .activity-date .day { font-size: 24px; font-weight: 800; color: var(--green); }
+        
+        /* CTA */
+        .cta { background: var(--green); color: var(--white); text-align: center; padding: 80px 0; }
+        .cta h2 { font-size: 36px; margin-bottom: 16px; }
+        .cta p { font-size: 18px; opacity: 0.9; margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+        
+        /* Footer */
+        .footer { background: var(--green-dark); color: var(--white); padding: 64px 0 32px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+        .footer-brand { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+        .footer-brand img { width: 56px; height: 56px; }
+        .footer-brand h3 { font-size: 24px; }
+        .footer-about { opacity: 0.8; font-size: 14px; line-height: 1.8; max-width: 300px; }
+        .footer-links h4 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { font-size: 14px; opacity: 0.8; transition: opacity 0.2s; }
+        .footer-links a:hover { opacity: 1; color: var(--orange); }
+        .footer-contact p { font-size: 14px; opacity: 0.8; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+        .footer-contact svg { width: 18px; height: 18px; color: var(--orange); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 48px; padding-top: 24px; text-align: center; font-size: 13px; opacity: 0.6; }
+        
+        /* Mobile Menu */
+        .mobile-nav { display: none; position: fixed; inset: 0; background: var(--white); z-index: 200; padding: 100px 24px 24px; }
+        .mobile-nav.active { display: block; }
+        .mobile-nav a { display: block; font-size: 20px; font-weight: 600; padding: 16px 0; border-bottom: 1px solid var(--border); }
+        .mobile-nav .btn { margin-top: 24px; width: 100%; }
+        .close-menu { position: absolute; top: 24px; right: 24px; background: none; border: none; cursor: pointer; }
+        
+        @media (min-width: 768px) {
+            .nav { display: flex; }
+            .menu-btn { display: none; }
+            .about-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 2fr 1fr 1fr 1.5fr; }
+            .hero h1 { font-size: 56px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="index.html" class="logo">
+                    <img src="images/pack3-logo.png" alt="Pack 3">
+                    <div class="logo-text">
+                        <div class="name">PACK 3</div>
+                        <div class="loc">Albany, California</div>
+                    </div>
+                </a>
+                <nav class="nav">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="calendar.html">Calendar</a>
+                    <a href="index.html#faqs">FAQs</a>
+                    <a href="index.html#contact">Contact</a>
+                </nav>
+                <a href="#join" class="btn btn-primary" style="display: none;">Join Now</a>
+                <button class="menu-btn" onclick="toggleMenu()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="close-menu" onclick="toggleMenu()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <a href="index.html" onclick="toggleMenu()">Home</a>
+        <a href="about.html" onclick="toggleMenu()">About</a>
+        <a href="calendar.html" onclick="toggleMenu()">Calendar</a>
+        <a href="index.html#faqs" onclick="toggleMenu()">FAQs</a>
+        <a href="index.html#contact" onclick="toggleMenu()">Contact</a>
+        <a href="#join" class="btn btn-primary" onclick="toggleMenu()">Join Pack 3</a>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="badge">Now Enrolling for 2025-2026</span>
+                <h1>Adventure Awaits in Albany</h1>
+                <p>Join Pack 3 and discover the joy of scouting. Camping, hiking, community service, and lifelong friendships for kids K-5.</p>
+                <div class="hero-buttons">
+                    <a href="#join" class="btn btn-primary">Join Pack 3</a>
+                    <a href="about.html" class="btn" style="background: rgba(255,255,255,0.2); color: white;">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Get Started</span>
+                <h2 class="section-title">Explore <span>Pack 3</span></h2>
+            </div>
+            <div class="cards-grid">
+                <a href="about.html" class="card">
+                    <div class="card-image"><img src="images/card-team.jpg" alt="Our Team"></div>
+                    <div class="card-content">
+                        <h3>About Pack 3</h3>
+                        <p>Learn about our history, values, and what makes us unique.</p>
+                        <span class="card-link">Learn More →</span>
+                    </div>
+                </a>
+                <a href="calendar.html" class="card">
+                    <div class="card-image"><img src="images/card-activities.jpg" alt="Calendar"></div>
+                    <div class="card-content">
+                        <h3>Event Calendar</h3>
+                        <p>See upcoming pack meetings, campouts, and activities.</p>
+                        <span class="card-link">View Calendar →</span>
+                    </div>
+                </a>
+                <a href="index.html#faqs" class="card">
+                    <div class="card-image"><img src="images/card-registration.jpg" alt="Registration"></div>
+                    <div class="card-content">
+                        <h3>Join & Register</h3>
+                        <p>Everything you need to know about signing up and fees.</p>
+                        <span class="card-link">Get Started →</span>
+                    </div>
+                </a>
+                <a href="index.html#faqs" class="card">
+                    <div class="card-image"><img src="images/card-faqs.jpg" alt="FAQs"></div>
+                    <div class="card-content">
+                        <h3>Common Questions</h3>
+                        <p>Find answers to frequently asked questions about scouting.</p>
+                        <span class="card-link">Read FAQs →</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Preview -->
+    <section class="section about-preview">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <span class="section-label">About Us</span>
+                    <h2>Building Character Since 1935</h2>
+                    <p>Albany Cub Scouts Pack 3 has been serving our community for nearly 90 years. We're an inclusive pack that welcomes all kids in kindergarten through fifth grade.</p>
+                    <p>Through camping, hiking, community service, and fun activities, we help children develop character, citizenship, and personal fitness while making lifelong friends.</p>
+                    <a href="about.html" class="btn btn-outline" style="margin-top: 16px;">Read Our Story</a>
+                </div>
+                <div class="about-image">
+                    <img src="images/about-hero.jpg" alt="Scouts learning together">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dens -->
+    <section class="section dens">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Our Dens</span>
+                <h2 class="section-title">Scouting <span>By Age</span></h2>
+                <p class="section-subtitle">Each grade level works toward achieving their rank through fun adventures and skill-building.</p>
+            </div>
+            <div class="dens-grid">
+                <div class="den-item lion">
+                    <div class="icon">🦁</div>
+                    <h4>Lion</h4>
+                    <span>Kindergarten</span>
+                </div>
+                <div class="den-item tiger">
+                    <div class="icon">🐯</div>
+                    <h4>Tiger</h4>
+                    <span>1st Grade</span>
+                </div>
+                <div class="den-item wolf">
+                    <div class="icon">🐺</div>
+                    <h4>Wolf</h4>
+                    <span>2nd Grade</span>
+                </div>
+                <div class="den-item bear">
+                    <div class="icon">🐻</div>
+                    <h4>Bear</h4>
+                    <span>3rd Grade</span>
+                </div>
+                <div class="den-item webelos">
+                    <div class="icon">⭐</div>
+                    <h4>Webelos</h4>
+                    <span>4th Grade</span>
+                </div>
+                <div class="den-item aol">
+                    <div class="icon">🏹</div>
+                    <h4>Arrow of Light</h4>
+                    <span>5th Grade</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities -->
+    <section class="section activities">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Upcoming Events</span>
+                <h2 class="section-title">Pack <span>Activities</span></h2>
+            </div>
+            <div class="activity-list">
+                <div class="activity-item">
+                    <div class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg></div>
+                    <div class="activity-info">
+                        <h4>Parent Info Night</h4>
+                        <p>Learn about Pack 3 and meet our leaders</p>
+                    </div>
+                    <div class="activity-date">
+                        <div class="month">August</div>
+                        <div class="day">21</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22l10-10"></path><path d="M6 18l4-4"></path><circle cx="12" cy="12" r="10"></circle></svg></div>
+                    <div class="activity-info">
+                        <h4>Fall Campout</h4>
+                        <p>Weekend camping adventure for the whole family</p>
+                    </div>
+                    <div class="activity-date">
+                        <div class="month">October</div>
+                        <div class="day">10</div>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16a2 2 0 0 0 2 2h1"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></div>
+                    <div class="activity-info">
+                        <h4>Pinewood Derby</h4>
+                        <p>Race your handmade wooden cars</p>
+                    </div>
+                    <div class="activity-date">
+                        <div class="month">January</div>
+                        <div class="day">26</div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center" style="margin-top: 32px;">
+                <a href="calendar.html" class="btn btn-outline">View Full Calendar</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="join">
+        <div class="container">
+            <h2>Ready to Join the Adventure?</h2>
+            <p>Pack 3 welcomes all kids in kindergarten through fifth grade. Registration is always open!</p>
+            <a href="mailto:cubmaster@albanycubscouts.org" class="btn btn-primary" style="font-size: 16px; padding: 16px 32px;">Contact Us to Join</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <img src="images/pack3-logo.png" alt="Pack 3">
+                        <h3>Pack 3</h3>
+                    </div>
+                    <p class="footer-about">Building character, citizenship, and personal fitness in Albany's youth since 1935. Chartered by American Legion Post 292.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="calendar.html">Calendar</a></li>
+                        <li><a href="index.html#faqs">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.scouting.org" target="_blank">Scouting America</a></li>
+                        <li><a href="https://www.scouting.org/training/youth-protection/" target="_blank">Youth Protection</a></li>
+                        <li><a href="#">Uniform Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> cubmaster@albanycubscouts.org</p>
+                    <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Veterans Memorial Hall, Albany CA</p>
+                    <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 1st Thursday, 6:30 PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Albany Cub Scout Pack 3. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('mobileNav').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

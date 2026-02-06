@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albany Cub Scouts Pack 3 - Trail Map Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --topo-green: #2d5a3d;
+            --topo-light: #5a8f6e;
+            --trail-brown: #8b6914;
+            --compass-gold: #d4a84b;
+            --paper: #f4efe4;
+            --paper-dark: #e8e0d0;
+            --ink: #2c2c2c;
+            --red-marker: #c94c4c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--paper);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+
+        /* Topographic Pattern Background */
+        .topo-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cpath fill='none' stroke='%232d5a3d' stroke-width='1' d='M0 200 Q100 150 200 200 T400 200 M0 160 Q100 110 200 160 T400 160 M0 240 Q100 190 200 240 T400 240 M0 120 Q100 70 200 120 T400 120 M0 280 Q100 230 200 280 T400 280 M0 80 Q100 30 200 80 T400 80 M0 320 Q100 270 200 320 T400 320'/%3E%3C/svg%3E");
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: var(--topo-green);
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .compass {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--compass-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .compass::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-bottom: 20px solid var(--red-marker);
+            top: 5px;
+        }
+
+        .compass::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 20px solid var(--compass-gold);
+            bottom: 5px;
+        }
+
+        .logo-text {
+            font-family: 'Bangers', cursive;
+            font-size: 1.8rem;
+            color: var(--paper);
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--paper);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--compass-gold);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 80%;
+            left: 10%;
+        }
+
+        .nav-links .join-link {
+            background: var(--compass-gold);
+            color: var(--ink);
+        }
+
+        .nav-links .join-link:hover {
+            background: var(--trail-brown);
+            color: var(--paper);
+        }
+
+        /* Hero Section - Map Style */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .map-container {
+            background: var(--paper-dark);
+            border: 4px solid var(--trail-brown);
+            border-radius: 10px;
+            padding: 3rem;
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.2),
+                inset 0 0 100px rgba(0,0,0,0.05);
+        }
+
+        .map-container::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px dashed var(--topo-light);
+            border-radius: 5px;
+            pointer-events: none;
+        }
+
+        /* Map pin markers */
+        .map-pin {
+            position: absolute;
+            width: 30px;
+            height: 40px;
+            background: var(--red-marker);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .map-pin::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background: var(--paper);
+            border-radius: 50%;
+            top: 8px;
+            left: 8px;
+        }
+
+        .pin-1 { top: 15%; left: 10%; animation-delay: 0s; }
+        .pin-2 { top: 25%; right: 15%; animation-delay: 0.5s; }
+        .pin-3 { bottom: 20%; left: 20%; animation-delay: 1s; }
+
+        @keyframes bounce {
+            0%, 100% { transform: rotate(-45deg) translateY(0); }
+            50% { transform: rotate(-45deg) translateY(-10px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Bangers', cursive;
+            font-size: clamp(3rem, 10vw, 5rem);
+            color: var(--topo-green);
+            letter-spacing: 4px;
+            line-height: 1.1;
+            text-shadow: 3px 3px 0 var(--paper);
+        }
+
+        .hero h1 span {
+            display: block;
+            font-size: 0.5em;
+            color: var(--trail-brown);
+            letter-spacing: 8px;
+        }
+
+        .hero .tagline {
+            font-size: 1.3rem;
+            color: var(--topo-light);
+            margin: 1.5rem 0;
+            font-weight: 600;
+        }
+
+        .trail-line {
+            position: relative;
+            width: 200px;
+            height: 4px;
+            margin: 2rem auto;
+        }
+
+        .trail-line::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--trail-brown) 0,
+                var(--trail-brown) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 5px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 3px solid;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: var(--topo-green);
+            color: var(--paper);
+            border-color: var(--topo-green);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--topo-green);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--trail-brown);
+            border-color: var(--trail-brown);
+        }
+
+        .btn-secondary:hover {
+            background: var(--trail-brown);
+            color: var(--paper);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-family: 'Bangers', cursive;
+            font-size: 2.5rem;
+            color: var(--topo-green);
+            letter-spacing: 3px;
+        }
+
+        .section-subtitle {
+            color: var(--topo-light);
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        /* Trail Markers - Activities */
+        .trail-markers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .marker-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            border: 3px solid var(--paper-dark);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .marker-card::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--compass-gold);
+            border-radius: 50%;
+            border: 3px solid var(--trail-brown);
+        }
+
+        .marker-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--topo-green);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+
+        .marker-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .marker-card h3 {
+            font-family: 'Bangers', cursive;
+            color: var(--topo-green);
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .marker-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Events Timeline */
+        .events-section {
+            background: var(--topo-green);
+            padding: 5rem 2rem;
+            margin: 0;
+            max-width: none;
+        }
+
+        .events-section .section-title {
+            color: var(--paper);
+        }
+
+        .events-section .section-subtitle {
+            color: var(--topo-light);
+        }
+
+        .events-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: repeating-linear-gradient(
+                180deg,
+                var(--compass-gold) 0,
+                var(--compass-gold) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+        }
+
+        .event-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .event-marker {
+            width: 60px;
+            height: 60px;
+            background: var(--compass-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            color: var(--ink);
+            z-index: 2;
+            border: 4px solid var(--paper);
+        }
+
+        .event-content {
+            background: var(--paper);
+            border-radius: 10px;
+            padding: 1.5rem;
+            flex: 1;
+            position: relative;
+        }
+
+        .event-content::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 20px;
+            border: 10px solid transparent;
+            border-right-color: var(--paper);
+        }
+
+        .event-content h3 {
+            font-family: 'Bangers', cursive;
+            color: var(--topo-green);
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        .event-content p {
+            color: #666;
+            margin: 0.5rem 0;
+        }
+
+        .event-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--trail-brown);
+        }
+
+        /* Join Section */
+        .join-section {
+            text-align: center;
+        }
+
+        .join-card {
+            background: white;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 3rem;
+            border-radius: 15px;
+            border: 4px solid var(--topo-green);
+            position: relative;
+        }
+
+        .coordinates {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: var(--topo-light);
+        }
+
+        .join-card h2 {
+            font-family: 'Bangers', cursive;
+            color: var(--topo-green);
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .join-card p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .rank-trail {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .rank-stop {
+            background: var(--paper-dark);
+            padding: 0.75rem 1.25rem;
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--topo-green);
+            border: 2px solid var(--topo-light);
+            transition: all 0.3s ease;
+        }
+
+        .rank-stop:hover {
+            background: var(--topo-green);
+            color: var(--paper);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--paper-dark);
+            padding: 5rem 2rem;
+            margin: 0;
+            max-width: none;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            border-left: 4px solid var(--topo-green);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--ink);
+        }
+
+        .faq-question::after {
+            content: '>';
+            font-family: 'Bangers', cursive;
+            font-size: 1.2rem;
+            color: var(--topo-green);
+            transform: rotate(90deg);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(-90deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            padding: 0 1.5rem 1.5rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Contact */
+        .contact-section {
+            background: var(--trail-brown);
+            padding: 5rem 2rem;
+            margin: 0;
+            max-width: none;
+            text-align: center;
+        }
+
+        .contact-section .section-title {
+            color: var(--paper);
+        }
+
+        .contact-box {
+            background: var(--paper);
+            max-width: 400px;
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .contact-box h3 {
+            font-family: 'Bangers', cursive;
+            color: var(--topo-green);
+            letter-spacing: 1px;
+        }
+
+        .contact-box a {
+            color: var(--trail-brown);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--ink);
+            color: var(--paper);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .map-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .map-pin {
+                display: none;
+            }
+
+            .timeline-line {
+                left: 15px;
+            }
+
+            .event-marker {
+                width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+
+            .event-item {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="topo-bg"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">
+                <div class="compass"></div>
+                <span class="logo-text">Pack 3</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#activities">Activities</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#join">Join</a></li>
+                <li><a href="#faq">FAQs</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#join" class="join-link">Sign Up</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="map-container">
+            <div class="map-pin pin-1"></div>
+            <div class="map-pin pin-2"></div>
+            <div class="map-pin pin-3"></div>
+
+            <div class="hero-content">
+                <h1>
+                    Albany Cub Scouts
+                    <span>Pack 3</span>
+                </h1>
+                <p class="tagline">Your Adventure Starts Here</p>
+                <div class="trail-line"></div>
+                <p>S'mores, Skits, Badges & Outdoor Fun!</p>
+                <div class="cta-buttons">
+                    <a href="#join" class="btn btn-primary">Join the Trail</a>
+                    <a href="#activities" class="btn btn-secondary">Explore Map</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities -->
+    <section id="activities">
+        <div class="section-header">
+            <h2 class="section-title">Trail Markers</h2>
+            <p class="section-subtitle">What adventures await you at Pack 3</p>
+        </div>
+
+        <div class="trail-markers">
+            <div class="marker-card">
+                <div class="icon">🏕️</div>
+                <h3>Camping</h3>
+                <p>Learn outdoor skills, set up tents, and explore nature on exciting camping trips.</p>
+            </div>
+            <div class="marker-card">
+                <div class="icon">🎖️</div>
+                <h3>Earn Badges</h3>
+                <p>Work toward achievements that recognize new skills and personal growth.</p>
+            </div>
+            <div class="marker-card">
+                <div class="icon">🤝</div>
+                <h3>Service</h3>
+                <p>Give back to Albany through community service projects.</p>
+            </div>
+            <div class="marker-card">
+                <div class="icon">🎭</div>
+                <h3>Skits & Fun</h3>
+                <p>Songs, games, skits, and making lifelong friends along the way.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events -->
+    <section class="events-section" id="events">
+        <div class="section-header">
+            <h2 class="section-title">Upcoming Waypoints</h2>
+            <p class="section-subtitle">Mark your calendar for these adventures</p>
+        </div>
+
+        <div class="events-container">
+            <div class="timeline-line"></div>
+
+            <div class="event-item">
+                <div class="event-marker">AUG</div>
+                <div class="event-content">
+                    <h3>Parent Info Night</h3>
+                    <p>Learn about Pack 3 and how your family can join!</p>
+                    <div class="event-meta">
+                        <span>📅 Aug 21, 2025</span>
+                        <span>⏰ 6:30 PM</span>
+                        <span>📍 Memorial Hall</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-item">
+                <div class="event-marker">SEP</div>
+                <div class="event-content">
+                    <h3>Fall Kick-Off Meeting</h3>
+                    <p>Start the new scouting year with games and activities!</p>
+                    <div class="event-meta">
+                        <span>📅 Sep 15, 2025</span>
+                        <span>⏰ 6:00 PM</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-item">
+                <div class="event-marker">OCT</div>
+                <div class="event-content">
+                    <h3>Family Camping Weekend</h3>
+                    <p>Tents, s'mores, and stargazing - first campout of the year!</p>
+                    <div class="event-meta">
+                        <span>📅 Oct 12, 2025</span>
+                        <span>📍 Camp TBA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join -->
+    <section class="join-section" id="join">
+        <div class="section-header">
+            <h2 class="section-title">Start Your Journey</h2>
+        </div>
+
+        <div class="join-card">
+            <span class="coordinates">37.8867° N, 122.2978° W</span>
+            <h2>Join Pack 3!</h2>
+            <p>We welcome all children from kindergarten through 5th grade. Registration is open year-round - your trail to adventure begins here!</p>
+
+            <div class="rank-trail">
+                <span class="rank-stop">Lions (K)</span>
+                <span class="rank-stop">Tigers (1st)</span>
+                <span class="rank-stop">Wolves (2nd)</span>
+                <span class="rank-stop">Bears (3rd)</span>
+                <span class="rank-stop">Webelos (4th-5th)</span>
+            </div>
+
+            <a href="#contact" class="btn btn-primary">Begin Your Adventure</a>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+        <div class="faq-container">
+            <div class="section-header">
+                <h2 class="section-title">Trail Guide</h2>
+                <p class="section-subtitle">Frequently Asked Questions</p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">When do you meet?</div>
+                <div class="faq-answer">
+                    <p>Pack 3 meets monthly as a full pack from September through June. Dens meet more frequently based on leader schedules.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What does membership cost?</div>
+                <div class="faq-answer">
+                    <p>Annual dues cover BSA registration plus pack activities. Financial assistance is available!</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Do parents participate?</div>
+                <div class="faq-answer">
+                    <p>Yes! Cub Scouts is a family program. Parents are encouraged to attend and we need volunteers.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can we join mid-year?</div>
+                <div class="faq-answer">
+                    <p>Absolutely! Registration is open year-round. Join anytime!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact-section" id="contact">
+        <h2 class="section-title">Base Camp</h2>
+
+        <div class="contact-box">
+            <h3>Cubmaster</h3>
+            <p>George Schevon</p>
+            <a href="mailto:cubmaster@albanycubscouts.org">cubmaster@albanycubscouts.org</a>
+        </div>
+
+        <a href="mailto:cubmaster@albanycubscouts.org" class="btn btn-primary" style="background: var(--paper); color: var(--trail-brown); border-color: var(--paper);">Contact Us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Albany Cub Scouts Pack 3 • All families welcome</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => q.parentElement.classList.toggle('active'));
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(a.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>

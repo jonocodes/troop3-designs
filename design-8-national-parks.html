@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albany Cub Scouts Pack 3 | Adventure Awaits</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-green: #1B4332;
+            --forest-dark: #132E23;
+            --burnt-sienna: #A45A3C;
+            --burnt-sienna-dark: #8B4A30;
+            --cream: #FDF8E8;
+            --cream-dark: #F5EDD8;
+            --ochre: #C7923E;
+            --ochre-light: #D4A44F;
+            --bark-brown: #5C3D2E;
+            --sky-blue: #5B8BA0;
+            --sunset-orange: #D4763A;
+            --pine-shadow: #2D5A45;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Bitter', serif;
+            background-color: var(--cream);
+            color: var(--forest-dark);
+            line-height: 1.6;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--forest-green);
+            padding: 0.75rem 2rem;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(27, 67, 50, 0.3);
+            border-bottom: 4px solid var(--ochre);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: var(--cream);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--ochre);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--cream);
+        }
+
+        .logo-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--forest-green);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            line-height: 1.1;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--ochre);
+        }
+
+        .nav {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .nav-link {
+            color: var(--cream);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-link:hover {
+            background: var(--pine-shadow);
+            color: var(--ochre);
+        }
+
+        .nav-cta {
+            background: var(--burnt-sienna);
+            color: var(--cream) !important;
+            border: 2px solid var(--burnt-sienna);
+        }
+
+        .nav-cta:hover {
+            background: var(--burnt-sienna-dark);
+            border-color: var(--burnt-sienna-dark);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--cream);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            padding-top: 80px;
+            background: linear-gradient(180deg, var(--forest-green) 0%, var(--pine-shadow) 50%, var(--sky-blue) 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-mountains {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            pointer-events: none;
+        }
+
+        .mountain-layer-1 {
+            position: absolute;
+            bottom: 0;
+            left: -5%;
+            right: -5%;
+            height: 100%;
+        }
+
+        .mountain-layer-2 {
+            position: absolute;
+            bottom: 0;
+            left: -5%;
+            right: -5%;
+            height: 80%;
+        }
+
+        .mountain-layer-3 {
+            position: absolute;
+            bottom: 0;
+            left: -5%;
+            right: -5%;
+            height: 50%;
+        }
+
+        .hero-trees {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 2rem;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--ochre);
+            color: var(--forest-dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            border: 3px solid var(--cream);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--cream);
+            text-shadow: 3px 3px 0 var(--forest-dark), 6px 6px 20px rgba(0,0,0,0.3);
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--cream);
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .event-card {
+            background: var(--cream);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 500px;
+            margin: 0 auto 2rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            border: 4px solid var(--ochre);
+            position: relative;
+        }
+
+        .event-card::before {
+            content: '';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 24px;
+            background: var(--burnt-sienna);
+            border-radius: 4px;
+        }
+
+        .event-label {
+            background: var(--forest-green);
+            color: var(--cream);
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .event-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        .event-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .event-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--bark-brown);
+            font-size: 0.95rem;
+        }
+
+        .event-detail svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--burnt-sienna);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            font-family: 'Bitter', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 3px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--burnt-sienna);
+            color: var(--cream);
+            border-color: var(--burnt-sienna);
+        }
+
+        .btn-primary:hover {
+            background: var(--burnt-sienna-dark);
+            border-color: var(--burnt-sienna-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(164, 90, 60, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--forest-green);
+            border-color: var(--forest-green);
+        }
+
+        .btn-secondary:hover {
+            background: var(--forest-green);
+            color: var(--cream);
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Quick Links Section */
+        .quick-links {
+            padding: 5rem 2rem;
+            background: var(--cream);
+            position: relative;
+        }
+
+        .quick-links::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--forest-green) 0px,
+                var(--forest-green) 20px,
+                var(--ochre) 20px,
+                var(--ochre) 40px
+            );
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--forest-green);
+            color: var(--cream);
+            padding: 0.5rem 1.25rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: var(--ochre);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--bark-brown);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quick-links-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .quick-link-card {
+            background: var(--cream-dark);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            text-decoration: none;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quick-link-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--ochre);
+        }
+
+        .quick-link-card:hover {
+            border-color: var(--ochre);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(27, 67, 50, 0.15);
+        }
+
+        .quick-link-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--forest-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            border: 3px solid var(--ochre);
+            transition: all 0.3s ease;
+        }
+
+        .quick-link-card:hover .quick-link-icon {
+            background: var(--burnt-sienna);
+        }
+
+        .quick-link-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: var(--cream);
+        }
+
+        .quick-link-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--forest-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-link-desc {
+            font-size: 0.9rem;
+            color: var(--bark-brown);
+        }
+
+        /* Welcome Section */
+        .welcome {
+            padding: 5rem 2rem;
+            background: var(--forest-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 10 L55 25 L45 25 Z' fill='%23ffffff' opacity='0.03'/%3E%3C/svg%3E") repeat;
+            background-size: 50px 50px;
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .welcome-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--cream);
+            margin-bottom: 1.5rem;
+        }
+
+        .welcome-text p {
+            color: var(--cream);
+            opacity: 0.9;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .welcome-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--ochre);
+            color: var(--forest-dark);
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .value-card {
+            background: var(--pine-shadow);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 2px solid var(--ochre);
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .value-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--ochre);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .value-icon svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--forest-dark);
+        }
+
+        .value-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+        }
+
+        .value-desc {
+            font-size: 0.9rem;
+            color: var(--cream);
+            opacity: 0.8;
+        }
+
+        /* Organization Section */
+        .organization {
+            padding: 5rem 2rem;
+            background: var(--cream);
+            position: relative;
+        }
+
+        .dens-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .den-card {
+            background: var(--cream-dark);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            border: 3px solid var(--cream-dark);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .den-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+
+        .den-card.lion::before { background: #FFD700; }
+        .den-card.tiger::before { background: #FF8C00; }
+        .den-card.wolf::before { background: #FF4500; }
+        .den-card.bear::before { background: #4169E1; }
+        .den-card.webelos::before { background: #228B22; }
+        .den-card.aol::before { background: #9932CC; }
+
+        .den-card:hover {
+            border-color: var(--ochre);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(27, 67, 50, 0.15);
+        }
+
+        .den-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            border: 4px solid var(--cream);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .den-card.lion .den-badge { background: #FFD700; }
+        .den-card.tiger .den-badge { background: #FF8C00; }
+        .den-card.wolf .den-badge { background: #FF4500; }
+        .den-card.bear .den-badge { background: #4169E1; }
+        .den-card.webelos .den-badge { background: #228B22; }
+        .den-card.aol .den-badge { background: #9932CC; }
+
+        .den-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--forest-green);
+            margin-bottom: 0.25rem;
+        }
+
+        .den-grade {
+            font-size: 0.9rem;
+            color: var(--burnt-sienna);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .den-desc {
+            font-size: 0.9rem;
+            color: var(--bark-brown);
+        }
+
+        /* Meeting Info Section */
+        .meetings {
+            padding: 5rem 2rem;
+            background: var(--burnt-sienna);
+            position: relative;
+        }
+
+        .meetings::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 40 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 L20 0 L40 20 Z' fill='%23FDF8E8'/%3E%3C/svg%3E") repeat-x;
+            background-size: 40px 20px;
+        }
+
+        .meetings-content {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .meeting-card {
+            background: var(--cream);
+            border-radius: 12px;
+            padding: 2.5rem;
+            border: 4px solid var(--ochre);
+            position: relative;
+        }
+
+        .meeting-icon {
+            position: absolute;
+            top: -25px;
+            left: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--forest-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--ochre);
+        }
+
+        .meeting-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--cream);
+        }
+
+        .meeting-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--burnt-sienna);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .meeting-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        .meeting-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            color: var(--bark-brown);
+        }
+
+        .meeting-detail svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--burnt-sienna);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Activities Section */
+        .activities {
+            padding: 5rem 2rem;
+            background: var(--cream);
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .activity-card {
+            background: var(--cream-dark);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .activity-card:hover {
+            border-color: var(--ochre);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(27, 67, 50, 0.15);
+        }
+
+        .activity-header {
+            background: var(--forest-green);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .activity-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--ochre);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--cream);
+        }
+
+        .activity-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--forest-dark);
+        }
+
+        .activity-header-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--cream);
+        }
+
+        .activity-header-text span {
+            font-size: 0.85rem;
+            color: var(--ochre);
+        }
+
+        .activity-body {
+            padding: 1.5rem;
+        }
+
+        .activity-body p {
+            color: var(--bark-brown);
+            margin-bottom: 1rem;
+        }
+
+        .activity-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .activity-tag {
+            background: var(--forest-green);
+            color: var(--cream);
+            padding: 0.3rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .more-activities {
+            background: var(--forest-green);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .more-activities h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--cream);
+            margin-bottom: 1.5rem;
+        }
+
+        .activity-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        .activity-badge {
+            background: var(--pine-shadow);
+            color: var(--cream);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            border: 2px solid var(--ochre);
+            transition: all 0.3s ease;
+        }
+
+        .activity-badge:hover {
+            background: var(--ochre);
+            color: var(--forest-dark);
+        }
+
+        /* Scout Values Section */
+        .scout-values {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--forest-green) 0%, var(--pine-shadow) 100%);
+            position: relative;
+        }
+
+        .values-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .value-block {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 2px solid var(--ochre);
+            backdrop-filter: blur(10px);
+        }
+
+        .value-block-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .value-block-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--ochre);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .value-block-icon svg {
+            width: 26px;
+            height: 26px;
+            fill: var(--forest-dark);
+        }
+
+        .value-block h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--cream);
+        }
+
+        .value-block p {
+            color: var(--cream);
+            opacity: 0.9;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .law-points {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .law-point {
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .law-point:hover {
+            border-color: var(--ochre);
+            transform: translateY(-3px);
+        }
+
+        .law-point-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--ochre);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.75rem;
+        }
+
+        .law-point-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--forest-dark);
+        }
+
+        .law-point span {
+            color: var(--cream);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Why Scouting Section */
+        .why-scouting {
+            padding: 5rem 2rem;
+            background: var(--cream);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .benefit-card {
+            background: var(--cream-dark);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            border-color: var(--ochre);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(27, 67, 50, 0.15);
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--forest-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            border: 3px solid var(--ochre);
+        }
+
+        .benefit-icon svg {
+            width: 35px;
+            height: 35px;
+            fill: var(--cream);
+        }
+
+        .benefit-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--forest-green);
+            margin-bottom: 0.75rem;
+        }
+
+        .benefit-card p {
+            font-size: 0.9rem;
+            color: var(--bark-brown);
+        }
+
+        .stats-bar {
+            background: var(--forest-green);
+            border-radius: 12px;
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            border: 4px solid var(--ochre);
+        }
+
+        .stat-item {
+            text-align: center;
+            border-right: 2px solid var(--pine-shadow);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--ochre);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--cream);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 5rem 2rem;
+            background: var(--burnt-sienna);
+        }
+
+        .faq .section-title {
+            color: var(--cream);
+        }
+
+        .faq .section-subtitle {
+            color: var(--cream);
+            opacity: 0.9;
+        }
+
+        .faq .section-badge {
+            background: var(--ochre);
+            color: var(--forest-dark);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--cream);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--ochre);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .faq-question h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--forest-green);
+            flex: 1;
+        }
+
+        .faq-toggle {
+            width: 40px;
+            height: 40px;
+            background: var(--forest-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .faq-toggle svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--cream);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            background: var(--burnt-sienna);
+        }
+
+        .faq-item.active .faq-toggle svg {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--bark-brown);
+            border-top: 2px solid var(--cream-dark);
+            padding-top: 1.5rem;
+        }
+
+        .faq-answer-content ul {
+            margin-left: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .faq-answer-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--forest-dark);
+            color: var(--cream);
+            padding: 4rem 2rem 2rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--ochre);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+        }
+
+        .footer-col h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--ochre);
+        }
+
+        .footer-col p {
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--ochre);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--forest-dark);
+        }
+
+        .footer-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--pine-shadow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--ochre);
+        }
+
+        .social-link svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--cream);
+        }
+
+        .social-link:hover svg {
+            fill: var(--forest-dark);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--cream);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--ochre);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--ochre);
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        .contact-item span,
+        .contact-item a {
+            font-size: 0.95rem;
+            opacity: 0.8;
+            color: var(--cream);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: var(--ochre);
+            opacity: 1;
+        }
+
+        .footer-bottom {
+            border-top: 2px solid var(--pine-shadow);
+            padding-top: 2rem;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-bottom p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .quick-links-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .dens-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .values-content {
+                grid-template-columns: 1fr;
+            }
+
+            .law-points {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-bar {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stat-item {
+                border-right: none;
+                border-bottom: 2px solid var(--pine-shadow);
+                padding-bottom: 1.5rem;
+            }
+
+            .stat-item:nth-last-child(-n+2) {
+                border-bottom: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--forest-green);
+                flex-direction: column;
+                padding: 1rem;
+                border-top: 2px solid var(--pine-shadow);
+            }
+
+            .nav.active {
+                display: flex;
+            }
+
+            .nav-link {
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .welcome-content {
+                grid-template-columns: 1fr;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-links-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dens-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .meetings-content {
+                grid-template-columns: 1fr;
+            }
+
+            .activities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .law-points {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item {
+                border-bottom: 2px solid var(--pine-shadow);
+                padding-bottom: 1.5rem;
+            }
+
+            .stat-item:last-child {
+                border-bottom: none;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-logo {
+                justify-content: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .contact-item {
+                justify-content: center;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/></svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-title">Albany Cub Scouts</span>
+                    <span class="logo-subtitle">Pack 3 - Est. 1935</span>
+                </div>
+            </a>
+            <nav class="nav" id="mainNav">
+                <a href="#about" class="nav-link">About</a>
+                <a href="#dens" class="nav-link">Dens</a>
+                <a href="#activities" class="nav-link">Activities</a>
+                <a href="#faq" class="nav-link">FAQs</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#" class="nav-link nav-cta">Join Pack 3</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <svg class="hero-mountains" viewBox="0 0 1440 600" preserveAspectRatio="none">
+            <!-- Back mountains -->
+            <path class="mountain-layer-1" d="M0 600 L0 350 L200 200 L350 280 L500 150 L650 250 L800 100 L950 220 L1100 120 L1250 200 L1440 150 L1440 600 Z" fill="#2D5A45" opacity="0.5"/>
+            <!-- Middle mountains -->
+            <path class="mountain-layer-2" d="M0 600 L0 400 L150 280 L300 350 L450 220 L600 320 L750 180 L900 300 L1050 200 L1200 280 L1350 220 L1440 300 L1440 600 Z" fill="#1B4332" opacity="0.7"/>
+            <!-- Front mountains/forest -->
+            <path class="mountain-layer-3" d="M0 600 L0 450 L100 400 L200 450 L300 380 L400 430 L500 370 L600 420 L700 360 L800 410 L900 350 L1000 400 L1100 340 L1200 390 L1300 350 L1440 400 L1440 600 Z" fill="#132E23"/>
+            <!-- Trees silhouette -->
+            <g fill="#0D1F17">
+                <path d="M0 600 L0 520 L20 520 L30 480 L40 520 L60 520 L70 470 L80 520 L100 520 L100 600 Z"/>
+                <path d="M120 600 L120 500 L140 500 L150 450 L160 500 L180 500 L180 600 Z"/>
+                <path d="M200 600 L200 510 L220 510 L235 460 L250 510 L270 510 L270 600 Z"/>
+                <path d="M1200 600 L1200 490 L1220 490 L1235 440 L1250 490 L1270 490 L1270 600 Z"/>
+                <path d="M1300 600 L1300 510 L1320 510 L1330 470 L1340 510 L1360 510 L1360 600 Z"/>
+                <path d="M1380 600 L1380 500 L1400 500 L1415 450 L1430 500 L1440 500 L1440 600 Z"/>
+            </g>
+        </svg>
+
+        <div class="hero-content">
+            <span class="hero-badge">Adventure Awaits</span>
+            <h1 class="hero-title">Explore. Discover. Grow.</h1>
+            <p class="hero-subtitle">Join Albany Cub Scouts Pack 3 for outdoor adventures, lifelong friendships, and character-building experiences.</p>
+
+            <div class="event-card">
+                <span class="event-label">Upcoming Event</span>
+                <h2 class="event-title">Parent Info Night</h2>
+                <div class="event-details">
+                    <div class="event-detail">
+                        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/></svg>
+                        <span>August 21, 2025</span>
+                    </div>
+                    <div class="event-detail">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        <span>6:30 PM</span>
+                    </div>
+                    <div class="event-detail">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        <span>Memorial Hall</span>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+                        RSVP Now
+                    </a>
+                    <a href="#about" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links Section -->
+    <section class="quick-links">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/></svg>
+                    Get Started
+                </span>
+                <h2 class="section-title">Your Journey Begins Here</h2>
+                <p class="section-subtitle">Everything you need to know about joining Pack 3 and starting your scouting adventure.</p>
+            </div>
+            <div class="quick-links-grid">
+                <a href="#about" class="quick-link-card">
+                    <div class="quick-link-icon">
+                        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    </div>
+                    <h3 class="quick-link-title">Our Team</h3>
+                    <p class="quick-link-desc">Meet our dedicated leaders and volunteers</p>
+                </a>
+                <a href="#" class="quick-link-card">
+                    <div class="quick-link-icon">
+                        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 class="quick-link-title">Registration</h3>
+                    <p class="quick-link-desc">Sign up to join Pack 3 today</p>
+                </a>
+                <a href="#activities" class="quick-link-card">
+                    <div class="quick-link-icon">
+                        <svg viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
+                    </div>
+                    <h3 class="quick-link-title">Activities</h3>
+                    <p class="quick-link-desc">Discover our adventures and events</p>
+                </a>
+                <a href="#faq" class="quick-link-card">
+                    <div class="quick-link-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                    </div>
+                    <h3 class="quick-link-title">FAQs</h3>
+                    <p class="quick-link-desc">Answers to common questions</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="welcome" id="about">
+        <div class="container">
+            <div class="welcome-content">
+                <div class="welcome-text">
+                    <span class="welcome-badge">About Pack 3</span>
+                    <h2>Welcome to Albany Cub Scouts</h2>
+                    <p>Since 1935, Pack 3 has been helping young scouts in Albany discover their potential through outdoor adventures, community service, and character-building activities. We're more than just a scouting program - we're a family of explorers.</p>
+                    <p>Our pack serves boys and girls in grades K-5, providing age-appropriate activities that build confidence, teach life skills, and create lasting memories. Join us on the trail to adventure!</p>
+                    <a href="#" class="btn btn-primary">Start Your Adventure</a>
+                </div>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        </div>
+                        <h3 class="value-title">Character</h3>
+                        <p class="value-desc">Building honesty, integrity, and strong moral foundations.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <svg viewBox="0 0 24 24"><path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z"/></svg>
+                        </div>
+                        <h3 class="value-title">Citizenship</h3>
+                        <p class="value-desc">Fostering community involvement and civic responsibility.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <svg viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg>
+                        </div>
+                        <h3 class="value-title">Fitness</h3>
+                        <p class="value-desc">Promoting physical activity and healthy lifestyle habits.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/></svg>
+                        </div>
+                        <h3 class="value-title">Leadership</h3>
+                        <p class="value-desc">Developing confidence and teamwork skills for life.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organization Section -->
+    <section class="organization" id="dens">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    Our Dens
+                </span>
+                <h2 class="section-title">Organized by Age & Grade</h2>
+                <p class="section-subtitle">Each den provides age-appropriate activities and advancement opportunities for scouts at every level.</p>
+            </div>
+            <div class="dens-grid">
+                <div class="den-card lion">
+                    <div class="den-badge">🦁</div>
+                    <h3 class="den-name">Lion</h3>
+                    <p class="den-grade">Kindergarten</p>
+                    <p class="den-desc">Introduction to scouting through fun, family-centered activities and exploration.</p>
+                </div>
+                <div class="den-card tiger">
+                    <div class="den-badge">🐯</div>
+                    <h3 class="den-name">Tiger</h3>
+                    <p class="den-grade">1st Grade</p>
+                    <p class="den-desc">Building curiosity and basic outdoor skills with parent partners.</p>
+                </div>
+                <div class="den-card wolf">
+                    <div class="den-badge">🐺</div>
+                    <h3 class="den-name">Wolf</h3>
+                    <p class="den-grade">2nd Grade</p>
+                    <p class="den-desc">Developing independence and discovering new interests.</p>
+                </div>
+                <div class="den-card bear">
+                    <div class="den-badge">🐻</div>
+                    <h3 class="den-name">Bear</h3>
+                    <p class="den-grade">3rd Grade</p>
+                    <p class="den-desc">Expanding skills through hands-on projects and outdoor adventures.</p>
+                </div>
+                <div class="den-card webelos">
+                    <div class="den-badge">🌟</div>
+                    <h3 class="den-name">Webelos</h3>
+                    <p class="den-grade">4th Grade</p>
+                    <p class="den-desc">Preparing for Scouts BSA with advanced skills and leadership.</p>
+                </div>
+                <div class="den-card aol">
+                    <div class="den-badge">🏹</div>
+                    <h3 class="den-name">Arrow of Light</h3>
+                    <p class="den-grade">5th Grade</p>
+                    <p class="den-desc">The highest Cub Scout rank, bridging to Scouts BSA.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meeting Info Section -->
+    <section class="meetings">
+        <div class="container">
+            <div class="meetings-content">
+                <div class="meeting-card">
+                    <div class="meeting-icon">
+                        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    </div>
+                    <span class="meeting-label">Pack Meetings</span>
+                    <h3 class="meeting-title">Monthly Pack Gatherings</h3>
+                    <div class="meeting-detail">
+                        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+                        <span>First Thursday of every month</span>
+                    </div>
+                    <div class="meeting-detail">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>
+                        <span>6:30 PM - 7:30 PM</span>
+                    </div>
+                    <div class="meeting-detail">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        <span>Veterans Memorial Hall<br>1325 Portland Avenue, Albany, CA 94706</span>
+                    </div>
+                </div>
+                <div class="meeting-card">
+                    <div class="meeting-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <span class="meeting-label">Den Meetings</span>
+                    <h3 class="meeting-title">Small Group Sessions</h3>
+                    <div class="meeting-detail">
+                        <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+                        <span>1-2 times per month</span>
+                    </div>
+                    <div class="meeting-detail">
+                        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        <span>Den leaders coordinate schedules with families based on availability</span>
+                    </div>
+                    <div class="meeting-detail">
+                        <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                        <span>Various locations - homes, parks, and community spaces</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activities Section -->
+    <section class="activities" id="activities">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">
+                    <svg viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67z"/></svg>
+                    Adventures
+                </span>
+                <h2 class="section-title">Annual Pack Activities</h2>
+                <p class="section-subtitle">From classic scouting traditions to unique family adventures, there's always something exciting happening at Pack 3.</p>
+            </div>
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-header">
+                        <div class="activity-icon">
+                            <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
+                        </div>
+                        <div class="activity-header-text">
+                            <h3>Pinewood Derby</h3>
+                            <span>January</span>
+                        </div>
+                    </div>
+                    <div class="activity-body">
+                        <p>Our most anticipated event! Scouts design and build their own wooden race cars, then compete for trophies in speed and design categories.</p>
+                        <div class="activity-tags">
+                            <span class="activity-tag">STEM</span>
+                            <span class="activity-tag">Creativity</span>
+                            <span class="activity-tag">Competition</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-header">
+                        <div class="activity-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3zm5 15h-2v-6H9v6H7v-7.81l5-4.5 5 4.5V18z"/><path d="M7 10.19V18h2v-6h6v6h2v-7.81l-5-4.5z" opacity=".3"/></svg>
+                        </div>
+                        <div class="activity-header-text">
+                            <h3>Family Campouts</h3>
+                            <span>Spring & Fall</span>
+                        </div>
+                    </div>
+                    <div class="activity-body">
+                        <p>Experience the great outdoors with overnight camping trips featuring hiking, campfires, stargazing, and outdoor cooking adventures.</p>
+                        <div class="activity-tags">
+                            <span class="activity-tag">Outdoor Skills</span>
+                            <span class="activity-tag">Family Bonding</span>
+                            <span class="activity-tag">Nature</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-header">
+                        <div class="activity-icon">
+                            <svg viewBox="0 0 24 24"><path d="M18 3H6C4.9 3 4 3.9 4 5v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H6V5h12v14zM8 15h8v2H8v-2zm0-4h8v2H8v-2zm0-4h8v2H8V7z"/></svg>
+                        </div>
+                        <div class="activity-header-text">
+                            <h3>Pancake Breakfast</h3>
+                            <span>February</span>
+                        </div>
+                    </div>
+                    <div class="activity-body">
+                        <p>Our annual community fundraiser where scouts serve delicious pancake breakfasts. Teaches teamwork, service, and responsibility.</p>
+                        <div class="activity-tags">
+                            <span class="activity-tag">Community Service</span>
+                            <span class="activity-tag">Fundraising</span>
+                            <span class="activity-tag">Teamwork</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-header">
+                        <div class="activity-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        </div>
+                        <div class="activity-header-text">
+                            <h3>Egg Drop Challenge</h3>
+                            <span>April</span>
+                        </div>
+                    </div>
+                    <div class="activity-body">
+                        <p>Scouts engineer protective containers to keep eggs safe during a high drop. A fun STEM challenge that sparks creativity and problem-solving.</p>
+                        <div class="activity-tags">
+                            <span class="activity-tag">Engineering</span>
+                            <span class="activity-tag">Problem Solving</span>
+                            <span class="activity-tag">Science</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="more-activities">
+                <h3>More Adventures Throughout the Year</h3>
+                <div class="activity-badges">
+                    <span class="activity-badge">Day Hikes</span>
+                    <span class="activity-badge">Flag Ceremonies</span>
+                    <span class="activity-badge">Blue & Gold Banquet</span>
+                    <span class="activity-badge">Summer Day Camp</span>
+                    <span class="activity-badge">Community Service</span>
+                    <span class="activity-badge">Merit Badge Workshops</span>
+                    <span class="activity-badge">Swimming</span>
+                    <span class="activity-badge">Archery</span>
+                    <span class="activity-badge">Fishing Derby</span>
+                    <span class="activity-badge">Holiday Parades</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scout Values Section -->
+    <section class="scout-values">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/></svg>
+                    Scout Spirit
+                </span>
+                <h2 class="section-title" style="color: var(--cream);">The Scout Way</h2>
+                <p class="section-subtitle" style="color: var(--cream); opacity: 0.9;">The timeless values that guide every scout on their journey.</p>
+            </div>
+            <div class="values-content">
+                <div class="value-block">
+                    <div class="value-block-header">
+                        <div class="value-block-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        </div>
+                        <h3>Scout Oath</h3>
+                    </div>
+                    <p>"On my honor I will do my best to do my duty to God and my country and to obey the Scout Law; to help other people at all times; to keep myself physically strong, mentally awake, and morally straight."</p>
+                </div>
+                <div class="value-block">
+                    <div class="value-block-header">
+                        <div class="value-block-icon">
+                            <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                        </div>
+                        <h3>Scout Law</h3>
+                    </div>
+                    <p>"A Scout is trustworthy, loyal, helpful, friendly, courteous, kind, obedient, cheerful, thrifty, brave, clean, and reverent."</p>
+                </div>
+                <div class="value-block">
+                    <div class="value-block-header">
+                        <div class="value-block-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/></svg>
+                        </div>
+                        <h3>Scout Mission</h3>
+                    </div>
+                    <p>"The mission of the Boy Scouts of America is to prepare young people to make ethical and moral choices over their lifetimes by instilling in them the values of the Scout Oath and Law."</p>
+                </div>
+            </div>
+            <div class="law-points">
+                <div class="law-point">
+                    <div class="law-point-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+                    </div>
+                    <span>Trustworthy</span>
+                </div>
+                <div class="law-point">
+                    <div class="law-point-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <span>Loyal</span>
+                </div>
+                <div class="law-point">
+                    <div class="law-point-icon">
+                        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    </div>
+                    <span>Helpful</span>
+                </div>
+                <div class="law-point">
+                    <div class="law-point-icon">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+                    </div>
+                    <span>Friendly</span>
+                </div>
+                <div class="law-point">
+                    <div class="law-point-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                    </div>
+                    <span>Courteous</span>
+                </div>
+                <div class="law-point">
+                    <div class="law-point-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <span>Kind</span>
+                </div>
+                <div class="law-point">
+                    <div class="law-point-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    </div>
+                    <span>Obedient</span>
+                </div>
+                <div class="law-point">
+                    <div class="law-point-icon">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+                    </div>
+                    <span>Cheerful</span>
+                </div>
+                <div class="law-point">
+                    <div class="law-point-icon">
+                        <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+                    </div>
+                    <span>Thrifty</span>
+                </div>
+                <div class="law-point">
+                    <div class="law-point-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/></svg>
+                    </div>
+                    <span>Brave</span>
+                </div>
+                <div class="law-point">
+                    <div class="law-point-icon">
+                        <svg viewBox="0 0 24 24"><path d="M17.66 17.66l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L9.7 9.7l-1.06 1.06-.71-.71 1.06-1.06-1.94-1.94-1.06 1.06-.71-.71 1.06-1.06L4.22 4.22 3 5.44l1.22 1.22L5.28 5.6l.71.71-1.06 1.06 1.94 1.94 1.06-1.06.71.71-1.06 1.06 1.94 1.94 1.06-1.06.71.71-1.06 1.06 1.94 1.94 1.06-1.06.71.71-1.06 1.06 1.94 1.94 1.06-1.06.71.71-1.06 1.06 1.22 1.22 1.22-1.22-4.28-4.28z"/></svg>
+                    </div>
+                    <span>Clean</span>
+                </div>
+                <div class="law-point">
+                    <div class="law-point-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/></svg>
+                    </div>
+                    <span>Reverent</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Scouting Section -->
+    <section class="why-scouting">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                    Benefits
+                </span>
+                <h2 class="section-title">Why Choose Scouting?</h2>
+                <p class="section-subtitle">Scouting provides experiences and skills that last a lifetime. Here's what your family can expect.</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                    </div>
+                    <h3>Lifelong Friendships</h3>
+                    <p>Build lasting bonds with fellow scouts and families through shared adventures and experiences.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/></svg>
+                    </div>
+                    <h3>Leadership Skills</h3>
+                    <p>Develop confidence, decision-making abilities, and teamwork skills that prepare scouts for success.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z"/></svg>
+                    </div>
+                    <h3>Outdoor Adventures</h3>
+                    <p>Experience camping, hiking, and nature exploration while learning valuable outdoor skills.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    </div>
+                    <h3>Character Building</h3>
+                    <p>Instill values of honesty, respect, and responsibility through the Scout Oath and Law.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    </div>
+                    <h3>Community Service</h3>
+                    <p>Give back through service projects that make a real difference in our local community.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                    </div>
+                    <h3>Family Bonding</h3>
+                    <p>Create unforgettable memories as families participate together in activities and adventures.</p>
+                </div>
+            </div>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-number">100+</span>
+                    <span class="stat-label">Years of Scouting</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2M+</span>
+                    <span class="stat-label">Active Scouts</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">130+</span>
+                    <span class="stat-label">Merit Badges</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1935</span>
+                    <span class="stat-label">Pack 3 Founded</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/></svg>
+                    Questions
+                </span>
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Everything you need to know about joining Pack 3. Can't find your answer? Contact us!</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        <h3>Who Can Participate in Cub Scouts?</h3>
+                        <div class="faq-toggle">
+                            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Cub Scouts is open to all youth in kindergarten through fifth grade (ages 5-10). Both boys and girls are welcome to join! The program is family-centered, meaning parents and guardians are encouraged to participate alongside their scouts.</p>
+                            <ul>
+                                <li>Lions: Kindergarten (ages 5-6)</li>
+                                <li>Tigers: 1st Grade (ages 6-7)</li>
+                                <li>Wolves: 2nd Grade (ages 7-8)</li>
+                                <li>Bears: 3rd Grade (ages 8-9)</li>
+                                <li>Webelos: 4th Grade (ages 9-10)</li>
+                                <li>Arrow of Light: 5th Grade (ages 10-11)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How Does Cub Scouts Work?</h3>
+                        <div class="faq-toggle">
+                            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Cub Scouts is organized into dens and packs. A den is a small group of scouts (usually 6-8) of the same grade who meet regularly with trained adult leaders. All the dens together form our pack.</p>
+                            <ul>
+                                <li><strong>Den Meetings:</strong> 1-2 times per month for age-specific activities</li>
+                                <li><strong>Pack Meetings:</strong> Monthly gatherings where all dens come together</li>
+                                <li><strong>Special Events:</strong> Camping trips, Pinewood Derby, service projects, and more</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What Are the Ranks in Cub Scouts?</h3>
+                        <div class="faq-toggle">
+                            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Scouts advance through ranks as they complete age-appropriate adventures and electives. Each rank has required and elective adventures that teach different skills:</p>
+                            <ul>
+                                <li><strong>Lion:</strong> Introduction to scouting through family activities</li>
+                                <li><strong>Tiger:</strong> Building curiosity with parent partners</li>
+                                <li><strong>Wolf:</strong> Developing independence and new interests</li>
+                                <li><strong>Bear:</strong> Hands-on projects and outdoor skills</li>
+                                <li><strong>Webelos:</strong> Preparing for Scouts BSA with advanced skills</li>
+                                <li><strong>Arrow of Light:</strong> The highest Cub Scout rank before bridging</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How Much Does It Cost?</h3>
+                        <div class="faq-toggle">
+                            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Annual registration with BSA is approximately $75 per scout. Pack 3 also collects annual pack dues of $60-80 to cover materials, awards, and activities. Additional costs may include:</p>
+                            <ul>
+                                <li><strong>Uniform:</strong> $50-100 (required shirt, optional pants/accessories)</li>
+                                <li><strong>Activity Fees:</strong> Varies by event (camping, day camp, etc.)</li>
+                                <li><strong>Pinewood Derby Kit:</strong> ~$5</li>
+                            </ul>
+                            <p>Financial assistance is available - no scout is turned away due to inability to pay. Contact our Cubmaster for confidential assistance.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What Is the Time Commitment?</h3>
+                        <div class="faq-toggle">
+                            <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+                        </div>
+                    </div>
+                    <div class="faq-answer">
+                        <div class="faq-answer-content">
+                            <p>Cub Scouts is designed to fit into busy family schedules. The typical commitment includes:</p>
+                            <ul>
+                                <li><strong>Den Meetings:</strong> 1-2 hours, 1-2 times per month</li>
+                                <li><strong>Pack Meetings:</strong> 1 hour, once per month</li>
+                                <li><strong>Special Events:</strong> A few per year (camping, derby, etc.)</li>
+                            </ul>
+                            <p>We understand families have different availability. Our program is flexible, and scouts can participate at whatever level works for your family. The more you put in, the more you get out!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z"/></svg>
+                    </div>
+                    <span class="footer-logo-text">Pack 3</span>
+                </div>
+                <p>Serving the Albany community since 1935. Building character, citizenship, and fitness through outdoor adventures and fun.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 011.25 1.25A1.25 1.25 0 0117.25 8 1.25 1.25 0 0116 6.75a1.25 1.25 0 011.25-1.25M12 7a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 2a3 3 0 00-3 3 3 3 0 003 3 3 3 0 003-3 3 3 0 00-3-3z"/></svg>
+                    </a>
+                    <a href="#" class="social-link" aria-label="Email">
+                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#dens">Our Dens</a></li>
+                    <li><a href="#activities">Activities</a></li>
+                    <li><a href="#faq">FAQs</a></li>
+                    <li><a href="#">Join Pack 3</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Scouting.org</a></li>
+                    <li><a href="#">ScoutShop</a></li>
+                    <li><a href="#">Scoutbook</a></li>
+                    <li><a href="#">Pack Calendar</a></li>
+                    <li><a href="#">Volunteer</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    <a href="mailto:cubmaster@albanycubscouts.org">cubmaster@albanycubscouts.org</a>
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                    <span>Veterans Memorial Hall<br>1325 Portland Avenue<br>Albany, CA 94706</span>
+                </div>
+                <div class="contact-item">
+                    <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+                    <span>Pack Meetings:<br>1st Thursday, 6:30 PM</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Albany Cub Scouts Pack 3. All rights reserved. | Chartered by BSA Golden Gate Area Council</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+            });
+        });
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+
+                // Close all other FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Header scroll effect
+        const header = document.querySelector('.header');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+
+            if (currentScroll > 100) {
+                header.style.boxShadow = '0 4px 30px rgba(27, 67, 50, 0.4)';
+            } else {
+                header.style.boxShadow = '0 4px 20px rgba(27, 67, 50, 0.3)';
+            }
+
+            lastScroll = currentScroll;
+        });
+    </script>
+</body>
+</html>

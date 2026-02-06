@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albany Cub Scouts Pack 3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-green: #1B5E20; --primary-green-dark: #0D3B10; --accent-orange: #FF6F00;
+            --accent-orange-dark: #E65100; --accent-yellow: #FBC02D; --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a; --text-light: #757575; --bg-light: #f9f9f7; --bg-white: #ffffff;
+            --border-color: #e0e0e0;
+        }
+        body { font-family: 'Open Sans', sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--bg-white); }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; font-weight: 700; line-height: 1.3; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .header { background: var(--primary-green); position: fixed; top: 0; left: 0; right: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header-content { display: flex; align-items: center; justify-content: space-between; height: 70px; }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo-img { width: 45px; height: 45px; background: white; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .logo-img img { width: 35px; height: 35px; object-fit: contain; }
+        .logo-text { color: white; }
+        .logo-text .main { font-weight: 700; font-size: 18px; line-height: 1.2; }
+        .logo-text .sub { font-size: 12px; color: rgba(255,255,255,0.7); }
+        .nav-desktop { display: none; }
+        .nav-desktop a { color: rgba(255,255,255,0.9); font-size: 14px; font-weight: 500; margin: 0 12px; transition: color 0.2s; }
+        .nav-desktop a:hover { color: white; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 10px 20px; border-radius: 6px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; transition: all 0.2s; }
+        .btn-primary { background: var(--accent-orange); color: white; }
+        .btn-primary:hover { background: var(--accent-orange-dark); }
+        .btn-outline { background: transparent; border: 2px solid white; color: white; }
+        .btn-outline:hover { background: white; color: var(--primary-green); }
+        .btn-large { padding: 14px 28px; font-size: 16px; }
+        .mobile-menu-btn { background: none; border: none; color: white; cursor: pointer; padding: 8px; }
+        .mobile-menu { display: none; position: fixed; top: 0; right: 0; width: 280px; height: 100vh; background: var(--primary-green); padding: 80px 24px 24px; z-index: 999; box-shadow: -5px 0 20px rgba(0,0,0,0.2); }
+        .mobile-menu.active { display: block; }
+        .mobile-menu a { display: block; color: rgba(255,255,255,0.9); font-size: 16px; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .mobile-menu .btn { margin-top: 20px; width: 100%; }
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 998; }
+        .overlay.active { display: block; }
+        .hero { min-height: 600px; padding-top: 70px; position: relative; display: flex; align-items: center; }
+        .hero-bg { position: absolute; inset: 0; background: url('images/hero-bg.jpg') center/cover no-repeat; }
+        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(27, 94, 32, 0.9), rgba(27, 94, 32, 0.7), transparent); }
+        .hero-content { position: relative; z-index: 1; padding: 60px 0; }
+        .hero-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+        .badge { display: inline-block; background: var(--accent-orange); color: white; padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 20px; }
+        .hero h1 { color: white; font-size: 36px; margin-bottom: 16px; }
+        .hero-subtitle { color: rgba(255,255,255,0.95); font-size: 20px; margin-bottom: 12px; }
+        .hero-text { color: rgba(255,255,255,0.8); font-size: 16px; margin-bottom: 24px; max-width: 500px; }
+        .event-card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 20px; margin-bottom: 24px; }
+        .event-card h3 { color: var(--accent-orange); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .event-item { display: flex; align-items: center; gap: 10px; color: white; margin-bottom: 8px; font-size: 14px; }
+        .event-item svg { width: 18px; height: 18px; color: var(--accent-orange); flex-shrink: 0; }
+        .hero-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
+        .hero-logo { display: none; }
+        .hero-logo img { width: 100%; max-width: 320px; filter: drop-shadow(0 10px 30px rgba(0,0,0,0.3)); }
+        .quick-links { display: grid; grid-template-columns: 1fr; }
+        .quick-link-card { position: relative; height: 260px; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; color: white; }
+        .quick-link-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.3s; }
+        .quick-link-card:hover .quick-link-bg { transform: scale(1.05); }
+        .quick-link-overlay { position: absolute; inset: 0; }
+        .quick-link-card.green .quick-link-overlay { background: linear-gradient(to top, rgba(27, 94, 32, 0.9), rgba(27, 94, 32, 0.5)); }
+        .quick-link-card.orange .quick-link-overlay { background: linear-gradient(to top, rgba(255, 111, 0, 0.9), rgba(255, 111, 0, 0.5)); }
+        .quick-link-card.blue .quick-link-overlay { background: linear-gradient(to top, rgba(37, 99, 235, 0.9), rgba(37, 99, 235, 0.5)); }
+        .quick-link-card.amber .quick-link-overlay { background: linear-gradient(to top, rgba(217, 119, 6, 0.9), rgba(217, 119, 6, 0.5)); }
+        .quick-link-content { position: relative; z-index: 1; }
+        .quick-link-icon { width: 40px; height: 40px; margin-bottom: 12px; }
+        .quick-link-card h3 { font-size: 18px; margin-bottom: 6px; }
+        .quick-link-card p { font-size: 13px; opacity: 0.9; margin-bottom: 12px; }
+        .quick-link-arrow { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; }
+        .section { padding: 60px 0; }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-label { display: inline-block; color: var(--accent-orange); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .section-title { font-size: 28px; color: var(--text-dark); margin-bottom: 12px; }
+        .section-title span { color: var(--primary-green); }
+        .section-subtitle { color: var(--text-medium); font-size: 16px; max-width: 600px; margin: 0 auto; }
+        .welcome-grid { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; }
+        .welcome-text h2 { font-size: 26px; margin-bottom: 16px; }
+        .welcome-text p { color: var(--text-medium); margin-bottom: 16px; font-size: 15px; }
+        .highlight-box { background: rgba(27, 94, 32, 0.05); border-left: 4px solid var(--accent-orange); padding: 16px 20px; border-radius: 0 8px 8px 0; margin: 20px 0; }
+        .highlight-box p { color: var(--primary-green); font-weight: 600; margin: 0; }
+        .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+        .value-item { display: flex; align-items: flex-start; gap: 10px; }
+        .value-icon { width: 36px; height: 36px; background: rgba(27, 94, 32, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .value-icon svg { width: 18px; height: 18px; color: var(--primary-green); }
+        .value-item h4 { font-size: 14px; margin-bottom: 2px; }
+        .value-item p { font-size: 12px; color: var(--text-light); margin: 0; }
+        .welcome-image { position: relative; }
+        .welcome-image img { border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+        .floating-card { position: absolute; background: white; border-radius: 10px; padding: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .floating-card.bottom-left { bottom: -20px; left: -20px; }
+        .floating-card.top-right { top: -20px; right: -20px; }
+        .floating-card-content { display: flex; align-items: center; gap: 12px; }
+        .floating-card-icon { width: 44px; height: 44px; background: rgba(255, 111, 0, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--accent-orange); font-size: 14px; }
+        .floating-card-text h4 { font-size: 14px; margin-bottom: 2px; }
+        .floating-card-text p { font-size: 12px; color: var(--text-light); margin: 0; }
+        .organization { background: var(--bg-light); }
+        .dens-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .den-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .den-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+        .den-icon svg { width: 24px; height: 24px; color: white; }
+        .den-card h3 { font-size: 18px; margin-bottom: 4px; }
+        .den-grade { color: var(--accent-orange); font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+        .den-card p { font-size: 13px; color: var(--text-medium); }
+        .meeting-info { background: var(--primary-green); border-radius: 12px; padding: 24px; color: white; margin-top: 32px; }
+        .meeting-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+        .meeting-block h3 { font-size: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .meeting-block h3 svg { width: 20px; height: 20px; color: var(--accent-orange); }
+        .meeting-block p { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 10px; }
+        .meeting-location { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.7); }
+        .meeting-location svg { width: 16px; height: 16px; color: var(--accent-orange); }
+        .charter-info { text-align: center; margin-top: 20px; font-size: 13px; color: var(--text-light); }
+        .charter-info span { color: var(--primary-green); font-weight: 600; }
+        .activities-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .activity-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .activity-image { position: relative; height: 200px; overflow: hidden; }
+        .activity-image img { width: 100%; height: 100%; object-fit: cover; }
+        .activity-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.4), transparent); }
+        .activity-icon { position: absolute; top: 12px; left: 12px; width: 40px; height: 40px; background: rgba(255,255,255,0.95); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+        .activity-icon svg { width: 20px; height: 20px; color: var(--primary-green); }
+        .activity-content { padding: 16px; }
+        .activity-content h3 { font-size: 16px; margin-bottom: 6px; }
+        .activity-content p { font-size: 13px; color: var(--text-medium); margin-bottom: 12px; }
+        .activity-meta { display: flex; flex-wrap: wrap; gap: 12px; }
+        .activity-meta-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-light); }
+        .activity-meta-item svg { width: 14px; height: 14px; color: var(--accent-orange); }
+        .more-activities { margin-top: 32px; }
+        .more-activities h3 { text-align: center; font-size: 18px; margin-bottom: 16px; }
+        .activity-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .activity-tag { display: flex; align-items: center; gap: 8px; background: var(--bg-light); padding: 8px 16px; border-radius: 20px; font-size: 13px; }
+        .activity-tag svg { width: 16px; height: 16px; color: var(--primary-green); }
+        .community-service { background: rgba(27, 94, 32, 0.05); border-radius: 12px; padding: 20px; margin-top: 24px; border: 1px solid rgba(27, 94, 32, 0.1); }
+        .community-service h4 { color: var(--primary-green); font-size: 16px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .community-service p { font-size: 13px; color: var(--text-medium); }
+        .text-center { text-align: center; }
+        .mt-4 { margin-top: 24px; }
+        .scout-oath { background: var(--primary-green); color: white; }
+        .scout-oath .section-title { color: white; }
+        .scout-oath .section-subtitle { color: rgba(255,255,255,0.8); }
+        .oath-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .oath-card { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 24px; }
+        .oath-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+        .oath-icon.green { background: var(--primary-green); }
+        .oath-icon.orange { background: var(--accent-orange); }
+        .oath-icon.blue { background: #2563eb; }
+        .oath-icon svg { width: 24px; height: 24px; color: white; }
+        .oath-card h3 { font-size: 18px; margin-bottom: 10px; }
+        .oath-card p { font-size: 14px; color: rgba(255,255,255,0.9); line-height: 1.7; }
+        .scout-law-points { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; margin-top: 24px; }
+        .scout-law-points h3 { text-align: center; font-size: 16px; margin-bottom: 16px; }
+        .points-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+        .point-tag { background: rgba(255,255,255,0.1); padding: 6px 14px; border-radius: 20px; font-size: 13px; }
+        .point-tag:hover { background: var(--accent-orange); }
+        .why-scouting { background: var(--bg-light); }
+        .benefits-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .benefit-card { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .benefit-icon { width: 48px; height: 48px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+        .benefit-icon svg { width: 24px; height: 24px; color: white; }
+        .benefit-card h3 { font-size: 16px; margin-bottom: 6px; }
+        .benefit-card p { font-size: 13px; color: var(--text-medium); }
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 32px; }
+        .stat-item { text-align: center; }
+        .stat-value { font-size: 28px; font-weight: 700; color: var(--primary-green); margin-bottom: 4px; }
+        .stat-label { font-size: 12px; color: var(--text-light); }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-list { background: white; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid var(--border-color); overflow: hidden; }
+        .faq-item { border-bottom: 1px solid var(--border-color); }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-question { width: 100%; display: flex; align-items: center; gap: 14px; padding: 18px 20px; background: none; border: none; text-align: left; cursor: pointer; font-family: inherit; }
+        .faq-icon { width: 36px; height: 36px; background: rgba(27, 94, 32, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .faq-icon svg { width: 18px; height: 18px; color: var(--primary-green); }
+        .faq-question h3 { flex: 1; font-size: 15px; font-weight: 600; }
+        .faq-chevron { width: 28px; height: 28px; background: rgba(255, 111, 0, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
+        .faq-chevron svg { width: 16px; height: 16px; color: var(--accent-orange); }
+        .faq-item.active .faq-chevron { transform: rotate(180deg); }
+        .faq-answer { display: none; padding: 0 20px 18px 70px; }
+        .faq-item.active .faq-answer { display: block; }
+        .faq-answer p { font-size: 14px; color: var(--text-medium); line-height: 1.8; white-space: pre-line; }
+        .faq-contact { text-align: center; margin-top: 24px; }
+        .faq-contact p { color: var(--text-medium); margin-bottom: 8px; }
+        .faq-contact a { color: var(--primary-green); font-weight: 600; }
+        .faq-contact a:hover { color: var(--accent-orange); }
+        .footer { background: var(--primary-green-dark); color: white; padding: 48px 0 0; }
+        .footer-grid { display: grid; grid-template-columns: 1fr; gap: 32px; }
+        .footer-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+        .footer-brand .logo-img { width: 48px; height: 48px; }
+        .footer-brand-text h3 { font-size: 18px; }
+        .footer-brand-text p { font-size: 13px; color: rgba(255,255,255,0.6); }
+        .footer-about p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 16px; }
+        .social-links { display: flex; gap: 8px; }
+        .social-link { width: 36px; height: 36px; background: rgba(255,255,255,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+        .social-link:hover { background: var(--accent-orange); }
+        .social-link svg { width: 18px; height: 18px; }
+        .footer-column h4 { font-size: 16px; margin-bottom: 16px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 10px; }
+        .footer-links a { font-size: 13px; color: rgba(255,255,255,0.7); display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--accent-orange); }
+        .footer-links svg { width: 14px; height: 14px; }
+        .footer-contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 13px; color: rgba(255,255,255,0.7); }
+        .footer-contact-item svg { width: 16px; height: 16px; color: var(--accent-orange); flex-shrink: 0; margin-top: 2px; }
+        .meeting-box { background: rgba(255,255,255,0.05); border-radius: 8px; padding: 14px; margin-top: 16px; }
+        .meeting-box p { margin: 0; }
+        .meeting-box .title { color: rgba(255,255,255,0.9); font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+        .meeting-box .time { color: rgba(255,255,255,0.6); font-size: 12px; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 32px; padding: 16px 0; }
+        .footer-bottom-content { display: flex; flex-direction: column; align-items: center; gap: 8px; font-size: 12px; color: rgba(255,255,255,0.5); }
+        .footer-bottom-content svg { width: 14px; height: 14px; color: var(--accent-orange); fill: var(--accent-orange); }
+        .back-to-top { position: fixed; bottom: 20px; right: 20px; width: 44px; height: 44px; background: var(--accent-orange); border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: background 0.2s; z-index: 999; }
+        .back-to-top:hover { background: var(--accent-orange-dark); }
+        .back-to-top svg { width: 20px; height: 20px; color: white; }
+        @media (min-width: 640px) {
+            .hero h1 { font-size: 42px; }
+            .section-title { font-size: 32px; }
+            .quick-links { grid-template-columns: repeat(2, 1fr); }
+            .dens-grid { grid-template-columns: repeat(2, 1fr); }
+            .activities-grid { grid-template-columns: repeat(2, 1fr); }
+            .oath-grid { grid-template-columns: repeat(3, 1fr); }
+            .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(4, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 768px) {
+            .nav-desktop { display: flex; }
+            .mobile-menu-btn { display: none; }
+            .hero-grid { grid-template-columns: 1fr 1fr; }
+            .hero-logo { display: flex; justify-content: center; }
+            .welcome-grid { grid-template-columns: 1fr 1fr; }
+            .meeting-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: repeat(4, 1fr); }
+            .footer-bottom-content { flex-direction: row; justify-content: space-between; }
+        }
+        @media (min-width: 1024px) {
+            .quick-links { grid-template-columns: repeat(4, 1fr); }
+            .dens-grid { grid-template-columns: repeat(3, 1fr); }
+            .benefits-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#home" class="logo">
+                    <div class="logo-img"><img src="images/pack3-logo.png" alt="Pack 3 Logo"></div>
+                    <div class="logo-text"><div class="main">Pack 3</div><div class="sub">Albany, CA</div></div>
+                </a>
+                <nav class="nav-desktop">
+                    <a href="#home">Home</a><a href="#about">About</a><a href="#organization">Organization</a><a href="#activities">Activities</a><a href="#faqs">FAQs</a><a href="#contact">Contact</a>
+                </nav>
+                <a href="#join" class="btn btn-primary" style="display: none;">Join Pack 3</a>
+                <button class="mobile-menu-btn" onclick="toggleMenu()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    <div class="overlay" onclick="toggleMenu()"></div>
+    <div class="mobile-menu">
+        <a href="#home" onclick="toggleMenu()">Home</a><a href="#about" onclick="toggleMenu()">About</a><a href="#organization" onclick="toggleMenu()">Organization</a><a href="#activities" onclick="toggleMenu()">Activities</a><a href="#faqs" onclick="toggleMenu()">FAQs</a><a href="#contact" onclick="toggleMenu()">Contact</a>
+        <a href="#join" class="btn btn-primary">Join Pack 3</a>
+    </div>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <div class="hero-bg"></div><div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-grid">
+                    <div>
+                        <span class="badge">Registration Always Open</span>
+                        <h1>Albany Cub Scouts Pack 3</h1>
+                        <p class="hero-subtitle">Are you ready for more s'mores, skits, badges, and outdoor fun?</p>
+                        <p class="hero-text">Albany Pack 3 is back in action for 2025-2026! We're an inclusive pack welcoming all kids in Kindergarten through Fifth Grade.</p>
+                        <div class="event-card">
+                            <h3>Parent Info Event</h3>
+                            <div class="event-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Thursday, August 21, 2025</div>
+                            <div class="event-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>6:30 PM - 7:30 PM</div>
+                            <div class="event-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Memorial Hall, Memorial Park</div>
+                        </div>
+                        <div class="hero-buttons"><a href="#join" class="btn btn-primary btn-large">Join Pack 3</a><a href="#about" class="btn btn-outline btn-large">About Cub Scouts</a></div>
+                    </div>
+                    <div class="hero-logo"><img src="images/pack3-logo.png" alt="Albany Cub Scouts Pack 3 Logo"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section class="quick-links">
+        <a href="#about" class="quick-link-card green"><div class="quick-link-bg" style="background-image: url('images/card-team.jpg')"></div><div class="quick-link-overlay"></div><div class="quick-link-content"><svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg><h3>OUR TEAM</h3><p>Meet the Pack 3 leadership team.</p><span class="quick-link-arrow">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></div></a>
+        <a href="#faqs" class="quick-link-card orange"><div class="quick-link-bg" style="background-image: url('images/card-registration.jpg')"></div><div class="quick-link-overlay"></div><div class="quick-link-content"><svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg><h3>REGISTRATION</h3><p>Learn about membership and fees.</p><span class="quick-link-arrow">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></div></a>
+        <a href="#activities" class="quick-link-card blue"><div class="quick-link-bg" style="background-image: url('images/card-activities.jpg')"></div><div class="quick-link-overlay"></div><div class="quick-link-content"><svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22l10-10"></path><path d="M6 18l4-4"></path><path d="M14 6l-4 4"></path><path d="M18 2l-4 4"></path><path d="M2 6l4 4"></path><path d="M6 2l4 4"></path><circle cx="12" cy="12" r="10"></circle></svg><h3>ACTIVITIES</h3><p>Explore our events and adventures.</p><span class="quick-link-arrow">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></div></a>
+        <a href="#faqs" class="quick-link-card amber"><div class="quick-link-bg" style="background-image: url('images/card-faqs.jpg')"></div><div class="quick-link-overlay"></div><div class="quick-link-content"><svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg><h3>SCOUTING FAQs</h3><p>Common questions answered.</p><span class="quick-link-arrow">Learn More <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span></div></a>
+    </section>
+
+    <!-- Welcome -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="welcome-grid">
+                <div class="welcome-text">
+                    <span class="section-label">Welcome to Albany Cub Scouts Pack 3</span>
+                    <h2>Are you ready for more <span style="color: var(--primary-green)">s'mores, skits, badges, and outdoor fun?</span></h2>
+                    <p>Albany Cub Scouts are kids in kindergarten through fifth grade who join a pack to go hiking, play games, learn skills, make friends, and much, much more.</p>
+                    <p><strong>Cub Scouting means "doing".</strong> You have lots to do as a Cub Scout—hiking, camping, crafts, games, sports, songs, stories, and puzzles, to name just a few things. Much of the fun happens right in the den and pack.</p>
+                    <p>Scouts also participate in events like the annual Blue and Gold banquet, the Pinewood Derby, an Egg Drop, and our Pancake Breakfast. Whatever it is that you enjoy, you'll have a chance to do it in Cub Scouting!</p>
+                    <div class="highlight-box"><p>"Albany Pack 3 has a long and proud history of service to Albany's youth and to the community as a whole."</p></div>
+                    <div class="values-grid">
+                        <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div><div><h4>Character</h4><p>Building strong moral character</p></div></div>
+                        <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div><div><h4>Citizenship</h4><p>Being responsible community members</p></div></div>
+                        <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div><div><h4>Fitness</h4><p>Promoting healthy active lifestyles</p></div></div>
+                        <div class="value-item"><div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div><div><h4>Leadership</h4><p>Developing future leaders</p></div></div>
+                    </div>
+                </div>
+                <div class="welcome-image">
+                    <img src="images/welcome-group.jpg" alt="Pack 3 families at community event">
+                    <div class="floating-card bottom-left"><div class="floating-card-content"><div class="floating-card-icon">K-5</div><div class="floating-card-text"><h4>All Welcome</h4><p>Kindergarten to 5th Grade</p></div></div></div>
+                    <div class="floating-card top-right"><div class="floating-card-content"><div class="floating-card-icon" style="background: var(--primary-green); color: white;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div><div class="floating-card-text"><h4>Inclusive Unit</h4><p>Scouts for Equality</p></div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organization -->
+    <section id="organization" class="section organization">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">How We're Organized</span>
+                <h2 class="section-title">Pack <span>Organization</span></h2>
+                <p class="section-subtitle">Albany Cub Scouts Pack 3 is made up of dens organized by age group. Different grade levels work toward achieving the rank for that year.</p>
+            </div>
+            <div class="dens-grid">
+                <div class="den-card"><div class="den-icon" style="background: #facc15;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h.01"></path><path d="M15 12h.01"></path><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"></path><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"></path></svg></div><h3>Lion</h3><div class="den-grade">Kindergarten</div><p>Our youngest scouts start their adventure!</p></div>
+                <div class="den-card"><div class="den-icon" style="background: #fb923c;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5c.67 0 1.35.09 2 .26 1.78-2 5.03-2.84 6.42-2.26 1.4.58-.42 7-.42 7 .57 1.07 1 2.24 1 3.44C21 17.9 16.97 21 12 21s-9-3.1-9-7.56c0-1.25.5-2.4 1-3.44 0 0-1.89-6.42-.5-7 1.39-.58 4.72.23 6.5 2.23A9.04 9.04 0 0 1 12 5Z"></path><path d="M8 14v.5"></path><path d="M16 14v.5"></path><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"></path></svg></div><h3>Tiger</h3><div class="den-grade">1st Grade</div><p>Building confidence and new skills.</p></div>
+                <div class="den-card"><div class="den-icon" style="background: #60a5fa;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2.823.47-4.113 6.006-4 7 .08.703 1.725 1.722 3.656 1 1.261-.472 1.855-1.24 2.344-2.5"></path><path d="M14.267 5.172c0-1.39 1.577-2.493 3.5-2.172 2.823.47 4.113 6.006 4 7-.08.703-1.725 1.722-3.656 1-1.261-.472-1.855-1.24-2.344-2.5"></path><path d="M8 14v.5"></path><path d="M16 14v.5"></path><path d="M11.25 16.25h1.5L12 17l-.75-.75Z"></path><path d="M4.42 11.247A13.152 13.152 0 0 0 4 14.556C4 18.728 7.582 21 12 21s8-2.272 8-6.444c0-1.061-.162-2.2-.493-3.309m-9.243-6.082A8.801 8.801 0 0 1 12 5c.78 0 1.5.108 2.161.306"></path></svg></div><h3>Wolf</h3><div class="den-grade">2nd Grade</div><p>Exploring the outdoors and community.</p></div>
+                <div class="den-card"><div class="den-icon" style="background: #a78bfa;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="4" r="2"></circle><path d="M7 21h8.8a2 2 0 0 0 1.8-2.3l-.8-4a2 2 0 0 0-1.8-1.7H13V9a3 3 0 0 0-3-3H7a3 3 0 0 0-3 3v7a3 3 0 0 0 3 3Z"></path></svg></div><h3>Bear</h3><div class="den-grade">3rd Grade</div><p>Taking on bigger challenges together.</p></div>
+                <div class="den-card"><div class="den-icon" style="background: #f87171;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.4 7.2h7.6l-6 4.8 2.4 7.2-6-4.8-6 4.8 2.4-7.2-6-4.8h7.6z"></path></svg></div><h3>Webelos</h3><div class="den-grade">4th Grade</div><p>We Be Loyal Scouts - preparing for the next step.</p></div>
+                <div class="den-card"><div class="den-icon" style="background: var(--primary-green);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div><h3>Arrow of Light</h3><div class="den-grade">5th Grade</div><p>The highest rank in Cub Scouting before bridging to Scouts.</p></div>
+            </div>
+            <div class="meeting-info">
+                <div class="meeting-grid">
+                    <div class="meeting-block">
+                        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Pack Meetings</h3>
+                        <p>The whole Pack (all dens) meets the first Thursday of every month at the Veterans Memorial Building, usually from 6:30 to 8pm. The entire family (including siblings) is welcome.</p>
+                        <div class="meeting-location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Veterans Memorial Hall, 1325 Portland Avenue</div>
+                    </div>
+                    <div class="meeting-block">
+                        <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Den Meetings</h3>
+                        <p>Each den establishes its own meeting schedule, usually 1-2 times per month. At den meetings, Scouts work on advancements, learn skills, and always have a great time.</p>
+                        <p style="font-size: 13px; color: rgba(255,255,255,0.7);">For Lion and Tiger Scouts, a parent is expected to join their Scout at meetings.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="charter-info">Pack 3 is in the Herms District of the Golden Gate Council and is chartered by the <span>American Legion Post 292 of Albany</span></p>
+        </div>
+    </section>
+
+    <!-- Activities -->
+    <section id="activities" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Pack 3 Activities</span>
+                <h2 class="section-title">What's it like to be in <span>Pack 3?</span></h2>
+                <p class="section-subtitle">Check out some of our annual activities. From outdoor adventures to community service, there's always something exciting happening!</p>
+            </div>
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-image"><img src="images/activity-derby.jpg" alt="Pinewood Derby"><div class="activity-overlay"></div><div class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 16H9m10 0h3v-3.15a1 1 0 0 0-.84-.99L16 11l-2.7-3.6a1 1 0 0 0-.8-.4H5.24a2 2 0 0 0-1.8 1.1l-.8 1.63A6 6 0 0 0 2 12.42V16a2 2 0 0 0 2 2h1"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></div></div>
+                    <div class="activity-content"><h3>Pinewood Derby</h3><p>Scouts build and race their own model cars! One of our most exciting annual events.</p><div class="activity-meta"><div class="activity-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>January (Sunday)</div><div class="activity-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Veterans Memorial Building</div></div></div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-image"><img src="images/activity-camping.jpg" alt="Family Campouts"><div class="activity-overlay"></div><div class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22l10-10"></path><path d="M6 18l4-4"></path><path d="M14 6l-4 4"></path><path d="M18 2l-4 4"></path><path d="M2 6l4 4"></path><path d="M6 2l4 4"></path><circle cx="12" cy="12" r="10"></circle></svg></div></div>
+                    <div class="activity-content"><h3>Family Campouts</h3><p>Typically at least one each in the spring & fall. Great for bonding and outdoor skills!</p><div class="activity-meta"><div class="activity-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Spring & Fall</div><div class="activity-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Various Campgrounds</div></div></div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-image"><img src="images/activity-service.jpg" alt="Pancake Breakfast"><div class="activity-overlay"></div><div class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg></div></div>
+                    <div class="activity-content"><h3>Pancake Breakfast</h3><p>Our annual fundraiser held in the Veterans Memorial Building. Scouts sell tickets and help serve!</p><div class="activity-meta"><div class="activity-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>February (Sunday)</div><div class="activity-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Veterans Memorial Building</div></div></div>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-image"><img src="images/activity-hiking.jpg" alt="Annual Egg Drop"><div class="activity-overlay"></div><div class="activity-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 18v-6"></path><path d="M12 8V6"></path></svg></div></div>
+                    <div class="activity-content"><h3>Annual Egg Drop</h3><p>Yes, it's exactly what it sounds like! A fun engineering challenge for scouts.</p><div class="activity-meta"><div class="activity-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Spring</div><div class="activity-meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>TBD</div></div></div>
+                </div>
+            </div>
+            <div class="more-activities">
+                <h3>More Pack Activities</h3>
+                <div class="activity-tags">
+                    <div class="activity-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 18l8-6-8-6v12z"></path><path d="M2 6v12"></path><path d="M22 6v12"></path></svg>Hiking (local park trails)</div>
+                    <div class="activity-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>Community Service</div>
+                    <div class="activity-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>Flag Placement on Veterans' Graves</div>
+                    <div class="activity-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path></svg>Ice Skating</div>
+                    <div class="activity-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5.5" cy="17.5" r="3.5"></circle><circle cx="18.5" cy="17.5" r="3.5"></circle><path d="M15 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-3 11.5V14l-3-3 4-3 2 3h2"></path></svg>Bike Rides</div>
+                    <div class="activity-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 22l10-10"></path><path d="M6 18l4-4"></path><path d="M14 6l-4 4"></path><path d="M18 2l-4 4"></path><path d="M2 6l4 4"></path><path d="M6 2l4 4"></path><circle cx="12" cy="12" r="10"></circle></svg>Water Park</div>
+                    <div class="activity-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"></path><path d="M7 2v20"></path><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"></path></svg>Blue and Gold Banquet</div>
+                </div>
+            </div>
+            <div class="community-service">
+                <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>Community Service</h4>
+                <p>Our scouts participate in various community service activities including: Scouting for Food, Earth Day cleanup, Storm drain stewardship, Beach Cleanup, and Flag Placement on holidays at Veterans' cemetery. Pack activities are communicated via email.</p>
+            </div>
+            <div class="text-center mt-4"><a href="#" class="btn btn-primary btn-large">View Pack Calendar</a></div>
+        </div>
+    </section>
+
+    <!-- Scout Oath -->
+    <section class="section scout-oath">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label" style="color: var(--accent-yellow)">Our Foundation</span>
+                <h2 class="section-title">The Values We Live By</h2>
+                <p class="section-subtitle">Scouting is built on timeless principles that guide our scouts to become responsible, ethical citizens.</p>
+            </div>
+            <div class="oath-grid">
+                <div class="oath-card">
+                    <div class="oath-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
+                    <h3>The Scout Oath</h3>
+                    <p>On my honor I will do my best to do my duty to God and my country and to obey the Scout Law; to help other people at all times; to keep myself physically strong, mentally awake, and morally straight.</p>
+                </div>
+                <div class="oath-card">
+                    <div class="oath-icon orange"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></div>
+                    <h3>The Scout Law</h3>
+                    <p>A Scout is trustworthy, loyal, helpful, friendly, courteous, kind, obedient, cheerful, thrifty, brave, clean, and reverent.</p>
+                </div>
+                <div class="oath-card">
+                    <div class="oath-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg></div>
+                    <h3>The Scout Mission</h3>
+                    <p>The mission of Scouting America is to prepare young people to make ethical and moral choices over their lifetimes by instilling in them the values of the Scout Oath and Scout Law.</p>
+                </div>
+            </div>
+            <div class="scout-law-points">
+                <h3>The Twelve Points of the Scout Law</h3>
+                <div class="points-grid">
+                    <span class="point-tag">Trustworthy</span><span class="point-tag">Loyal</span><span class="point-tag">Helpful</span><span class="point-tag">Friendly</span>
+                    <span class="point-tag">Courteous</span><span class="point-tag">Kind</span><span class="point-tag">Obedient</span><span class="point-tag">Cheerful</span>
+                    <span class="point-tag">Thrifty</span><span class="point-tag">Brave</span><span class="point-tag">Clean</span><span class="point-tag">Reverent</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Scouting -->
+    <section class="section why-scouting">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Building Skills for Life</span>
+                <h2 class="section-title">Why Scouting <span>Matters</span></h2>
+                <p class="section-subtitle">Cub Scouting is focused on fun and friendship, and along the way we nurture personal growth and social skills.</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon" style="background: var(--primary-green);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+                    <h3>Leadership Development</h3>
+                    <p>Scouts share in adventure and take turns leading other scouts, building confidence and communication skills.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon" style="background: #059669;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 18l8-6-8-6v12z"></path><path d="M2 6v12"></path><path d="M22 6v12"></path></svg></div>
+                    <h3>Outdoor Skills</h3>
+                    <p>Scouts learn how to safely enjoy and care for the outdoors through camping, hiking, and nature activities.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon" style="background: #2563eb;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
+                    <h3>Participatory Citizenship</h3>
+                    <p>Civic awareness and patriotism with an emphasis on service to the community through volunteer projects.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon" style="background: #ea580c;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.5 6.5h11"></path><path d="M6.5 17.5h11"></path><path d="M6 20v-2a6 6 0 1 1 12 0v2"></path><path d="M12 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"></path></svg></div>
+                    <h3>Personal Fitness</h3>
+                    <p>Healthy eating and an active lifestyle are encouraged through physical activities and sports.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon" style="background: #7c3aed;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg></div>
+                    <h3>Character Building</h3>
+                    <p>We seek to develop good character, guided by the Scout Oath, Scout Law, and Scout Mission.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon" style="background: #db2777;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg></div>
+                    <h3>Lifelong Friendship</h3>
+                    <p>Make lifelong friends and create memories that will last a lifetime through shared experiences.</p>
+                </div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-item"><div class="stat-value">100+</div><div class="stat-label">Years of Scouting</div></div>
+                <div class="stat-item"><div class="stat-value">2M+</div><div class="stat-label">Scouts Nationwide</div></div>
+                <div class="stat-item"><div class="stat-value">130+</div><div class="stat-label">Merit Badges</div></div>
+                <div class="stat-item"><div class="stat-value">Since 1935</div><div class="stat-label">Pack 3 Albany</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQs -->
+    <section id="faqs" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Got Questions?</span>
+                <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+                <p class="section-subtitle">Everything you need to know about joining and participating in Albany Pack 3.</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-list">
+                    <div class="faq-item active">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+                            <h3>Who Can Participate?</h3>
+                            <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                        </button>
+                        <div class="faq-answer"><p>Anyone in kindergarten through fifth grades! Starting in 2018, we welcomed girls to join the cub scouts. We will be establishing dens at the outset of the Scouting season based on the number of Scouts who sign up in each grade. Den sizes are 10 or fewer.
+
+Albany's Pack 3 has always prided itself on being an inclusive unit that represents the diversity of our community. We are strongly committed to creating a welcoming environment for all children who wish to join our Pack.
+
+We are proud to be designated as an Inclusive Unit by Scouts for Equality and our leaders wear the "Scouts for Equality" badge on their uniforms to signal our dedication to a Scouting movement rooted in equality and free of discrimination.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></div>
+                            <h3>How Does Cub Scouts Work?</h3>
+                            <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                        </button>
+                        <div class="faq-answer"><p>Cub Scouts is a family program for all kids interested in having fun, learning life skills, building community, exploring the outdoors, becoming leaders and good citizens, and making friends.
+
+The basic structure of the group is a "pack" – which includes the whole group of Scouts, from kindergarten through fifth grades. Each grade has one or more "dens" that meet in smaller groups to work on adventures to earn their rank.
+
+Cub Scouts complete adventures as they work to achieve their rank for that year. The adventures are different for each rank, allowing Cub Scouts to learn new age-appropriate skills and explore new topics each year. At the end of the year, if a Scout has met all of the requirements for that year, he or she will receive the rank (i.e. a first grader would receive the "Tiger" rank).</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+                            <h3>What Are the Ranks?</h3>
+                            <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                        </button>
+                        <div class="faq-answer"><p>• Kindergarten = Lion
+• First Grade = Tiger
+• Second Grade = Wolf
+• Third Grade = Bear
+• Fourth Grade = Webelos (We Be Loyal Scouts)
+• Fifth Grade = Arrow of Light (AOL)
+
+In their fifth grade year, scouts "bridge" to Boy Scouts. This involves visiting local troops and choosing one that the scout will participate in and contribute to during their further adventures in Scouting.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
+                            <h3>How Much Does Cub Scouts Cost?</h3>
+                            <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                        </button>
+                        <div class="faq-answer"><p>Annual registration fee is $300.00 per child ($275 for returning scouts) paid by check or Zelle to our treasurer. Fees cover activities, achievements, badges and a "Class B" Pack t-shirt for your Scout. Lion and Tiger Scouts also require a parent to register with Pack 3 as an adult leader for $15.
+
+The basic uniform consists of a shirt, hat, neckerchief, neckerchief slide, and the pack and council patches. This can add up to $100 or so. (Our pack re-uses shirts and gear so check with us before buying!) The hat, neckerchief and slide will change with the different grades, but the same blue shirt can be used from kindergarten through third grade. In fourth and fifth grades, Scouts switch to a tan-colored shirt.
+
+A limited number of scholarships are available for those in need.</p></div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" onclick="toggleFaq(this)">
+                            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
+                            <h3>What Is the Time Commitment?</h3>
+                            <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+                        </button>
+                        <div class="faq-answer"><p>The Pack meets once a month on a Thursday evening from 6:30 to 7:30. The dens meet once or twice monthly on a day selected by the den.
+
+In addition, there are at least two family campouts per year, one in fall (October) and one in the spring (April), which are usually Friday to Sunday. For 2025-2026, we have scheduled 2 additional campouts for a total of 4 campouts!
+
+Other activities include:
+• Pinewood Derby (Sunday in January)
+• Pancake Breakfast (Sunday in February)
+• Bake sale (April)
+• Community service projects
+• Fall and spring hikes
+
+Lion and Tiger parents need to complete Youth Protection Training online (takes about one hour).</p></div>
+                    </div>
+                </div>
+                <div class="faq-contact">
+                    <p>Still have questions? Contact our Cubmaster!</p>
+                    <a href="mailto:cubmaster@albanycubscouts.org">cubmaster@albanycubscouts.org</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <div class="logo-img"><img src="images/pack3-logo.png" alt="Pack 3 Logo"></div>
+                        <div class="footer-brand-text"><h3>Pack 3</h3><p>Albany, CA</p></div>
+                    </div>
+                    <div class="footer-about">
+                        <p>Building character, citizenship, and personal fitness in young people through fun outdoor adventures and community service since 1935.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                            <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                            <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#organization">Organization</a></li>
+                        <li><a href="#activities">Activities</a></li>
+                        <li><a href="#faqs">FAQs</a></li>
+                        <li><a href="#join">Join Pack 3</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://www.scouting.org" target="_blank">Scouting America <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></li>
+                        <li><a href="https://www.scouting.org/training/youth-protection/" target="_blank">Youth Protection Training <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></li>
+                        <li><a href="#">Golden Gate Council</a></li>
+                        <li><a href="#">Pack Calendar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Contact Us</h4>
+                    <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg><a href="mailto:cubmaster@albanycubscouts.org">cubmaster@albanycubscouts.org</a></div>
+                    <div class="footer-contact-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>Veterans Memorial Hall<br>1325 Portland Avenue<br>Albany, CA 94706</div>
+                    <div class="meeting-box">
+                        <p class="title">Pack Meetings</p>
+                        <p class="time">First Thursday of each month<br>6:30 PM - 7:30 PM</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 Albany Cub Scout Pack 3. All rights reserved.</p>
+                    <p>Made with <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> in Albany, CA</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" onclick="scrollToTop()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg></button>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.mobile-menu').classList.toggle('active');
+            document.querySelector('.overlay').classList.toggle('active');
+        }
+        function toggleFaq(btn) {
+            const item = btn.parentElement;
+            const wasActive = item.classList.contains('active');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            if (!wasActive) item.classList.add('active');
+        }
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

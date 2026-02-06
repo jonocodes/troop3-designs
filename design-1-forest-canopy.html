@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Albany Cub Scouts Pack 3 - Forest Canopy Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-dark: #1a4d2e;
+            --forest-mid: #2d6a4f;
+            --forest-light: #40916c;
+            --leaf-bright: #52b788;
+            --leaf-glow: #74c69d;
+            --cream: #f8f6f0;
+            --bark: #5c4033;
+            --gold: #daa520;
+            --sky: #e8f5e9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--cream);
+            color: var(--forest-dark);
+            overflow-x: hidden;
+        }
+
+        /* Animated Forest Header */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--sky) 0%, var(--leaf-glow) 50%, var(--forest-mid) 100%);
+            overflow: hidden;
+        }
+
+        .trees {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            pointer-events: none;
+        }
+
+        .tree {
+            position: absolute;
+            bottom: 0;
+        }
+
+        .tree svg {
+            height: 100%;
+            width: auto;
+        }
+
+        .tree-1 { left: -5%; height: 70%; animation: sway 8s ease-in-out infinite; }
+        .tree-2 { left: 15%; height: 55%; animation: sway 7s ease-in-out infinite 0.5s; }
+        .tree-3 { left: 35%; height: 80%; animation: sway 9s ease-in-out infinite 1s; }
+        .tree-4 { right: 30%; height: 60%; animation: sway 6s ease-in-out infinite 1.5s; }
+        .tree-5 { right: 10%; height: 75%; animation: sway 8s ease-in-out infinite 0.3s; }
+        .tree-6 { right: -5%; height: 65%; animation: sway 7s ease-in-out infinite 0.8s; }
+
+        @keyframes sway {
+            0%, 100% { transform: rotate(-1deg); }
+            50% { transform: rotate(1deg); }
+        }
+
+        .sun {
+            position: absolute;
+            top: 8%;
+            right: 15%;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, var(--gold) 0%, rgba(218, 165, 32, 0) 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* Floating leaves */
+        .leaf {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: var(--leaf-bright);
+            border-radius: 0 50% 50% 50%;
+            transform: rotate(45deg);
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(45deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(100vh) rotate(405deg); opacity: 0; }
+        }
+
+        .leaf:nth-child(1) { left: 10%; animation-duration: 15s; animation-delay: 0s; }
+        .leaf:nth-child(2) { left: 25%; animation-duration: 12s; animation-delay: 2s; width: 20px; height: 20px; }
+        .leaf:nth-child(3) { left: 45%; animation-duration: 18s; animation-delay: 4s; }
+        .leaf:nth-child(4) { left: 65%; animation-duration: 14s; animation-delay: 1s; width: 25px; height: 25px; }
+        .leaf:nth-child(5) { left: 80%; animation-duration: 16s; animation-delay: 3s; }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(26, 77, 46, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .logo-text {
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: white;
+        }
+
+        .logo-text span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background: var(--leaf-bright);
+            transform: translateY(-2px);
+        }
+
+        .join-btn {
+            background: var(--gold) !important;
+            color: var(--forest-dark) !important;
+        }
+
+        /* Hero Content */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 180px 2rem 100px;
+        }
+
+        .hero h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: var(--forest-dark);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0 rgba(255,255,255,0.5);
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+            display: block;
+            font-size: 0.6em;
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            color: var(--bark);
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--forest-dark);
+            color: white;
+            box-shadow: 0 4px 15px rgba(26, 77, 46, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--forest-mid);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(26, 77, 46, 0.5);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--forest-dark);
+            border: 3px solid var(--forest-dark);
+        }
+
+        .btn-secondary:hover {
+            background: var(--forest-dark);
+            color: white;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            color: var(--forest-dark);
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--gold);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--forest-mid);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* About Cards */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .about-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--leaf-bright);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--leaf-bright), var(--forest-mid));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+        }
+
+        .about-card h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4rem;
+            color: var(--forest-dark);
+            margin-bottom: 1rem;
+        }
+
+        .about-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Events Section */
+        .events-section {
+            background: linear-gradient(135deg, var(--forest-dark) 0%, var(--forest-mid) 100%);
+            padding: 5rem 2rem;
+            margin: 0;
+            max-width: none;
+        }
+
+        .events-section .section-title {
+            color: white;
+        }
+
+        .events-section .section-subtitle {
+            color: var(--leaf-glow);
+        }
+
+        .events-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .event-date {
+            background: var(--gold);
+            color: var(--forest-dark);
+            padding: 1rem;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 90px;
+        }
+
+        .event-date .month {
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .event-date .day {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .event-details h3 {
+            font-family: 'Fredoka', sans-serif;
+            color: var(--forest-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-details p {
+            color: #666;
+        }
+
+        .event-time {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--forest-mid);
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Join Section */
+        .join-section {
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .join-box {
+            background: white;
+            border-radius: 30px;
+            padding: 4rem;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .join-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--forest-dark), var(--leaf-bright), var(--gold));
+        }
+
+        .join-box h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2rem;
+            color: var(--forest-dark);
+            margin-bottom: 1rem;
+        }
+
+        .join-box p {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .age-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .age-badge {
+            background: var(--sky);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            color: var(--forest-dark);
+            border: 2px solid var(--leaf-bright);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            background: var(--sky);
+            padding: 5rem 2rem;
+            margin: 0;
+            max-width: none;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1rem;
+            color: var(--forest-dark);
+            transition: background 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--sky);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--leaf-bright);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .faq-answer p {
+            padding: 0 1.5rem 1.5rem;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--forest-dark);
+            color: white;
+            text-align: center;
+        }
+
+        .contact-section .section-title {
+            color: white;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            text-align: center;
+        }
+
+        .contact-item h4 {
+            font-family: 'Fredoka', sans-serif;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: var(--leaf-bright);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.8;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content {
+                padding-top: 120px;
+            }
+
+            .event-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .join-box {
+                padding: 2rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <div class="logo-icon">🏕️</div>
+            <div class="logo-text">Pack <span>3</span></div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#join">Join Us</a></li>
+            <li><a href="#faq">FAQs</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#join" class="join-btn">Join Now</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="sun"></div>
+
+        <!-- Floating Leaves -->
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+        <div class="leaf"></div>
+
+        <!-- Trees -->
+        <div class="trees">
+            <div class="tree tree-1">
+                <svg viewBox="0 0 100 200" fill="var(--forest-dark)">
+                    <polygon points="50,0 100,80 75,80 100,140 70,140 90,200 10,200 30,140 0,140 25,80 0,80"/>
+                </svg>
+            </div>
+            <div class="tree tree-2">
+                <svg viewBox="0 0 100 200" fill="var(--forest-mid)">
+                    <polygon points="50,0 100,80 75,80 100,140 70,140 90,200 10,200 30,140 0,140 25,80 0,80"/>
+                </svg>
+            </div>
+            <div class="tree tree-3">
+                <svg viewBox="0 0 100 200" fill="var(--forest-dark)">
+                    <polygon points="50,0 100,80 75,80 100,140 70,140 90,200 10,200 30,140 0,140 25,80 0,80"/>
+                </svg>
+            </div>
+            <div class="tree tree-4">
+                <svg viewBox="0 0 100 200" fill="var(--forest-mid)">
+                    <polygon points="50,0 100,80 75,80 100,140 70,140 90,200 10,200 30,140 0,140 25,80 0,80"/>
+                </svg>
+            </div>
+            <div class="tree tree-5">
+                <svg viewBox="0 0 100 200" fill="var(--forest-dark)">
+                    <polygon points="50,0 100,80 75,80 100,140 70,140 90,200 10,200 30,140 0,140 25,80 0,80"/>
+                </svg>
+            </div>
+            <div class="tree tree-6">
+                <svg viewBox="0 0 100 200" fill="var(--forest-mid)">
+                    <polygon points="50,0 100,80 75,80 100,140 70,140 90,200 10,200 30,140 0,140 25,80 0,80"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="hero-content">
+            <h1>Albany Cub Scouts<span>Pack 3</span></h1>
+            <p class="tagline">S'mores, Skits, Badges & Outdoor Fun!</p>
+            <div class="cta-group">
+                <a href="#join" class="btn btn-primary">Join the Adventure</a>
+                <a href="#about" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">What We Do</h2>
+        <p class="section-subtitle">Building character, one adventure at a time</p>
+
+        <div class="about-grid">
+            <div class="about-card">
+                <div class="card-icon">🏕️</div>
+                <h3>Outdoor Adventures</h3>
+                <p>Camping trips, hiking, nature exploration, and learning outdoor survival skills in a fun, safe environment.</p>
+            </div>
+            <div class="about-card">
+                <div class="card-icon">🎖️</div>
+                <h3>Earn Badges</h3>
+                <p>Work toward achievements and badges that recognize new skills and personal growth.</p>
+            </div>
+            <div class="about-card">
+                <div class="card-icon">🤝</div>
+                <h3>Community Service</h3>
+                <p>Give back to Albany through service projects that teach the value of helping others.</p>
+            </div>
+            <div class="about-card">
+                <div class="card-icon">🎭</div>
+                <h3>Fun & Friendship</h3>
+                <p>Skits, games, songs, and making lifelong friends while learning important life skills.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events-section" id="events">
+        <div class="events-container">
+            <h2 class="section-title">Upcoming Events</h2>
+            <p class="section-subtitle">Mark your calendars for these exciting activities</p>
+
+            <div class="event-card">
+                <div class="event-date">
+                    <div class="month">Aug</div>
+                    <div class="day">21</div>
+                </div>
+                <div class="event-details">
+                    <h3>Parent Information Night</h3>
+                    <p>Learn about Pack 3 and how your family can join the adventure!</p>
+                    <div class="event-time">📍 Memorial Hall, Memorial Park • 6:30 PM - 7:30 PM</div>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="event-date">
+                    <div class="month">Sep</div>
+                    <div class="day">15</div>
+                </div>
+                <div class="event-details">
+                    <h3>Fall Kick-Off Pack Meeting</h3>
+                    <p>Start the new scouting year with games, activities, and meeting your den!</p>
+                    <div class="event-time">📍 Location TBA • 6:00 PM</div>
+                </div>
+            </div>
+
+            <div class="event-card">
+                <div class="event-date">
+                    <div class="month">Oct</div>
+                    <div class="day">12</div>
+                </div>
+                <div class="event-details">
+                    <h3>Family Camping Weekend</h3>
+                    <p>Our first campout of the year - tents, s'mores, and stargazing!</p>
+                    <div class="event-time">📍 Camp Details Coming Soon</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Join Section -->
+    <section class="join-section" id="join">
+        <div class="join-box">
+            <h2>Join Pack 3 Today!</h2>
+            <p>We welcome all children from kindergarten through 5th grade, and their families. Registration is open year-round, and we'd love to have you join our scouting family!</p>
+
+            <div class="age-badges">
+                <span class="age-badge">Lions (K)</span>
+                <span class="age-badge">Tigers (1st)</span>
+                <span class="age-badge">Wolves (2nd)</span>
+                <span class="age-badge">Bears (3rd)</span>
+                <span class="age-badge">Webelos (4th-5th)</span>
+            </div>
+
+            <a href="#contact" class="btn btn-primary">Start Your Adventure</a>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <div class="faq-container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">When do you meet?</div>
+                <div class="faq-answer">
+                    <p>Pack 3 meets monthly as a full pack from September through June. Individual dens (grouped by grade) meet more frequently, typically weekly or bi-weekly, based on den leader schedules.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">What does membership cost?</div>
+                <div class="faq-answer">
+                    <p>Annual dues cover registration with the Boy Scouts of America plus pack activities. Financial assistance is available - no scout is turned away for inability to pay.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Do parents need to participate?</div>
+                <div class="faq-answer">
+                    <p>Cub Scouts is a family program! Parents are encouraged to attend meetings and activities with their scouts. We also need volunteers for den leaders, activity helpers, and committee roles.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Can my child join mid-year?</div>
+                <div class="faq-answer">
+                    <p>Absolutely! Registration is open year-round. Scouts can join at any time and jump right into the fun.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+
+        <div class="contact-info">
+            <div class="contact-item">
+                <h4>Cubmaster</h4>
+                <p>George Schevon</p>
+                <a href="mailto:cubmaster@albanycubscouts.org">cubmaster@albanycubscouts.org</a>
+            </div>
+            <div class="contact-item">
+                <h4>Location</h4>
+                <p>Albany, California</p>
+            </div>
+        </div>
+
+        <a href="mailto:cubmaster@albanycubscouts.org" class="btn btn-primary">Contact Us</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Albany Cub Scouts Pack 3. All families welcome.</p>
+    </footer>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

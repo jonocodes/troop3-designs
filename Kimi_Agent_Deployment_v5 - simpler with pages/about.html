@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Pack 3 | Albany Cub Scouts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --green: #1B5E20;
+            --green-dark: #0D3B10;
+            --orange: #FF6F00;
+            --orange-dark: #E65100;
+            --cream: #FDF8F3;
+            --white: #FFFFFF;
+            --text: #1a1a1a;
+            --text-light: #666666;
+            --border: #e5e5e5;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Open Sans', sans-serif; color: var(--text); line-height: 1.6; background: var(--white); }
+        h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; font-weight: 700; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; height: auto; display: block; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Header */
+        .header { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+        .logo { display: flex; align-items: center; gap: 12px; }
+        .logo img { width: 48px; height: 48px; object-fit: contain; }
+        .logo-text { font-family: 'Montserrat', sans-serif; }
+        .logo-text .name { font-weight: 800; font-size: 20px; color: var(--green); line-height: 1; }
+        .logo-text .loc { font-size: 12px; color: var(--text-light); }
+        .nav { display: none; gap: 32px; }
+        .nav a { font-size: 14px; font-weight: 600; color: var(--text); transition: color 0.2s; }
+        .nav a:hover { color: var(--orange); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; transition: all 0.2s; }
+        .btn-primary { background: var(--orange); color: var(--white); }
+        .btn-primary:hover { background: var(--orange-dark); }
+        .btn-outline { background: transparent; border: 2px solid var(--green); color: var(--green); }
+        .btn-outline:hover { background: var(--green); color: var(--white); }
+        .menu-btn { display: flex; background: none; border: none; cursor: pointer; padding: 8px; }
+        
+        /* Page Hero */
+        .page-hero { background: var(--green); color: var(--white); padding: 80px 0; text-align: center; }
+        .page-hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 16px; }
+        .page-hero p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        
+        /* Section */
+        .section { padding: 80px 0; }
+        .section-header { text-align: center; margin-bottom: 48px; }
+        .section-label { display: inline-block; color: var(--orange); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; }
+        .section-title { font-size: 36px; color: var(--text); margin-bottom: 16px; }
+        .section-title span { color: var(--green); }
+        
+        /* Content */
+        .content-grid { display: grid; grid-template-columns: 1fr; gap: 48px; align-items: start; }
+        .content-text h2 { font-size: 28px; margin-bottom: 20px; color: var(--green); }
+        .content-text p { color: var(--text-light); margin-bottom: 16px; line-height: 1.8; }
+        .content-text ul { margin: 16px 0 16px 24px; color: var(--text-light); }
+        .content-text li { margin-bottom: 8px; }
+        .content-image { border-radius: 16px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+        .content-image img { width: 100%; height: auto; }
+        
+        /* Values */
+        .values { background: var(--cream); }
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+        .value-card { background: var(--white); padding: 32px; border-radius: 12px; text-align: center; }
+        .value-card .icon { width: 64px; height: 64px; margin: 0 auto 20px; border-radius: 50%; background: var(--green); display: flex; align-items: center; justify-content: center; }
+        .value-card .icon svg { width: 28px; height: 28px; color: var(--white); }
+        .value-card h3 { font-size: 18px; margin-bottom: 8px; }
+        .value-card p { font-size: 14px; color: var(--text-light); }
+        
+        /* Leadership */
+        .leaders-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
+        .leader-card { background: var(--white); border-radius: 12px; padding: 32px; text-align: center; border: 1px solid var(--border); }
+        .leader-avatar { width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; background: var(--cream); display: flex; align-items: center; justify-content: center; font-size: 32px; }
+        .leader-card h4 { font-size: 18px; margin-bottom: 4px; }
+        .leader-card .role { color: var(--orange); font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+        .leader-card p { font-size: 14px; color: var(--text-light); }
+        
+        /* Charter */
+        .charter { background: var(--green); color: var(--white); text-align: center; }
+        .charter h2 { font-size: 32px; margin-bottom: 16px; }
+        .charter p { font-size: 16px; opacity: 0.9; max-width: 600px; margin: 0 auto 24px; }
+        .charter-logo { width: 80px; height: 80px; margin: 0 auto 24px; background: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+        
+        /* Footer */
+        .footer { background: var(--green-dark); color: var(--white); padding: 64px 0 32px; }
+        .footer-grid { display: grid; grid-template-columns: 1fr; gap: 48px; }
+        .footer-brand { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+        .footer-brand img { width: 56px; height: 56px; }
+        .footer-brand h3 { font-size: 24px; }
+        .footer-about { opacity: 0.8; font-size: 14px; line-height: 1.8; max-width: 300px; }
+        .footer-links h4 { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { font-size: 14px; opacity: 0.8; transition: opacity 0.2s; }
+        .footer-links a:hover { opacity: 1; color: var(--orange); }
+        .footer-contact p { font-size: 14px; opacity: 0.8; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+        .footer-contact svg { width: 18px; height: 18px; color: var(--orange); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); margin-top: 48px; padding-top: 24px; text-align: center; font-size: 13px; opacity: 0.6; }
+        
+        /* Mobile Menu */
+        .mobile-nav { display: none; position: fixed; inset: 0; background: var(--white); z-index: 200; padding: 100px 24px 24px; }
+        .mobile-nav.active { display: block; }
+        .mobile-nav a { display: block; font-size: 20px; font-weight: 600; padding: 16px 0; border-bottom: 1px solid var(--border); }
+        .mobile-nav .btn { margin-top: 24px; width: 100%; }
+        .close-menu { position: absolute; top: 24px; right: 24px; background: none; border: none; cursor: pointer; }
+        
+        @media (min-width: 768px) {
+            .nav { display: flex; }
+            .menu-btn { display: none; }
+            .content-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 2fr 1fr 1fr 1.5fr; }
+            .page-hero h1 { font-size: 56px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <a href="index.html" class="logo">
+                    <img src="images/pack3-logo.png" alt="Pack 3">
+                    <div class="logo-text">
+                        <div class="name">PACK 3</div>
+                        <div class="loc">Albany, California</div>
+                    </div>
+                </a>
+                <nav class="nav">
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About</a>
+                    <a href="calendar.html">Calendar</a>
+                    <a href="index.html#faqs">FAQs</a>
+                    <a href="index.html#contact">Contact</a>
+                </nav>
+                <a href="index.html#join" class="btn btn-primary" style="display: none;">Join Now</a>
+                <button class="menu-btn" onclick="toggleMenu()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Mobile Nav -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="close-menu" onclick="toggleMenu()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+        <a href="index.html" onclick="toggleMenu()">Home</a>
+        <a href="about.html" onclick="toggleMenu()">About</a>
+        <a href="calendar.html" onclick="toggleMenu()">Calendar</a>
+        <a href="index.html#faqs" onclick="toggleMenu()">FAQs</a>
+        <a href="index.html#contact" onclick="toggleMenu()">Contact</a>
+        <a href="index.html#join" class="btn btn-primary" onclick="toggleMenu()">Join Pack 3</a>
+    </div>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>About Pack 3</h1>
+            <p>Nearly a century of building character, citizenship, and adventure in Albany, California.</p>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="section">
+        <div class="container">
+            <div class="content-grid">
+                <div class="content-text">
+                    <span class="section-label">Our Story</span>
+                    <h2>Nearly 90 Years of Scouting in Albany</h2>
+                    <p>Albany Cub Scouts Pack 3 was founded in 1935 and has been a cornerstone of youth development in our community ever since. Through generations of dedicated leaders and enthusiastic families, we've helped thousands of children discover the joy of scouting.</p>
+                    <p>Our pack is part of the Golden Gate Council, Herms District, and we're proudly chartered by the American Legion Post 292 of Albany. This partnership has allowed us to maintain a strong presence in the community and provide consistent, quality programming year after year.</p>
+                    <p>Pack 3 has always prided itself on being an inclusive unit that represents the diversity of our community. We are strongly committed to creating a welcoming environment for all children who wish to join our Pack.</p>
+                </div>
+                <div class="content-image">
+                    <img src="images/about-hero.jpg" alt="Scouts learning together">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values -->
+    <section class="section values">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">What We Stand For</span>
+                <h2 class="section-title">Our <span>Values</span></h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></div>
+                    <h3>Character</h3>
+                    <p>Building strong moral character through the Scout Oath and Law.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div>
+                    <h3>Citizenship</h3>
+                    <p>Being responsible community members through service and participation.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                    <h3>Fitness</h3>
+                    <p>Promoting healthy, active lifestyles through outdoor activities.</p>
+                </div>
+                <div class="value-card">
+                    <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></div>
+                    <h3>Leadership</h3>
+                    <p>Developing future leaders through shared adventures and responsibility.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Our Team</span>
+                <h2 class="section-title">Pack <span>Leadership</span></h2>
+            </div>
+            <div class="leaders-grid">
+                <div class="leader-card">
+                    <div class="leader-avatar">👤</div>
+                    <h4>Cubmaster</h4>
+                    <div class="role">Pack Leader</div>
+                    <p>Oversees all pack operations and leads monthly pack meetings.</p>
+                </div>
+                <div class="leader-card">
+                    <div class="leader-avatar">👤</div>
+                    <h4>Committee Chair</h4>
+                    <div class="role">Administrative Lead</div>
+                    <p>Manages pack administration, fundraising, and volunteer coordination.</p>
+                </div>
+                <div class="leader-card">
+                    <div class="leader-avatar">👤</div>
+                    <h4>Den Leaders</h4>
+                    <div class="role">Mentors</div>
+                    <p>Guide each den through adventures and help scouts earn their rank.</p>
+                </div>
+                <div class="leader-card">
+                    <div class="leader-avatar">👤</div>
+                    <h4>Parent Volunteers</h4>
+                    <div class="role">Supporting Team</div>
+                    <p>Essential helpers who make all our activities and events possible.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scout Oath -->
+    <section class="section" style="background: var(--green); color: var(--white);">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label" style="color: var(--orange);">Our Foundation</span>
+                <h2 class="section-title" style="color: var(--white);">The Scout Oath & Law</h2>
+            </div>
+            <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+                <p style="font-size: 20px; line-height: 1.8; margin-bottom: 32px; opacity: 0.95;">"On my honor I will do my best to do my duty to God and my country and to obey the Scout Law; to help other people at all times; to keep myself physically strong, mentally awake, and morally straight."</p>
+                <p style="font-size: 16px; opacity: 0.8; margin-bottom: 24px;">A Scout is: Trustworthy, Loyal, Helpful, Friendly, Courteous, Kind, Obedient, Cheerful, Thrifty, Brave, Clean, and Reverent.</p>
+                <a href="https://www.scouting.org" target="_blank" class="btn" style="background: var(--white); color: var(--green);">Learn More at Scouting.org</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Charter -->
+    <section class="section charter">
+        <div class="container">
+            <div class="charter-logo">🇺🇸</div>
+            <h2>Chartered by American Legion Post 292</h2>
+            <p>We're proud to partner with the American Legion Post 292 of Albany, who has supported our pack for decades. This charter organization helps us maintain our commitment to serving Albany's youth.</p>
+            <p style="font-size: 14px; opacity: 0.7; margin-top: 16px;">Pack 3 is part of the Herms District, Golden Gate Council, Scouting America</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand">
+                        <img src="images/pack3-logo.png" alt="Pack 3">
+                        <h3>Pack 3</h3>
+                    </div>
+                    <p class="footer-about">Building character, citizenship, and personal fitness in Albany's youth since 1935.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="calendar.html">Calendar</a></li>
+                        <li><a href="index.html#faqs">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://www.scouting.org" target="_blank">Scouting America</a></li>
+                        <li><a href="https://www.scouting.org/training/youth-protection/" target="_blank">Youth Protection</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact</h4>
+                    <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> cubmaster@albanycubscouts.org</p>
+                    <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Veterans Memorial Hall, Albany CA</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Albany Cub Scout Pack 3. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById('mobileNav').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
