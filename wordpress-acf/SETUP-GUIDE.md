@@ -86,20 +86,32 @@ Create three pages in WP Admin > **Pages > Add New**:
 
 ## 7. Fill in Content
 
+**Every section of the home page is editable** — no code required. The theme
+automatically uses the **Classic Editor** for pages (so the fields render as a
+clean form). You do **not** need the Classic Editor plugin; the theme handles it.
+
+Fields come **pre-filled with the current design copy**, so the site looks
+complete out of the box. Just edit any text/image and click Update.
+
 ### Home page content
 
 1. Go to **Pages** > edit the **Home** page
-2. Below the main editor, you'll see labeled field groups:
+2. Above the content area you'll see numbered, labeled field groups — one per section:
 
-**Hero Section** - Fill in the headline, subtitle, and description text. These have sensible defaults already.
-
-**Meeting Info** - Update the meeting day, time, venue name, and address.
-
-**Activity Cards** - Fill in up to 6 activity cards. Each has fields for title, when, where, description, and a photo upload. Leave the title blank to skip a slot.
-
-**FAQs** - Fill in up to 8 FAQ items. Each has a question, icon selector, and a rich text answer editor. Leave the question blank to skip a slot.
+- **1. Hero** — badge pill, title, subtitle, description, button labels
+- **2. Quick Links** — the 4 image cards (title, description, background photo each)
+- **3. Welcome / About** — eyebrow label, heading, body text, highlight quote, the 4 values, photo
+- **5. Meeting Info** — day, time, venue name, address (also used in the footer)
+- **6. Organization & Dens** — section heading + all 6 den cards (name, grade, description), den-meeting text, charter line
+- **7. Activities (header & chips)** — section heading, the "More Pack Activities" chips, community-service block
+- **8. Activity Cards** — up to 6 cards (title, when, where, description, photo). Leave the title blank to skip a slot.
+- **9. Why Scouting** — section heading + 6 benefit cards + the 4 stats
+- **10. FAQs** — section heading + up to 8 Q&A items (question, icon, rich-text answer) + contact line
 
 3. Click **Update**
+
+> Icons, colors, and gradients are part of the design and stay in the theme —
+> the fields cover all text and photos.
 
 ### About page content
 
@@ -132,6 +144,7 @@ Create three pages in WP Admin > **Pages > Add New**:
 - Make sure ACF plugin is installed AND activated
 - Make sure you selected the correct page Template ("Home" or "About") before saving
 - ACF field groups are tied to the page template -- they only appear when the right template is selected
+- The theme forces the Classic Editor for pages so the fields render as a form. If you see the block editor instead, another plugin may be overriding it -- deactivate any editor-related plugin.
 
 ### Fields are blank / showing defaults
 - The theme shows default content if fields are empty. Just fill in the fields and click Update.

@@ -192,6 +192,25 @@ function pack3_get_leaders() {
 }
 
 /**
+ * Use the Classic Editor for Pages so ACF fields render as a full inline form.
+ *
+ * With the block editor, ACF field groups are hidden in a collapsed "Meta Boxes"
+ * drawer at the bottom of the screen — nearly unusable for a non-technical editor.
+ * Forcing classic for pages fixes that WITHOUT needing the Classic Editor plugin.
+ * Posts (blog) keep the block editor.
+ */
+function pack3_use_classic_editor_for_pages($use_block_editor, $post) {
+    if ($post && $post->post_type === 'page') {
+        return false;
+    }
+    return $use_block_editor;
+}
+add_filter('use_block_editor_for_post_type', function($use, $type) {
+    return ($type === 'page') ? false : $use;
+}, 10, 2);
+add_filter('use_block_editor_for_post', 'pack3_use_classic_editor_for_pages', 10, 2);
+
+/**
  * Show admin notice if ACF is not installed.
  */
 function pack3_acf_notice() {

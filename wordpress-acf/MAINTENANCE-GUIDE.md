@@ -4,6 +4,13 @@ Day-to-day operations for the site owner. **No coding or HTML knowledge required
 
 ## What You Can Edit (and How)
 
+**Every section of the home page is editable** from the Home page editor. Open
+**Pages → Home**, and you'll find numbered field groups (1. Hero, 2. Quick Links,
+3. Welcome, 5. Meeting Info, 6. Organization & Dens, 7. Activities, 8. Activity
+Cards, 9. Why Scouting, 10. FAQs) above the content area. Edit any text or photo
+and click **Update**. Fields are pre-filled with the current copy, so you're
+always editing real text, never a blank form.
+
 ### Events / Calendar
 
 Events are managed in **Google Calendar**, not WordPress.
@@ -56,6 +63,18 @@ Events are managed in **Google Calendar**, not WordPress.
 **To add a new FAQ:** Find the next empty slot and fill in the question.
 **To remove a FAQ:** Clear the question field.
 
+### Quick Links, Welcome, Organization, Why Scouting
+
+All four of these sections are edited the same way — on the **Home** page, in
+their numbered field group:
+
+- **2. Quick Links** — the four image cards. Edit each card's title, description, and background photo.
+- **3. Welcome / About** — the intro heading, body paragraphs (rich text), highlight quote, the four value tiles (Character, Citizenship, etc.), and the photo.
+- **6. Organization & Dens** — the "How We're Organized" heading and all six den cards (name, grade, description), plus the den-meeting text and charter line.
+- **9. Why Scouting** — the "Why Scouting Matters" heading, the six benefit cards, and the four stat numbers/labels.
+
+Clear a card's main text field to hide it (e.g. blank a den name to drop that den card).
+
 ### About Page Story
 
 1. Go to **Pages** > edit the **About** page
@@ -74,19 +93,23 @@ The story content field is a rich text editor -- you can use bold, italics, link
 
 ### Swapping Photos
 
-**For activity cards and about page:** Use the image field in the ACF editor. Click the image to change it, or click "Remove" and upload a new one.
+**Most photos are editable right in the page editor** (no File Manager needed):
+activity cards, the welcome photo, the About photo, and the four Quick Link card
+backgrounds all have an image field — click it to upload or pick a new one.
 
-**For theme images** (hero background, quick link cards): Replace the file in `wp-content/themes/pack3-theme/images/` via SiteGround File Manager, keeping the same filename.
+**For the remaining theme images** (hero background and the logo), replace the
+file in `wp-content/themes/pack3-theme/images/` via SiteGround File Manager,
+keeping the same filename:
 
-| File | Where it appears |
-|------|-----------------|
-| `hero-bg.jpg` | Homepage hero background |
-| `pack3-logo.png` | Header, footer, hero |
-| `welcome-group.jpg` | Welcome section |
-| `card-team.jpg` | Quick links - Our Team |
-| `card-registration.jpg` | Quick links - Registration |
-| `card-activities.jpg` | Quick links - Activities |
-| `card-faqs.jpg` | Quick links - FAQs |
+| File | Where it appears | How to change |
+|------|-----------------|---------------|
+| `hero-bg.jpg` | Homepage hero background | Replace file (same name) |
+| `pack3-logo.png` | Header, footer, hero | Replace file (same name) |
+| `welcome-group.jpg` | Welcome section (default) | Editable in **3. Welcome** field group |
+| `card-team.jpg` | Quick links – Our Team (default) | Editable in **2. Quick Links** field group |
+| `card-registration.jpg` | Quick links – Registration (default) | Editable in **2. Quick Links** field group |
+| `card-activities.jpg` | Quick links – Activities (default) | Editable in **2. Quick Links** field group |
+| `card-faqs.jpg` | Quick links – FAQs (default) | Editable in **2. Quick Links** field group |
 
 ## Annual Checklist
 
