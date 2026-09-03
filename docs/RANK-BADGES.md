@@ -85,3 +85,9 @@ To upgrade to **all-color**: contact the Scouting America Licensing Team (`licen
 | `raw-html/images/ranks/rank-arrow-of-light.png` | copy of webelos | ~31 KB |
 
 Each den card in `raw-html/index.html` uses an `<img>` inside its `.den-icon` div with `object-fit: contain` so the badge scales cleanly inside its colored background tile. The credit line under the grid reads: "Cub Scout rank badges are trademarks of Scouting America, used with permission."
+
+The `.den-icon` tile is sized to `96×96` via a `.has-badge` modifier (the previous default of 56×56 was sized for the small SVG icons and clipped the badge art). The cropped PNGs are 240–320 px tall; `object-fit: contain` scales them down to fit cleanly without distortion.
+
+### Note on the crops
+
+The crops come from the official Insignia Guide PDF (1809×2349 at 3× zoom = a high-resolution render). Each rank badge is centered roughly between its description paragraph and the next. Coordinates were found by an iterative Playwright probe pass (drawing labelled red rectangles, then re-cropping). A small slice of the badge caption text ("cloth, yellow", "No. 646287", "blue and gold on tan", etc.) is visible at the bottom of some tiles — it's small enough to read as part of the artwork's visual texture rather than as text, and it disappears behind the colored gradient at the edge. If you want a fully clean crop, the next step is hand-tracing each badge in a vector tool (e.g. Inkscape, embedded SVG) for a pixel-perfect result — but the current PNGs are an unambiguous improvement over the generic SVG icons that shipped with the design.
