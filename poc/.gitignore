@@ -1,0 +1,9 @@
+# dependencies & build output
+sveltia/node_modules/
+sveltia/_site/
+
+# local HTTPS cert (contains a private key) — regenerate via README
+certs/
+
+# screenshots are regenerable via shot.js / capture.js
+screens/

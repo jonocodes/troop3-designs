@@ -1,0 +1,90 @@
+title: Home (Hero)
+
+form:
+  fields:
+    brand_section:
+      type: section
+      title: Header
+      underline: true
+      fields:
+        header.brand_main:
+          type: text
+          label: 'Brand Name'
+        header.brand_sub:
+          type: text
+          label: 'Brand Subtitle'
+
+    hero_section:
+      type: section
+      title: Hero Content
+      underline: true
+      fields:
+        header.badge:
+          type: text
+          label: Badge Text
+        header.heading:
+          type: text
+          label: Hero Title
+        header.subtitle:
+          type: text
+          label: Hero Subtitle
+        header.intro:
+          type: textarea
+          label: Hero Description
+        header.cta_primary:
+          type: text
+          label: 'Button 1 Label'
+        header.cta_secondary:
+          type: text
+          label: 'Button 2 Label'
+
+    event_section:
+      type: section
+      title: Parent Info Event
+      underline: true
+      fields:
+        header.event_title:
+          type: text
+          label: 'Event — Title'
+        header.event_date:
+          type: text
+          label: 'Event — Date'
+        header.event_time:
+          type: text
+          label: 'Event — Time'
+        header.event_location:
+          type: text
+          label: 'Event — Location'
+
+    quicklinks_section:
+      type: section
+      title: Quick Link Cards
+      underline: true
+      fields:
+        header.ql1_title:
+          type: text
+          label: 'Card 1 — Title'
+        header.ql1_text:
+          type: text
+          label: 'Card 1 — Text'
+        header.ql2_title:
+          type: text
+          label: 'Card 2 — Title'
+        header.ql2_text:
+          type: text
+          label: 'Card 2 — Text'
+        header.ql3_title:
+          type: text
+          label: 'Card 3 — Title'
+        header.ql3_text:
+          type: text
+          label: 'Card 3 — Text'
+        header.ql4_title:
+          type: text
+          label: 'Card 4 — Title'
+        header.ql4_text:
+          type: text
+          label: 'Card 4 — Text'
+        header.ql_cta:
+          type: text
+          label: 'Link Label (all cards)'

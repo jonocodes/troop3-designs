@@ -1,0 +1,39 @@
+# Decap config — uses the local proxy (decap-server) to write straight to disk.
+backend:
+  name: git-gateway
+  branch: main
+local_backend: true
+
+media_folder: "src/images"
+public_folder: "/images"
+
+collections:
+  - name: "pages"
+    label: "Pages"
+    files:
+      - name: "home"
+        label: "Home Page"
+        file: "src/_data/home.json"
+        format: json
+        fields:
+          - { label: "Header — Brand Name", name: "brand_main", widget: "string" }
+          - { label: "Header — Brand Subtitle", name: "brand_sub", widget: "string" }
+          - { label: "Badge Text", name: "badge", widget: "string" }
+          - { label: "Hero Title", name: "title", widget: "string" }
+          - { label: "Hero Subtitle", name: "subtitle", widget: "string" }
+          - { label: "Hero Description", name: "text", widget: "text" }
+          - { label: "Button 1 Label", name: "cta_primary", widget: "string" }
+          - { label: "Button 2 Label", name: "cta_secondary", widget: "string" }
+          - { label: "Event — Title", name: "event_title", widget: "string" }
+          - { label: "Event — Date", name: "event_date", widget: "string" }
+          - { label: "Event — Time", name: "event_time", widget: "string" }
+          - { label: "Event — Location", name: "event_location", widget: "string" }
+          - { label: "Quick Link 1 — Title", name: "ql1_title", widget: "string" }
+          - { label: "Quick Link 1 — Text", name: "ql1_text", widget: "text" }
+          - { label: "Quick Link 2 — Title", name: "ql2_title", widget: "string" }
+          - { label: "Quick Link 2 — Text", name: "ql2_text", widget: "text" }
+          - { label: "Quick Link 3 — Title", name: "ql3_title", widget: "string" }
+          - { label: "Quick Link 3 — Text", name: "ql3_text", widget: "text" }
+          - { label: "Quick Link 4 — Title", name: "ql4_title", widget: "string" }
+          - { label: "Quick Link 4 — Text", name: "ql4_text", widget: "text" }
+          - { label: "Quick Links — Link Label", name: "ql_cta", widget: "string" }
