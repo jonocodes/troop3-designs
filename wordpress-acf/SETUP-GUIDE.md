@@ -2,6 +2,10 @@
 
 Step-by-step instructions for installing the theme on a fresh WordPress install on SiteGround.
 
+> **Want to try it locally first?** `dev/` has a Docker/Podman harness that runs
+> the theme in a throwaway WordPress on `localhost:8080` in two commands. See
+> [`dev/README.md`](dev/README.md).
+
 ## 1. Create a New WordPress Install on SiteGround
 
 1. Log into SiteGround > Site Tools
