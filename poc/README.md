@@ -1,15 +1,18 @@
 # Pack 3 — CMS exploration POCs
 
-Two working proofs-of-concept comparing **non-WordPress** ways to run the design-6
-site, both reproducing the same header + hero + quick-links slice with the real
-CSS/images and a handful of **editable fields** so the editing UX is real, not mocked.
+Proofs-of-concept comparing ways to run the design-6 site. Grav and the static/CMS
+POC reproduce a header + hero + quick-links slice with real CSS/images and a few
+**editable fields** so the editing UX is real, not mocked. `wordpress-acf/` is the
+fullest build — the whole page is editable — and has its own docs (`README.md`,
+`SETUP-GUIDE.md`, `dev/`).
 
 | POC | Stack | Server? | DB? | Content lives in | Front page | Admin |
 |-----|-------|---------|-----|------------------|-----------|-------|
+| `wordpress-acf/` | WordPress + ACF (full site) | Yes (PHP/Apache + MariaDB) | Yes | WordPress DB (ACF fields) | http://localhost:8080/ | http://localhost:8080/wp-admin |
 | `grav/`    | Grav (flat-file PHP CMS) | Yes (PHP/Apache, container) | No | `.md` files w/ YAML front matter | http://localhost:8082/home | http://localhost:8082/admin |
 | `sveltia/` | Static site (Eleventy) + git-based CMS | No | No | `src/_data/home.json` in the repo | http://localhost:8083/ | http://localhost:8083/admin/ |
 
-Logins: **Grav** `admin` / `Password123`. **Static/CMS** — local dev, no password.
+Logins: **WordPress** `admin` / `admin` (run via `wordpress-acf/dev/`). **Grav** `admin` / `Password123`. **Static/CMS** — local dev, no password.
 
 Screenshots captured in `screens/`.
 

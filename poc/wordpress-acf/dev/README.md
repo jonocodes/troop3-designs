@@ -14,7 +14,7 @@ host, see `../SETUP-GUIDE.md`.
 ## Bring it up (2 commands)
 
 ```sh
-cd wordpress-acf/dev
+cd poc/wordpress-acf/dev
 
 # 1. Start WordPress + MariaDB + wp-cli on port 8080
 docker-compose up -d

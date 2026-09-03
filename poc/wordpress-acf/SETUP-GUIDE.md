@@ -27,7 +27,7 @@ Step-by-step instructions for installing the theme on a fresh WordPress install 
 
 1. Zip the `pack3-theme/` folder:
    ```
-   cd wordpress-acf/
+   cd poc/wordpress-acf/
    zip -r pack3-theme.zip pack3-theme/
    ```
 2. In WP Admin > **Appearance > Themes > Add New > Upload Theme**
@@ -43,7 +43,7 @@ Step-by-step instructions for installing the theme on a fresh WordPress install 
 
 ## 4. Copy Images
 
-Copy all images from `winning-design-6/images/` into the theme's `images/` folder:
+Copy all images from `raw-html/images/` into the theme's `images/` folder:
 
 ```
 pack3-theme/images/

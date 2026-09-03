@@ -12,9 +12,9 @@ Last updated: 2026-09-01.
 Not yet committed to a platform. Two live candidates, kept at rough parity for
 now so they can be compared:
 
-1. **Static HTML** — `../winning-design-6/index.html` (the original design, 100%
-   fidelity, free hosting, edited via code/git).
-2. **WordPress + ACF** — this folder (`wordpress-acf/`), full design + owner
+1. **Static HTML** — `../../raw-html/index.html` (the original design, 100%
+   fidelity, free hosting, edited via code/git). **Now the working source of truth.**
+2. **WordPress + ACF** — this folder (`poc/wordpress-acf/`), full design + owner
    editable content in wp-admin.
 
 **Squarespace was ruled out.** It is a closed platform with no import/API/CLI —
@@ -35,7 +35,7 @@ subset of the ACF theme, so it was archived and removed to avoid confusion.
 
 - **Archived at git tag:** `archive/wordpress-theme-hardcoded`
 - **Restore with:** `git checkout archive/wordpress-theme-hardcoded -- wordpress-theme`
-- The ACF theme (`wordpress-acf/pack3-theme/`) is now the single WordPress source of truth.
+- The ACF theme (`poc/wordpress-acf/pack3-theme/`) is now the single WordPress source of truth.
 
 ---
 
@@ -95,15 +95,14 @@ Decision pending.
   fields hide in Gutenberg's collapsed meta-box drawer otherwise.
 - **`index.php`** was added — WordPress won't activate a theme without it. (The
   archived base theme was missing it too.)
-- **Images** are not shipped in the theme; copy `../winning-design-6/images/`
-  into `pack3-theme/images/` (hero-bg + logo are still theme files; most other
-  photos are editable ACF image fields).
+- **Images** are committed in the theme at `pack3-theme/images/` (sourced from
+  `../../raw-html/images/`); hero-bg + logo are theme files, most other photos are
+  editable ACF image fields.
 
 ---
 
-## Local preview harness
+## Local preview
 
-`../.preview/` (throwaway, gitignore) runs the theme in WordPress via podman:
-- ACF theme at `http://localhost:8081` (admin / admin)
-- Provisioned by `.preview/setup.sh`; screenshots via nix-store playwright-core
-  (`.preview/shot*.js`).
+`dev/` (tracked) runs the theme in a real WordPress via Docker/Podman — see
+`dev/README.md`. ACF theme at `http://localhost:8080` (admin / admin), provisioned
+by `dev/setup.sh`.
