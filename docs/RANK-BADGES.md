@@ -2,13 +2,9 @@
 
 ## TL;DR
 
-- **Source**: Scouting America (formerly BSA) at `scouting.org`. The rank badge artwork lives at `https://www.scouting.org/wp-content/uploads/2023/04/logos-cub-ranks-N-RANK-1-original@2x.png`.
-- **Confirmed URLs (3 of 6 verified live)**:
-  - Lion: `1-lion-1-original@2x.png` ✅
-  - Wolf: `3-wolf-1-original@2x.png` ✅
-  - Webelos: `5-webelos-1-original@2x.png` ✅
-  - Tiger, Bear, Arrow of Light: **not found via path guessing or DOM scraping** (see "Unresolved" below)
-- **Licensing**: these are official trademarks. Use for chartered-unit Scouting purposes (i.e., a pack's own website identifying its own program) is the intended use; add a credit line; never modify the artwork.
+- **Source**: Scouting America (formerly BSA) at `scouting.org`. All six badges are now extracted from the official **Guide to Awards and Insignia** (Section 2: Cub Scout Insignia, July 2024 revision) PDF — `docs/scouting-refs/33066-24-Cub_Scout_Insignia.pdf`.
+- **6 of 6 real badges**, all from one trusted source. Files are B&W line-art (how they appear in the print guide) and live in `raw-html/images/ranks/`.
+- **Licensing**: official Scouting America trademarks. Use for chartered-unit Scouting purposes (a pack's own website identifying its own program) is the intended use; never modify the artwork; add a credit.
 
 ## What the official Guide says
 
@@ -18,7 +14,7 @@ Two relevant PDFs were downloaded to `docs/scouting-refs/` (July 2024 revision):
 
 Establishes that insignia are **uniform marks of identification** for Scouting America members. Policy covers how they're worn on the uniform — not directly about web/print reproduction, but confirms the marks are official organizational identifiers.
 
-### `Guidelines_for_Custom_Patches_And_Emblems.pdf` (the relevant one)
+### `Guidelines_for_Custom_Patches_And_Emblems.pdf` (the most relevant one for reproduction rules)
 
 This is the rulebook for *custom* (unit/council-made) patches, but it spells out what's reserved:
 
@@ -27,7 +23,7 @@ This is the rulebook for *custom* (unit/council-made) patches, but it spells out
 > - **Rank insignia, or patches/emblems substantially similar to rank insignia**
 > - Merit badges or merit badge "knockoffs"
 
-Key implication: **the official rank insignia is protected**, and you must not make knockoff versions. Using the official artwork (as provided by scouting.org) for a chartered pack's own website is the intended path.
+Key implication: **the official rank insignia is protected**, and you must not make knockoff versions. Using the official artwork (as provided by scouting.org or in the official Insignia Guide) for a chartered pack's own website is the intended path.
 
 ### Modified Trademark Use
 
@@ -35,33 +31,57 @@ Key implication: **the official rank insignia is protected**, and you must not m
 
 **Rule for the website: render the official badges as-is** — no color shifts, no cropping, no overlay text.
 
-## What the website should do
+### Statutory Marks (`®`, `™`)
 
-1. **Use the official PNGs from scouting.org** (the URLs above) directly — they are public assets provided by Scouting America for unit use.
-2. **Add a credit** near the den-organization section: "Cub Scout rank badges are trademarks of Scouting America, used with permission."
+> Patches and emblems do not require statutory markings (i.e., ®, ™, ©), except in cases where the emblem or patch is of sufficient size that these marks can be produced legibly. Typically this is a patch that is 3½ inches in diameter or larger for a round patch, or any patch that is at least 4 inches wide or tall.
+
+Not required for our web embeds.
+
+## What the website does
+
+1. **Use the official artwork from scouting.org / the Insignia Guide** directly.
+2. **Add a credit** below the den-organization grid: "Cub Scout rank badges are trademarks of Scouting America, used with permission."
 3. **Never modify** the badge artwork (no recoloring, no reskinning, no text overlays).
-4. **Do not hotlink directly from scouting.org on the public site** — download the PNGs once and ship them with the site. (Hotlinking is fragile — the URL pattern could change, and it adds a third-party dependency to a static site that doesn't need one.)
-5. **Statutory marks (`®`, `™`) are not required** on web embeds per the same PDF (they're only required on patches ≥3.5" round or ≥4" wide/tall).
+4. **Do not hotlink** — ship the PNGs with the site.
 
-## Unresolved (as of 2026-09)
+## Image source — what we tried, what we got
 
-Tiger, Bear, and Arrow of Light badge URLs were not located despite:
+### First attempt: scouting.org hosted PNGs (color)
 
-- Multiple filename variations tried (`original@2x`, `original2x`, `original`, with and without the leading `1-`)
-- Searching scouting.org via webfetch (the Insignia Guide HTML page, the Cub Scouts landing, the rank-specific adventure pages)
-- A scripted Playwright pass that loaded the Tiger/Bear/AOL/Wolf adventure pages and enumerated every image on each (none were `logos-cub-ranks-*`)
+URL pattern: `https://www.scouting.org/wp-content/uploads/2023/04/logos-cub-ranks-N-RANK-1-original@2x.png`
 
-The Lion badge URL was discovered because the page `…/adventures/lion/attachment/logos-cub-ranks-1-lion-1-original2x/` was indexed externally and surfaced in search. The corresponding attachment pages exist in the WordPress media library but appear to be **orphans** with no inbound links, so they're not reachable by following site navigation.
+| Rank | File pattern `logos-cub-ranks-…` | Status |
+|---|---|---|
+| Lion | `1-lion-1-original@2x.png` | ✅ 200 (color) |
+| Wolf | `3-wolf-1-original@2x.png` | ✅ 200 (color) |
+| Webelos | `5-webelos-1-original@2x.png` | ✅ 200 (color) |
+| Tiger | `2-tiger-1-original@2x.png` | ❌ 404 |
+| Bear | `4-bear-1-original@2x.png` | ❌ 404 |
+| Arrow of Light | `6-arrow-of-light-1-original@2x.png` | ❌ 404 |
 
-### Options to resolve
+Other URL variants tried: `original.png`, `original2x.png`, with and without `1-` prefix, `6-aol-` — all 404. Not indexed by Google. Not linked from the Tiger/Bear/AOL adventure pages on scouting.org (verified via Playwright DOM scrape).
 
-1. **Contact the local council** or the National Supply Service at scoutshop.org — both routinely provide rank insignia graphics for unit websites. The local council's marketing contact is probably the fastest path.
-2. **Use the Cub Scout Insignia PDF** (`docs/scouting-refs/33066-24-Cub_Scout_Insignia.pdf` — 6.4 MB, contains all six rank badges in vector form). PDF→PNG extraction at 284×284 would produce clean PNGs for all six. The download size is the only downside (it'd add ~6 MB to the repo, but we already have a 3.7 MB images folder, so the proportional jump is large but absolute is fine).
-3. **Accept the partial set** (3 of 6 with the lion/wolf/webelos PNGs we have, fallback to SVG icons for the other 3 — the current design does this).
-4. **Email the Licensing Team** at <licensing@scouting.org> and ask for the official rank-badge asset bundle, which they routinely provide to chartered units.
+### Second attempt: extract from the official Insignia PDF
 
-For this site, option 3 is what's currently in place — Lion/Wolf/Webelos use real PNGs (when wired up); Tiger/Bear/Arrow of Light keep the existing SVG icons. Option 2 is the best follow-up before launch if you want all six to be real.
+Page 4 of `33066-24-Cub_Scout_Insignia.pdf` contains line-art versions of five badges (Lion, Wolf, Tiger, Bear, Webelos oval). I rendered it via PDF.js in the nix-store Chromium, then cropped each badge using Playwright's screenshot clip (after a labelled-probe pass to find exact coords).
+
+The Arrow of Light badge **is not a separate image in the PDF** — page 3 states: *"The Webelos badge of rank does not go on the blue Cub Scout uniform; it is designed to be placed on the tan Scouts BSA uniform shirt"*. In other words, in real scouting, **Webelos Scouts and Arrow of Light Scouts wear the same oval badge**. The "Arrow of Light" as a separate visual is the **AOL patrol emblem** (a different thing, on the right sleeve). So on the website, both the "Webelos" and the "Arrow of Light" rows correctly show the same oval badge image (`rank-webelos.png` / `rank-arrow-of-light.png` are byte-identical files).
+
+### Practical trade-off
+
+The PDF-sourced badges are **black-and-white line art**. The scouting.org-hosted ones are full-color. Mixing them (3 color + 3 B&W) would look inconsistent on the page, so the final state is: **all 6 B&W from one consistent source** (the Insignia PDF). This is a deliberate consistency trade-off; the alternative would be to use the 3 colored versions we have for Lion/Wolf/Webelos and the 3 B&W for Tiger/Bear/Arrow of Light, which would look patchy.
+
+To upgrade to **all-color**: contact the Scouting America Licensing Team (`licensing@scouting.org`) or your local council — they routinely provide rank badge asset bundles to chartered units. See `docs/scouting-refs/33066-24-Cub_Scout_Insignia.pdf` (page 3) for the official uniform guidance.
 
 ## What was wired up
 
-The 3 confirmed PNGs are downloaded to `raw-html/images/ranks/`. The den-card markup in `raw-html/index.html` still uses SVG icons (lines 482, 488, 494, 500, 506, 512) — wiring the PNGs into those spots is a follow-up that changes `<div class="den-icon">…</div>` to `<img class="den-icon-img" src="images/ranks/rank-{name}.png" alt="…">` for the three ranks where we have the asset, keeping the SVG for the other three.
+| File | Source | Size |
+|---|---|---|
+| `raw-html/images/ranks/rank-lion.png` | PDF page 4 crop | ~21 KB |
+| `raw-html/images/ranks/rank-wolf.png` | PDF page 4 crop | ~25 KB |
+| `raw-html/images/ranks/rank-tiger.png` | PDF page 4 crop | ~22 KB |
+| `raw-html/images/ranks/rank-bear.png` | PDF page 4 crop | ~23 KB |
+| `raw-html/images/ranks/rank-webelos.png` | PDF page 4 crop | ~31 KB |
+| `raw-html/images/ranks/rank-arrow-of-light.png` | copy of webelos | ~31 KB |
+
+Each den card in `raw-html/index.html` uses an `<img>` inside its `.den-icon` div with `object-fit: contain` so the badge scales cleanly inside its colored background tile. The credit line under the grid reads: "Cub Scout rank badges are trademarks of Scouting America, used with permission."
