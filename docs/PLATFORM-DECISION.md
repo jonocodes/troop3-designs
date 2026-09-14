@@ -100,7 +100,10 @@ We removed the Scout Values section (Scout Oath, Scout Law, Scout Mission, 12 Po
 
 | File | Purpose |
 |------|---------|
-| `index.html` | The complete design (for reference/preview) |
+| `index.html` | Homepage design (for reference/preview) |
+| `join.html` | Standalone Join / registration page |
+| `calendar.html` | Standalone Pack Calendar page |
+| `styles.css` | Shared stylesheet for all pages |
 | `SQUARESPACE-GUIDE-NO-CSS.md` | Step-by-step build instructions using only native Squarespace features |
 | `images/` | All photos needed for the site |
 | `PLATFORM-DECISION.md` | This document |
@@ -134,5 +137,10 @@ We removed the Scout Values section (Scout Oath, Scout Law, Scout Mission, 12 Po
 4. **Pack Organization** - Den cards (Lion through Arrow of Light), meeting info
 5. **Activities** - Pinewood Derby, Campouts, Pancake Breakfast, Egg Drop, more
 6. **Why Scouting Matters** - Benefits grid, stats bar
-7. **FAQs** - Accordion with common questions
-8. **Footer** - Contact info, links, social media
+7. **Join teaser** - CTA card linking to the standalone Join page
+8. **FAQs** - Accordion with common questions
+9. **Footer** - Contact info, links, social media
+
+**Standalone pages:**
+- `join.html` - Step-by-step registration (form, BSA dues, pack dues, uniform, adult training); single merged flow for new and returning families.
+- `calendar.html` - Google Calendar + detailed doc embeds, with a "dates subject to change" note.
