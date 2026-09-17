@@ -9,6 +9,6 @@ Design and platform exploration for the Pack 3 website.
   - `styles.css` — shared styles for all pages
 - `poc/` — platform proofs-of-concept: `wordpress-acf/`, `grav/`, `sveltia/`, `pagescms/`, and `eleventy/` (templating only: shared header/footer includes).
 - `design-ideas/` — earlier mockups and React prototypes.
-- `docs/` — platform decision docs and build guides.
+- `docs/` — platform decision docs, build guides, and the `FRAMEWORK-EXPLORATION.md` running log.
 
-Platform is not yet decided; see `docs/PLATFORM-DECISION.md` and `poc/wordpress-acf/DECISIONS-AND-FINDINGS.md`.
+Platform: GitHub Pages (static, deployed from `raw-html/` by `.github/workflows/pages.yml`). The owner-editing path is still open — see `docs/FRAMEWORK-EXPLORATION.md` (running log) and `docs/PLATFORM-DECISION.md` (historical).
