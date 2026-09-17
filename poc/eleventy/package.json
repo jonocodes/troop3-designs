@@ -4,7 +4,7 @@
   "description": "Eleventy build of the Pack 3 site with shared header/footer includes",
   "scripts": {
     "build": "eleventy",
-    "serve": "eleventy --serve --port=8084",
+    "serve": "eleventy --serve --port=8085",
     "check": "npm run build && node check.js"
   },
   "devDependencies": {

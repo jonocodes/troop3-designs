@@ -11,7 +11,7 @@ site's stylesheet and images live in `src/` and are emitted to `_site/`.
 ```bash
 cd poc/eleventy
 npm install
-npm run serve   # http://localhost:8084/ — watches + live reloads
+npm run serve   # http://localhost:8085/ — watches + live reloads
 npm run build   # writes _site/
 npm run check   # build + smoke test (shared header/footer, one active nav each, assets copied)
 ```

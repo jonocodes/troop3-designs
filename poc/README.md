@@ -11,7 +11,7 @@ fullest build — the whole page is editable — and has its own docs (`README.m
 | `wordpress-acf/` | WordPress + ACF (full site) | Yes (PHP/Apache + MariaDB) | Yes | WordPress DB (ACF fields) | http://localhost:8080/ | http://localhost:8080/wp-admin |
 | `grav/`    | Grav (flat-file PHP CMS) | Yes (PHP/Apache, container) | No | `.md` files w/ YAML front matter | http://localhost:8082/home | http://localhost:8082/admin |
 | `sveltia/` | Static site (Eleventy) + git-based CMS | No | No | `src/_data/home.json` in the repo | http://localhost:8083/ | http://localhost:8083/admin/ |
-| `eleventy/` | Static site (Eleventy, templating only) | No | No | Site copy in `src/` (HTML pages + `_includes/`, self-contained) | http://localhost:8084/ | n/a |
+| `eleventy/` | Static site (Eleventy, templating only) | No | No | Site copy in `src/` (HTML pages + `_includes/`, self-contained) | http://localhost:8085/ | n/a |
 
 Logins: **WordPress** `admin` / `admin` (run via `wordpress-acf/dev/`). **Grav** `admin` / `Password123`. **Static/CMS** — local dev, no password.
 
@@ -121,7 +121,7 @@ Run it:
 ```bash
 cd poc/eleventy
 npm install
-npm run serve   # http://localhost:8084/
+npm run serve   # http://localhost:8085/
 ```
 
 Findings: 125 duplicated lines (header + footer + scripts) collapse to single includes;
