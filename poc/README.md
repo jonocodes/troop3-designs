@@ -11,6 +11,7 @@ fullest build — the whole page is editable — and has its own docs (`README.m
 | `wordpress-acf/` | WordPress + ACF (full site) | Yes (PHP/Apache + MariaDB) | Yes | WordPress DB (ACF fields) | http://localhost:8080/ | http://localhost:8080/wp-admin |
 | `grav/`    | Grav (flat-file PHP CMS) | Yes (PHP/Apache, container) | No | `.md` files w/ YAML front matter | http://localhost:8082/home | http://localhost:8082/admin |
 | `sveltia/` | Static site (Eleventy) + git-based CMS | No | No | `src/_data/home.json` in the repo | http://localhost:8083/ | http://localhost:8083/admin/ |
+| `eleventy/` | Static site (Eleventy, templating only) | No | No | None — `raw-html/` stays source; header/footer live in `src/_includes/` | http://localhost:8084/ | n/a |
 
 Logins: **WordPress** `admin` / `admin` (run via `wordpress-acf/dev/`). **Grav** `admin` / `Password123`. **Static/CMS** — local dev, no password.
 
@@ -106,6 +107,26 @@ Run the HTTPS proxy:
 ```bash
 cd poc && node https-proxy.js   # https://lute:8443/  and  https://lute:8443/admin/
 ```
+
+---
+
+## 3. Eleventy templating POC (`eleventy/`)
+
+Not a CMS POC — this one asks: can the deployed `raw-html/` site be built with shared
+header/footer includes without changing what ships? Answer: yes, with byte-identical
+bodies, identical URLs, and no asset duplication (`raw-html/images` + `styles.css` are
+passthrough-copied).
+
+Run it:
+```bash
+cd poc/eleventy
+npm install
+npm run serve   # http://localhost:8084/
+```
+
+Findings: 125 duplicated lines (header + footer + scripts) collapse to single includes;
+page sources drop to 489/82/43 lines; build is ~0.07s. Details and the two deliberate
+normalizations are in `poc/eleventy/README.md`.
 
 ---
 

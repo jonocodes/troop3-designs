@@ -1,0 +1,14 @@
+{
+  "name": "pack3-eleventy-poc",
+  "private": true,
+  "description": "Eleventy build of the raw-html site with shared header/footer includes",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve --port=8084",
+    "check": "node check-parity.js"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "playwright-core": "^1.62.1"
+  }
+}
