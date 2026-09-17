@@ -7,7 +7,7 @@ Design and platform exploration for the Pack 3 website.
   - `join.html` — standalone Join / registration page
   - `calendar.html` — standalone Pack Calendar page (Google Calendar + detailed doc embeds)
   - `styles.css` — shared styles for all pages
-- `poc/` — platform proofs-of-concept: `wordpress-acf/`, `grav/`, `sveltia/`.
+- `poc/` — platform proofs-of-concept: `wordpress-acf/`, `grav/`, `sveltia/`, `pagescms/`.
 - `design-ideas/` — earlier mockups and React prototypes.
 - `docs/` — platform decision docs and build guides.
 

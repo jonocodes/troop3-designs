@@ -1,16 +1,17 @@
 # Pack 3 — CMS exploration POCs
 
-Proofs-of-concept comparing ways to run the design-6 site. Grav and the static/CMS
-POC reproduce a header + hero + quick-links slice with real CSS/images and a few
-**editable fields** so the editing UX is real, not mocked. `wordpress-acf/` is the
-fullest build — the whole page is editable — and has its own docs (`README.md`,
-`SETUP-GUIDE.md`, `dev/`).
+Proofs-of-concept comparing ways to run the design-6 site. `wordpress-acf/` is the
+fullest CMS build — the whole page is editable. `pagescms/` is the full site as an
+HTML-first Eleventy build. Grav and the static/CMS POC reproduce a header + hero +
+quick-links slice with real CSS/images and a few **editable fields** so the editing
+UX is real, not mocked.
 
 | POC | Stack | Server? | DB? | Content lives in | Front page | Admin |
 |-----|-------|---------|-----|------------------|-----------|-------|
 | `wordpress-acf/` | WordPress + ACF (full site) | Yes (PHP/Apache + MariaDB) | Yes | WordPress DB (ACF fields) | http://localhost:8080/ | http://localhost:8080/wp-admin |
 | `grav/`    | Grav (flat-file PHP CMS) | Yes (PHP/Apache, container) | No | `.md` files w/ YAML front matter | http://localhost:8082/home | http://localhost:8082/admin |
 | `sveltia/` | Static site (Eleventy) + git-based CMS | No | No | `src/_data/home.json` in the repo | http://localhost:8083/ | http://localhost:8083/admin/ |
+| `pagescms/` | Static site (Eleventy) + Pages CMS, HTML partials edited as code | Yes (Next.js app, or their hosted app) | Yes (Postgres — app state only) | HTML partials in the repo | http://localhost:8084/ | http://localhost:3000/ |
 
 Logins: **WordPress** `admin` / `admin` (run via `wordpress-acf/dev/`). **Grav** `admin` / `Password123`. **Static/CMS** — local dev, no password.
 
@@ -109,14 +110,52 @@ cd poc && node https-proxy.js   # https://lute:8443/  and  https://lute:8443/adm
 
 ---
 
-## What both POCs share with the ACF work
+## 3. Pages CMS POC (`pagescms/`)
+
+Same git-backed idea as the Sveltia POC, different shape: what gets edited is not
+JSON/markdown — it's the **HTML partials themselves**, in a code editor over the
+repo. `site/` is the full design-6 site converted to an HTML-first Eleventy build
+(base layout + header/footer/scripts partials + 3 page bodies, no content model);
+`dev/` self-hosts Pages CMS (Postgres + pinned 2.1.8 clone).
+
+Run it:
+```bash
+cd poc/pagescms/site && npm install && npm run serve     # :8084, npm run check = smoke test
+cd poc/pagescms/dev  && docker-compose up -d && ./setup.sh
+# then, once: .pagescms/npm run setup:github-app -- --base-url http://localhost:3000
+# and:       .pagescms/npm run dev                       # :3000
+```
+
+Findings:
+- **Pages CMS is a server app (Next.js + Postgres), not a drop-in `/admin/` page**
+  like Sveltia/Decap. It edits GitHub repos only — no local-folder mode — so a
+  local demo means self-hosting it; the hosted app (app.pagescms.org) is the
+  no-infra alternative.
+- It genuinely edits raw `.html` via per-file `format: code` (or raw editor);
+  markdown and content fields are optional and unused here.
+- This solves "no manual git", not "no HTML" — the editor still faces a code
+  editor. Visual editing (CloudCannon/TinaCMS) is the only category that fixes
+  that, and it needs content fields.
+- Verified: the templated rebuild is byte-identical to `raw-html/` (whitespace-
+  normalized) apart from 3 intentional changes; `npm run check` asserts the
+  header/footer/scripts are single-sourced across all pages.
+- **Running it locally is the messy part.** pages-cms 2.1.8's GitHub App helper
+  fails GitHub's manifest validation three ways (`hook_attributes.secret`,
+  localhost webhook URL, `email_addresses` vs `emails`); patches live in
+  `dev/patches/`. The create-app → install → edit flow was never completed
+  end-to-end, so the POC records local self-hosting as hard-to-run and points at
+  the hosted app (app.pagescms.org) instead.
+
+## What these POCs share with the ACF work
 Making *every* section editable is still per-section wiring (schema/blueprint/fields) — same as ACF.
-These POCs wire the hero + event card only, enough to feel the workflow. The difference is what you
-live with afterward: **Grav** = light PHP server, files not DB; **static+CMS** = no server at all,
-content in git, free hosting, nothing to patch.
+Grav and Sveltia wire the hero + event card only, enough to feel the workflow. `pagescms/` skips
+content modeling entirely (the editable unit is the HTML partial). The difference is what you live
+with afterward: **Grav** = light PHP server, files not DB; **Sveltia** = no server at all, content
+in git, free hosting; **Pages CMS** = server + Postgres app state, HTML edited in a web code editor.
 
 ## Teardown
 ```bash
 docker rm -f pack3-grav
 # stop the Eleventy + Decap background processes
+cd poc/pagescms/dev && docker-compose down -v && rm -rf .pagescms
 ```
