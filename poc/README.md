@@ -12,6 +12,7 @@ UX is real, not mocked.
 | `grav/`    | Grav (flat-file PHP CMS) | Yes (PHP/Apache, container) | No | `.md` files w/ YAML front matter | http://localhost:8082/home | http://localhost:8082/admin |
 | `sveltia/` | Static site (Eleventy) + git-based CMS | No | No | `src/_data/home.json` in the repo | http://localhost:8083/ | http://localhost:8083/admin/ |
 | `pagescms/` | Static site (Eleventy) + Pages CMS, HTML partials edited as code | Yes (Next.js app, or their hosted app) | Yes (Postgres — app state only) | HTML partials in the repo | http://localhost:8084/ | http://localhost:3000/ |
+| `eleventy/` | Static site (Eleventy, templating only) | No | No | Site copy in `src/` (HTML pages + `_includes/`, self-contained) | http://localhost:8085/ | n/a |
 
 Logins: **WordPress** `admin` / `admin` (run via `wordpress-acf/dev/`). **Grav** `admin` / `Password123`. **Static/CMS** — local dev, no password.
 
@@ -145,6 +146,28 @@ Findings:
   `dev/patches/`. The create-app → install → edit flow was never completed
   end-to-end, so the POC records local self-hosting as hard-to-run and points at
   the hosted app (app.pagescms.org) instead.
+
+---
+
+## 4. Eleventy templating POC (`eleventy/`)
+
+Not a CMS POC — this one asks: can the site be built with shared header/footer includes
+without changing what ships? Answer: yes, with unchanged page bodies, identical URLs and
+self-contained assets. It overlaps heavily with `pagescms/site/`; it's kept as the
+templating-only comparison.
+
+Run it:
+```bash
+cd poc/eleventy
+npm install
+npm run serve   # http://localhost:8085/
+```
+
+Findings: 125 duplicated lines (header + footer + scripts) collapse to single includes;
+page sources drop to 489/82/43 lines; build is ~0.07s; `npm run check` smoke-tests the
+output. Details in `poc/eleventy/README.md`.
+
+---
 
 ## What these POCs share with the ACF work
 Making *every* section editable is still per-section wiring (schema/blueprint/fields) — same as ACF.
