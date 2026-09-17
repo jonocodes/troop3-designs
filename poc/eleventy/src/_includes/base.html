@@ -9,7 +9,6 @@
 </head>
 <body>
 {% set indexPrefix = "" if active == "home" else "index.html" %}
-{% set homeHref = "#home" if active == "home" else "index.html" %}
 {% include "header.html" %}
 
 {{ content | safe }}

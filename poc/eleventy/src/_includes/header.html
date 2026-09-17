@@ -2,7 +2,7 @@
     <header class="header">
         <div class="container">
             <div class="header-content">
-                <a href="{{ homeHref }}" class="logo">
+                <a href="{{ indexPrefix }}#home" class="logo">
                     <div class="logo-icon"><img src="images/pack3-tent.png" alt="Pack 3 tent badge"></div>
                     <div class="logo-text">
                         <div class="main">Pack 3</div>
@@ -10,7 +10,7 @@
                     </div>
                 </a>
                 <nav class="nav-desktop">
-                    <a href="{{ homeHref }}"{% if active == "home" %} class="active"{% endif %}>Home</a>
+                    <a href="{{ indexPrefix }}#home"{% if active == "home" %} class="active"{% endif %}>Home</a>
                     <a href="{{ indexPrefix }}#about">About</a>
                     <a href="{{ indexPrefix }}#organization">Organization</a>
                     <a href="{{ indexPrefix }}#activities">Activities</a>
@@ -28,7 +28,7 @@
     </header>
     <div class="overlay" onclick="toggleMenu()"></div>
     <div class="mobile-menu">
-        <a href="{{ homeHref }}" onclick="toggleMenu()">Home</a>
+        <a href="{{ indexPrefix }}#home" onclick="toggleMenu()">Home</a>
         <a href="{{ indexPrefix }}#about" onclick="toggleMenu()">About</a>
         <a href="{{ indexPrefix }}#organization" onclick="toggleMenu()">Organization</a>
         <a href="{{ indexPrefix }}#activities" onclick="toggleMenu()">Activities</a>
