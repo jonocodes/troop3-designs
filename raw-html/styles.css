@@ -63,7 +63,7 @@
 
         /* Hero */
         .hero { min-height: 100vh; padding-top: 75px; position: relative; overflow: hidden; }
-        .hero-bg { position: absolute; inset: 0; background: url('images/hero-bg-3.jpg') center/cover no-repeat; }
+        .hero-bg { position: absolute; inset: 0; background: url('images/hero-bg-1.jpg') center/cover no-repeat; }
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(26, 77, 46, 0.9), rgba(26, 77, 46, 0.7), transparent); }
         .hero-content { position: relative; z-index: 10; padding: 80px 0 120px; }
         .hero-grid { display: grid; grid-template-columns: 1fr; gap: 50px; align-items: center; }
@@ -218,14 +218,12 @@
         .faq-item:last-child { border-bottom: none; }
         .faq-question { width: 100%; display: flex; align-items: center; gap: 16px; padding: 22px 24px; background: none; border: none; text-align: left; cursor: pointer; font-family: inherit; transition: background 0.2s; }
         .faq-question:hover { background: rgba(45, 106, 79, 0.03); }
-        .faq-icon { width: 44px; height: 44px; background: linear-gradient(135deg, var(--forest), var(--forest-light)); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-        .faq-icon svg { width: 22px; height: 22px; color: white; }
         .faq-question h3 { flex: 1; font-size: 16px; font-weight: 700; color: var(--forest-dark); }
         .faq-chevron { width: 32px; height: 32px; background: rgba(224, 124, 62, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
         .faq-chevron svg { width: 18px; height: 18px; color: var(--campfire); transition: transform 0.3s; }
         .faq-item.active .faq-chevron { background: var(--campfire); }
         .faq-item.active .faq-chevron svg { color: white; transform: rotate(180deg); }
-        .faq-answer { display: none; padding: 0 24px 24px 84px; }
+        .faq-answer { display: none; padding: 0 24px 24px 24px; }
         .faq-item.active .faq-answer { display: block; }
         .faq-answer p { font-size: 15px; color: var(--text-medium); line-height: 1.9; white-space: pre-line; }
         .faq-contact { text-align: center; margin-top: 32px; }

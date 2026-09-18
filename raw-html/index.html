@@ -444,7 +444,6 @@
                 <div class="faq-list">
                     <div class="faq-item active">
                         <button class="faq-question" onclick="toggleFaq(this)">
-                            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
                             <h3>Who Can Participate?</h3>
                             <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                         </button>
@@ -458,7 +457,6 @@ We are proud to be designated as an Inclusive Unit by Scouts for Equality and ou
                     </div>
                     <div class="faq-item">
                         <button class="faq-question" onclick="toggleFaq(this)">
-                            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg></div>
                             <h3>How Does Cub Scouts Work?</h3>
                             <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                         </button>
@@ -472,7 +470,6 @@ Cub Scouts complete adventures as they work to achieve their rank for that year.
                     </div>
                     <div class="faq-item">
                         <button class="faq-question" onclick="toggleFaq(this)">
-                            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
                             <h3>What Are the Ranks?</h3>
                             <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                         </button>
@@ -489,7 +486,6 @@ In their fifth grade year, scouts "bridge" to Boy Scouts. This involves visiting
                     </div>
                     <div class="faq-item">
                         <button class="faq-question" onclick="toggleFaq(this)">
-                            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></div>
                             <h3>How Much Does Cub Scouts Cost?</h3>
                             <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                         </button>
@@ -508,7 +504,6 @@ We want every family to be able to participate. If your family needs help with r
                     </div>
                     <div class="faq-item">
                         <button class="faq-question" onclick="toggleFaq(this)">
-                            <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></div>
                             <h3>What Is the Time Commitment?</h3>
                             <div class="faq-chevron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
                         </button>
@@ -741,6 +736,13 @@ Parents of Lion and Tiger Scouts are also required to complete Safeguarding Yout
     </button>
 
     <script>
+        (function randomHeroImage() {
+            const bg = document.querySelector('.hero-bg');
+            if (!bg) return;
+            const images = ['images/hero-bg-1.jpg', 'images/hero-bg-2.jpg', 'images/hero-bg-3.jpg'];
+            const pick = images[Math.floor(Math.random() * images.length)];
+            bg.style.backgroundImage = "url('" + pick + "')";
+        })();
         function toggleMenu() {
             document.querySelector('.mobile-menu').classList.toggle('active');
             document.querySelector('.overlay').classList.toggle('active');
