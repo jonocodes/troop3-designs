@@ -3,7 +3,7 @@
 ## Current state
 
 - **3 of 6 colored rank badges** are live on the site (Lion, Wolf, Webelos), downloaded from `scouting.org` in the colors as published by Scouting America.
-- **3 of 6** (Tiger, Bear, Arrow of Light) currently use the original SVG placeholder icons. **The site owner is sourcing real PNGs and dropping them in** at `raw-html/images/ranks/rank-{tiger,bear,arrow-of-light}.png`. Once added, swap the `<svg>` for `<img src="images/ranks/rank-..." class="has-badge">` in `raw-html/index.html` like the three below.
+- **3 of 6** (Tiger, Bear, Arrow of Light) currently use the original SVG placeholder icons. **The site owner is sourcing real PNGs and dropping them in** at `raw-html/images/rank-{tiger,bear,arrow-of-light}.png`. Once added, swap the `<svg>` for `<img src="images/rank-..." class="has-badge">` in `raw-html/index.html` like the three below.
 - **Licensing**: these are official Scouting America trademarks. Use for chartered-unit Scouting purposes (a pack's own website identifying its own program) is the intended use; never modify the artwork; add a credit.
 
 ## What the official Guide says
@@ -73,19 +73,19 @@ The Arrow of Light badge **is not a separate image in the PDF either** — page 
    - Ask your **local council's marketing contact** — they routinely provide rank-badge asset bundles to chartered units.
    - Email **`licensing@scouting.org`** directly with a request as the chartered unit.
    - Crop the colored PDF page from the Insignia Guide, but recolor to match — this would require permission, so prefer the above.
-2. Save as `raw-html/images/ranks/rank-tiger.png`, `rank-bear.png`, `rank-arrow-of-light.png`.
-3. In `raw-html/index.html`, find each den card's `.den-icon` div and swap the inner `<svg>...</svg>` for `<img src="images/ranks/rank-<name>.png" alt="<Rank> rank badge">`. Add the `has-badge` class to the `.den-icon` div so the tile expands to 96×96.
+2. Save as `raw-html/images/rank-tiger.png`, `rank-bear.png`, `rank-arrow-of-light.png`.
+3. In `raw-html/index.html`, find each den card's `.den-icon` div and swap the inner `<svg>...</svg>` for `<img src="images/rank-<name>.png" alt="<Rank> rank badge">`. Add the `has-badge` class to the `.den-icon` div so the tile expands to 96×96.
 4. Repeat for all three.
 
 ## What is currently wired up
 
 | Rank | Currently in den grid | Tile size | Source |
 |---|---|---|---|
-| Lion | `images/ranks/rank-lion.png` (color) | 96×96 (`.has-badge`) | scouting.org |
+| Lion | `images/rank-lion.png` (color) | 96×96 (`.has-badge`) | scouting.org |
 | Tiger | SVG placeholder (orange tiger face) | 56×56 (default) | original design |
-| Wolf | `images/ranks/rank-wolf.png` (color) | 96×96 (`.has-badge`) | scouting.org |
+| Wolf | `images/rank-wolf.png` (color) | 96×96 (`.has-badge`) | scouting.org |
 | Bear | SVG placeholder (purple paw) | 56×56 (default) | original design |
-| Webelos | `images/ranks/rank-webelos.png` (color) | 96×96 (`.has-badge`) | scouting.org |
+| Webelos | `images/rank-webelos.png` (color) | 96×96 (`.has-badge`) | scouting.org |
 | Arrow of Light | SVG placeholder (forest medal) | 56×56 (default) | original design |
 
 CSS rule: `.den-icon { width: 56px; height: 56px; }` is the default for SVG icons; `.den-icon.has-badge { width: 96px; height: 96px; }` is for badge images. The `.den-icon img` rule scales badges via `object-fit: contain` so they fit cleanly without distortion.
