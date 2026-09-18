@@ -20,16 +20,16 @@
                     </div>
                 </a>
                 <nav class="nav-desktop">
-                    <a href="#home" class="active">Home</a>
+                    <a href="#home">Home</a>
                     <a href="#about">About</a>
                     <a href="#organization">Organization</a>
                     <a href="#activities">Activities</a>
-                    <a href="join.html">Join</a>
+                    <a href="#join">Join</a>
                     <a href="#faqs">FAQs</a>
-                    <a href="calendar.html">Calendar</a>
+                    <a href="#calendar">Calendar</a>
                     <a href="https://docs.google.com/a/albanycubscouts.org/forms/d/e/1FAIpQLSfxPHOYqI9R7ilFIaBDBQiry88zzTRD1cMc6Qc4IZDQA5xPcA/viewform" target="_blank" rel="noopener">Contact</a>
                 </nav>
-                <a href="join.html" class="btn btn-primary" style="display: none;">Join Pack 3</a>
+                <a href="#join" class="btn btn-primary" style="display: none;">Join Pack 3</a>
                 <button class="mobile-menu-btn" onclick="toggleMenu()">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                 </button>
@@ -43,13 +43,20 @@
         <a href="#organization" onclick="toggleMenu()">Organization</a>
         <a href="#activities" onclick="toggleMenu()">Activities</a>
         <a href="#faqs" onclick="toggleMenu()">FAQs</a>
-        <a href="calendar.html" onclick="toggleMenu()">Calendar</a>
+        <a href="#calendar" onclick="toggleMenu()">Calendar</a>
         <a href="https://docs.google.com/a/albanycubscouts.org/forms/d/e/1FAIpQLSfxPHOYqI9R7ilFIaBDBQiry88zzTRD1cMc6Qc4IZDQA5xPcA/viewform" target="_blank" rel="noopener" onclick="toggleMenu()">Contact</a>
-        <a href="join.html" class="btn btn-primary">Join Pack 3</a>
+        <a href="#join" class="btn btn-primary" onclick="toggleMenu()">Join Pack 3</a>
     </div>
 
+    <!-- ============================================================
+         Pseudo-page: HOME
+         Single-file site. The Join and Calendar "pages" are sibling
+         .page sections toggled with CSS :target (see styles.css).
+         ============================================================ -->
+    <div id="home" class="page page-home">
+
     <!-- Hero -->
-    <section id="home" class="hero">
+    <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-overlay"></div>
         <div class="container">
@@ -79,7 +86,7 @@
                             </div>
                         </div>
                         <div class="hero-buttons">
-                            <a href="join.html" class="btn btn-primary btn-large">Join Pack 3</a>
+                            <a href="#join" class="btn btn-primary btn-large">Join Pack 3</a>
                             <a href="#about" class="btn btn-outline btn-large">About Cub Scouts</a>
                         </div>
                     </div>
@@ -93,7 +100,7 @@
 
     <!-- Quick Links -->
     <section class="quick-links">
-        <a href="join.html" class="quick-link-card orange">
+        <a href="#join" class="quick-link-card orange">
             <div class="quick-link-bg" style="background-image: url('images/card-registration-2.jpg');"></div>
             <div class="quick-link-overlay"></div>
             <div class="quick-link-content">
@@ -362,7 +369,7 @@
                 <p>Our scouts participate in various community service activities including: Scouting for Food, Earth Day cleanup, Storm drain stewardship, Beach Cleanup, and Flag Placement on holidays at Veterans' cemetery. Pack activities are communicated via email.</p>
             </div>
             <div class="text-center mt-4">
-                <a href="calendar.html" class="btn btn-primary btn-large">View Pack Calendar</a>
+                <a href="#calendar" class="btn btn-primary btn-large">View Pack Calendar</a>
             </div>
         </div>
     </section>
@@ -418,7 +425,7 @@
                 <h2>Ready to Join Pack 3?</h2>
                 <p>Registration is ongoing throughout the year, and we welcome new and returning families anytime. Our step-by-step guide covers dues, uniforms, and adult training so you can get started with confidence.</p>
                 <div class="hero-buttons" style="justify-content: center;">
-                    <a href="join.html" class="btn btn-primary btn-large">Join Pack 3</a>
+                    <a href="#join" class="btn btn-primary btn-large">Join Pack 3</a>
                     <a href="#faqs" class="btn btn-outline btn-large">Read Our FAQs</a>
                 </div>
             </div>
@@ -533,6 +540,137 @@ Parents of Lion and Tiger Scouts are also required to complete Safeguarding Yout
         </div>
     </section>
 
+    </div><!-- /#home -->
+
+    <!-- ============================================================
+         Pseudo-page: JOIN  (shown when URL hash is #join)
+         ============================================================ -->
+    <div id="join" class="page">
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <span class="badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                Registration Always Open
+            </span>
+            <h1>Join Albany Pack 3</h1>
+            <p>Registration is ongoing throughout the year — we welcome new and returning families anytime. Follow the steps below to get started.</p>
+        </div>
+    </section>
+
+    <!-- Join -->
+    <section class="section join">
+        <div class="container">
+            <div class="join-steps">
+                <div class="join-step">
+                    <div class="join-step-number">1</div>
+                    <div class="join-step-body">
+                        <h3>Complete the Online Registration Form</h3>
+                        <p>Pack registration is ongoing and we welcome new and returning families throughout the year. Fill out the form to get your family started, and email <a href="mailto:registration@albanycubscouts.org">registration@albanycubscouts.org</a> with any questions about the application process.</p>
+                        <a href="https://docs.google.com/forms/d/1qnf4T3nBY75Rcl-HnrNWSnxx47_SExupFjhFw-EIZNk/viewform?edit_requested=true" class="btn btn-primary" target="_blank" rel="noopener">Complete Registration Form</a>
+                    </div>
+                </div>
+                <div class="join-step">
+                    <div class="join-step-number">2</div>
+                    <div class="join-step-body">
+                        <h3>Register and Pay National BSA Dues</h3>
+                        <p>Register (or re-register) with the council and national BSA organization. You will be asked to pay the national fees. The National BSA fee is <strong>$230 per scout</strong>.</p>
+                        <a href="https://my.scouting.org/VES/OnlineReg/1.0.0/?tu=UF-MB-023paa0003" class="btn btn-primary" target="_blank" rel="noopener">Register with BSA</a>
+                    </div>
+                </div>
+                <div class="join-step">
+                    <div class="join-step-number">3</div>
+                    <div class="join-step-body">
+                        <h3>Pay Pack Dues</h3>
+                        <p>Pack dues are <strong>$120 per year</strong> and cover food, badges, and activities for your scout all year. Please pay via:</p>
+                        <ul>
+                            <li>Zelle to <a href="mailto:treasurer@albanycubscouts.org">treasurer@albanycubscouts.org</a></li>
+                            <li>Paper check made payable to "Albany Pack 3 Cub Scouts"</li>
+                        </ul>
+                        <p>Please <strong>clearly indicate the name of the scout</strong> you are paying for in the memo/details field. If your family needs help with registration costs, please speak with our Cubmaster about financial assistance.</p>
+                    </div>
+                </div>
+                <div class="join-step">
+                    <div class="join-step-number">4</div>
+                    <div class="join-step-body">
+                        <h3>Purchase a Uniform</h3>
+                        <p>The basic uniform consists of a shirt, hat, neckerchief, neckerchief slide, and the pack and council patches — this can add up to $100 or so. Albany Pack 3 works hard to re-use old uniforms, so check with us before buying! We plan to do a bulk uniform buy each year; more information will be sent out.</p>
+                        <p>You can also order online or visit a Scout store (in Pleasant Hill or San Rafael). Be sure to tell them you are with <strong>Albany Pack 003</strong>, part of the Golden Gate District, and what rank your scout is. The same blue shirt works for Kindergarten through 3rd grade; 4th and 5th graders wear a <strong>tan</strong> shirt. While there, pick up the handbook for your scout's grade. Shop online at <a href="http://www.scoutstuff.org/" target="_blank" rel="noopener">scoutstuff.org</a>, and see the <a href="http://www.scouting.org/filestore/pdf/CubScout_Insignia.pdf" target="_blank" rel="noopener">BSA Insignia Guide</a> for patch placement.</p>
+                    </div>
+                </div>
+                <div class="join-step">
+                    <div class="join-step-number">5</div>
+                    <div class="join-step-body">
+                        <h3>(Adults) Complete Youth Protection Training (YPT)</h3>
+                        <p>Youth Protection Training is <em>highly recommended</em> for all Pack 3 adults and <strong><em>REQUIRED</em></strong> for all parents/guardians of Kindergarten (Lions) and 1st graders (Tigers), and for any adult volunteering to help lead activities with kids.</p>
+                        <p><strong>NOTE:</strong> Everyone who is required to take YPT must do it <em>EVERY</em> year, even if your certificate says it is good for two years. Please send your completed certificate by OCTOBER 15 to <a href="mailto:registration@albanycubscouts.org">registration@albanycubscouts.org</a>.</p>
+                        <a href="https://www.scouting.org/training/youth-protection/" class="btn btn-primary" target="_blank" rel="noopener">Start Youth Protection Training</a>
+                    </div>
+                </div>
+                <div class="join-step">
+                    <div class="join-step-number">6</div>
+                    <div class="join-step-body">
+                        <h3>(Adults) Livescan and Mandatory Reporter Training</h3>
+                        <p>The Cubmaster will communicate with you if this is required. Please email <a href="mailto:registration@albanycubscouts.org">registration@albanycubscouts.org</a> when you have completed this requirement.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="join-contact">
+                <h3>Questions about joining?</h3>
+                <p>Our registration team is happy to help. Please complete your registration by October 15.</p>
+                <p><a href="mailto:registration@albanycubscouts.org">registration@albanycubscouts.org</a></p>
+            </div>
+        </div>
+    </section>
+
+    </div><!-- /#join -->
+
+    <!-- ============================================================
+         Pseudo-page: CALENDAR  (shown when URL hash is #calendar)
+         ============================================================ -->
+    <div id="calendar" class="page">
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Pack Calendar</h1>
+            <p>Stay up to date with pack meetings, den meetings, campouts, and everything else happening in Pack 3.</p>
+        </div>
+    </section>
+
+    <!-- Calendar -->
+    <section class="section calendar">
+        <div class="container">
+            <div class="embed-card">
+                <div class="embed-header">
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Pack 3 Calendar</h3>
+                    <a href="https://calendar.google.com/calendar/embed?src=c03aee33d8f02d3f29f0be5598de80a253718076a086472e3c81ab2e5eb90e3a%40group.calendar.google.com&ctz=America%2FLos_Angeles" class="btn btn-primary" target="_blank" rel="noopener">Open Full Calendar</a>
+                </div>
+                <div class="embed-body">
+                    <iframe class="embed-calendar" src="https://calendar.google.com/calendar/embed?src=c03aee33d8f02d3f29f0be5598de80a253718076a086472e3c81ab2e5eb90e3a%40group.calendar.google.com&amp;ctz=America%2FLos_Angeles" title="Pack 3 Google Calendar" loading="lazy" frameborder="0" scrolling="no"></iframe>
+                </div>
+            </div>
+<!-- 
+            <div class="embed-card">
+                <div class="embed-header">
+                    <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>Detailed Calendar Document</h3>
+                    <a href="https://docs.google.com/document/d/1E7gZ8KHfPwqMoqphE6z6w38jK4-b7J0znBbJGM9ZdJU/edit?tab=t.0" class="btn btn-outline" style="border-color: var(--forest); color: var(--forest);" target="_blank" rel="noopener">Open in Google Docs</a>
+                </div>
+                <div class="embed-body">
+                    <iframe class="embed-doc" src="https://docs.google.com/document/d/e/2PACX-1vRjCnMh2be5hEoCmHE9xM_PH1dgtHiXv_BZpdzQMvfSuKeUAhfaHbbmJm85e98YyuyiH9XHmoSfl4QI/pub?embedded=true" title="Pack 3 detailed calendar document" loading="lazy" frameborder="0"></iframe>
+                </div>
+            </div>
+
+            <div class="calendar-note">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                <p><strong>Dates &amp; venues are subject to change.</strong> Current as of: August 21, 2025.</p>
+            </div> -->
+        </div>
+    </section>
+
+    </div><!-- /#calendar -->
+
     <!-- Footer -->
     <footer id="contact" class="footer">
         <div class="container">
@@ -560,8 +698,8 @@ Parents of Lion and Tiger Scouts are also required to complete Safeguarding Yout
                         <li><a href="#organization">Organization</a></li>
                         <li><a href="#activities">Activities</a></li>
                         <li><a href="#faqs">FAQs</a></li>
-                        <li><a href="calendar.html">Calendar</a></li>
-                        <li><a href="join.html">Join Pack 3</a></li>
+                        <li><a href="#calendar">Calendar</a></li>
+                        <li><a href="#join">Join Pack 3</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -570,7 +708,7 @@ Parents of Lion and Tiger Scouts are also required to complete Safeguarding Yout
                         <li><a href="https://www.scouting.org" target="_blank">Scouting America <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></li>
                         <li><a href="https://www.scouting.org/training/youth-protection/" target="_blank">Youth Protection Training <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a></li>
                         <li><a href="https://goldengatescouting.org/" target="_blank" rel="noopener">Golden Gate Council</a></li>
-                        <li><a href="calendar.html">Pack Calendar</a></li>
+                        <li><a href="#calendar">Pack Calendar</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">

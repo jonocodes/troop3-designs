@@ -13,6 +13,15 @@
         img { max-width: 100%; height: auto; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
+        /* Pseudo-pages (single-file routing)
+           Home is the default page; Join and Calendar are sibling sections
+           revealed by the URL fragment via :target. Any .page target hides
+           the default home page (body:has keeps this a pure-CSS swap). */
+        .page { display: none; }
+        .page-home { display: block; }
+        .page:target { display: block; }
+        body:has(.page:target) .page-home:not(:target) { display: none; }
+
         /* Header */
         .header { background: linear-gradient(135deg, var(--forest-dark) 0%, var(--forest) 100%); position: fixed; top: 0; left: 0; right: 0; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
         .header-content { display: flex; align-items: center; justify-content: space-between; height: 75px; }
@@ -29,6 +38,15 @@
         .nav-desktop a:hover::after { width: 100%; }
         .nav-desktop a.active { color: var(--gold); }
         .nav-desktop a.active::after { width: 100%; }
+        /* Reflect the active pseudo-page in the nav (default = Home) */
+        body:not(:has(.page:target)) .nav-desktop a[href="#home"],
+        body:has(#home:target) .nav-desktop a[href="#home"],
+        body:has(#join:target) .nav-desktop a[href="#join"],
+        body:has(#calendar:target) .nav-desktop a[href="#calendar"] { color: var(--gold); }
+        body:not(:has(.page:target)) .nav-desktop a[href="#home"]::after,
+        body:has(#home:target) .nav-desktop a[href="#home"]::after,
+        body:has(#join:target) .nav-desktop a[href="#join"]::after,
+        body:has(#calendar:target) .nav-desktop a[href="#calendar"]::after { width: 100%; }
         .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: 50px; font-weight: 700; font-size: 14px; cursor: pointer; border: none; transition: all 0.3s; }
         .btn-primary { background: var(--campfire); color: white; box-shadow: 0 4px 15px rgba(224, 124, 62, 0.4); }
         .btn-primary:hover { background: var(--campfire-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(224, 124, 62, 0.5); }
