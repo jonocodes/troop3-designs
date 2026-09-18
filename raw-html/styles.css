@@ -63,7 +63,7 @@
 
         /* Hero */
         .hero { min-height: 100vh; padding-top: 75px; position: relative; overflow: hidden; }
-        .hero-bg { position: absolute; inset: 0; background: url('images/hero-bg.jpg') center/cover no-repeat; }
+        .hero-bg { position: absolute; inset: 0; background: url('images/hero-bg-3.jpg') center/cover no-repeat; }
         .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(26, 77, 46, 0.9), rgba(26, 77, 46, 0.7), transparent); }
         .hero-content { position: relative; z-index: 10; padding: 80px 0 120px; }
         .hero-grid { display: grid; grid-template-columns: 1fr; gap: 50px; align-items: center; }
@@ -133,7 +133,7 @@
         /* Organization */
         .organization { background: linear-gradient(180deg, var(--cream) 0%, white 100%); }
         .dens-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .den-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 2px solid var(--border); transition: all 0.3s; }
+        .den-card { display: block; background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); border: 2px solid var(--border); transition: all 0.3s; text-decoration: none; color: inherit; }
         .den-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); border-color: var(--sage); }
         .den-icon { width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
         .den-icon.has-badge { width: 96px; height: 96px; }
