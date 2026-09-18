@@ -12,7 +12,7 @@ Last updated: 2026-09-01.
 Not yet committed to a platform. Two live candidates, kept at rough parity for
 now so they can be compared:
 
-1. **Static HTML** — `../../raw-html/index.html` (the original design, 100%
+1. **Static HTML** — `../../site/index.html` (the original design, 100%
    fidelity, free hosting, edited via code/git). **Now the working source of truth.**
 2. **WordPress + ACF** — this folder (`poc/wordpress-acf/`), full design + owner
    editable content in wp-admin.
@@ -96,7 +96,7 @@ Decision pending.
 - **`index.php`** was added — WordPress won't activate a theme without it. (The
   archived base theme was missing it too.)
 - **Images** are committed in the theme at `pack3-theme/images/` (sourced from
-  `../../raw-html/images/`); hero-bg + logo are theme files, most other photos are
+  `../../site/images/`); hero-bg + logo are theme files, most other photos are
   editable ACF image fields.
 
 ---

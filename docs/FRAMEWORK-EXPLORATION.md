@@ -29,7 +29,7 @@ What the site actually needs — every evaluation below is measured against thes
 
 ## Where it stands (2026-09-17)
 
-- **Deployed source:** `raw-html/` (design 6) via GitHub Pages.
+- **Deployed source:** `site/` (design 6) via GitHub Pages.
 - **Build tool:** **Eleventy** (Nunjucks templates) with shared header/footer
   partials — demonstrated by two POCs: the pagescms build (now its own repo,
   `jonocodes/troop3-pagescms`) and `poc/eleventy/`.

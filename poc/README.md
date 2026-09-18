@@ -136,7 +136,7 @@ Findings:
 - This solves "no manual git", not "no HTML" — the editor still faces a code
   editor. Visual editing (CloudCannon/TinaCMS) is the only category that fixes
   that, and it needs content fields.
-- Verified: the templated rebuild is byte-identical to `raw-html/` (whitespace-
+- Verified: the templated rebuild is byte-identical to `site/` (whitespace-
   normalized) apart from 3 intentional changes; `npm run check` asserts the
   header/footer/scripts are single-sourced across all pages.
 - **Running it locally is the messy part.** pages-cms 2.1.8's GitHub App helper

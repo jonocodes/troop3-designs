@@ -43,7 +43,7 @@ Step-by-step instructions for installing the theme on a fresh WordPress install 
 
 ## 4. Copy Images
 
-Copy all images from `raw-html/images/` into the theme's `images/` folder:
+Copy all images from `site/images/` into the theme's `images/` folder:
 
 ```
 pack3-theme/images/
