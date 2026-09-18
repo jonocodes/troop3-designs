@@ -4,7 +4,7 @@ Running log of what we've explored for the Pack 3 site, the requirements driving
 those choices, and where things stand. Discussion notes, dead ends and open
 questions belong here; individual POC folders keep the how-to details.
 
-Last updated: 2026-09-16.
+Last updated: 2026-09-17.
 
 ---
 
@@ -27,11 +27,18 @@ What the site actually needs — every evaluation below is measured against thes
 - **Repeatability.** Builds and checks should be runnable scripts, not eyeballing
   (`npm run check`, parity tests, screenshots).
 
-## Where it stands (2026-09-16)
+## Where it stands (2026-09-17)
 
 - **Deployed source:** `raw-html/` (design 6) via GitHub Pages.
 - **Build tool:** **Eleventy** (Nunjucks templates) with shared header/footer
-  partials — demonstrated by two POCs: `poc/pagescms/site/` and `poc/eleventy/`.
+  partials — demonstrated by two POCs: the pagescms build (now its own repo,
+  `jonocodes/troop3-pagescms`) and `poc/eleventy/`.
+- **Pages CMS POC promoted to its own repo and deployed.** The pagescms build was
+  extracted to a standalone repo — [`github.com/jonocodes/troop3-pagescms`](https://github.com/jonocodes/troop3-pagescms)
+  — with the Eleventy site hoisted to the **repo root** so `.pages.yml` sits where
+  Pages CMS expects it (root of the connected repo). It builds+verifies in CI and
+  deploys to GitHub Pages at <https://jonocodes.github.io/troop3-pagescms/>. The
+  `poc/pagescms/` folder here is now just a pointer to that repo.
 - **Open:** which Eleventy build becomes canonical, whether Pages deploys a built
   `_site/` instead of the site folder, and what the owner's editing surface is.
 
@@ -61,8 +68,8 @@ What the site actually needs — every evaluation below is measured against thes
 | `poc/wordpress-acf/` | WordPress + ACF, full site, owner edits in wp-admin | Works and is fully editable, but needs PHP + MariaDB hosting and ongoing WP/plugin patching |
 | `poc/grav/` | Flat-file PHP CMS, no database | Lighter than WordPress, but still a server; editing UX proven for a hero slice only |
 | `poc/sveltia/` | Eleventy site + git-based CMS (Sveltia UI, Decap proxy) | No server; edits JSON via forms; requires content modeling per section. Local editing: Sveltia uses the File System Access API, Decap keeps a proxy; multi-device needs GitHub OAuth |
-| `poc/pagescms/` | Eleventy site + Pages CMS; edits the **HTML partials** in a web code editor | No content modeling, but the editor still faces HTML; the CMS itself is a Next.js + Postgres app (hosted app is the sane path). Its `site/` is a full Eleventy build with a smoke-test `check` |
-| `poc/eleventy/` | Templating only: full site as an Eleventy build with shared partials | Proves header/footer/scripts (125 duplicated lines) collapse to one copy with identical output; self-contained assets; `npm run check`. Overlaps heavily with `poc/pagescms/site/` |
+| `poc/pagescms/` → `jonocodes/troop3-pagescms` | Eleventy site + Pages CMS; edits the **HTML partials** in a web code editor | No content modeling, but the editor still faces HTML; the CMS itself is a Next.js + Postgres app (hosted app is the sane path). Promoted to its own repo, deployed to GitHub Pages, with a smoke-test `check` in CI |
+| `poc/eleventy/` | Templating only: full site as an Eleventy build with shared partials | Proves header/footer/scripts (125 duplicated lines) collapse to one copy with identical output; self-contained assets; `npm run check`. Overlaps heavily with the pagescms build |
 
 ### Compared, not built
 
@@ -95,15 +102,65 @@ What the site actually needs — every evaluation below is measured against thes
   redirects; every build happens in Actions, so any tool that emits static files
   is viable.
 
+## Editing surface: Pages CMS vs editing HTML directly in GitHub
+
+With the pagescms POC deployed, a concrete question surfaced: since we chose **raw
+HTML editing** (no content fields in `.pages.yml`), how much easier is Pages CMS
+for a low-tech pack volunteer than just editing the `.html` files in GitHub's web
+UI? They're closer than the Pages CMS pitch implies — because both put a **code
+editor over the raw HTML file**, the core risk is identical.
+
+**Same in both** (a consequence of the no-fields choice, not the tool):
+
+- The user sees the full HTML: tags, `{% ... %}` template syntax, `class="..."`.
+- They can safely change words/links/dates — and can just as easily break markup.
+- Save triggers a commit, which fires the deploy.
+
+**Where Pages CMS is genuinely easier:**
+
+- **Curated file list.** `.pages.yml` shows ~7 friendly-labelled entries ("Home",
+  "Footer", "Header + mobile menu") in a sidebar; GitHub makes them navigate
+  `src/pages/…` and `src/_includes/…` and know which file is which.
+- **No git vocabulary.** Save = done. GitHub's web editor exposes "commit changes",
+  commit messages, and branches/PRs if `main` is protected.
+- **Fewer wrong turns.** They can't wander into `dev/`, config, or workflows, or
+  delete files; GitHub exposes the whole repo.
+- **Nicer editor + media picker** for `src/images` (from the `media:` line).
+- **No GitHub dashboard** to navigate.
+
+**Where GitHub is actually easier:**
+
+- **Zero setup** — no app to install, no Postgres, no hosted-account onboarding.
+- **One less service** to trust/maintain.
+- GitHub's web editor also has syntax highlighting (and `.` → `github.dev`).
+
+**Bottom line.** For a non-technical editor doing occasional word/date/link tweaks,
+Pages CMS is meaningfully gentler — mostly the curated list, no git words, and the
+can't-wander guardrails. It's "similar" in the way that matters most (they still
+see HTML), but the labelled sidebar and guardrails are a real reduction in "what do
+I click / what did I just break" anxiety. To genuinely cross from "easier" to
+"can't break the markup" needs **content fields / visual editing** (CloudCannon,
+TinaCMS) — the structured-field approach this POC deliberately avoided.
+
+**Cheap middle option (not yet built):** split the truly-editable bits (pack name,
+meeting times, dates, join link) into a small **data file with real fields** in
+`.pages.yml`, keep the HTML partials for a developer. The editor then gets safe
+form inputs for the 90% they touch and never opens raw HTML.
+
 ## Open questions
 
 - Which editing UX will the pack actually accept — CMS forms, or a code editor?
-- Which build is canonical: `poc/pagescms/site/` (CMS-ready) or `poc/eleventy/`
+  (See "Editing surface" above: for raw-HTML editing, Pages CMS is gentler than
+  GitHub's web UI but not fundamentally safer. Worth prototyping the data-file +
+  fields "middle option" before deciding?)
+- Which build is canonical: the pagescms build (`jonocodes/troop3-pagescms`,
+  CMS-ready, deployed) or `poc/eleventy/`
   (templating-only), or do both stay as comparisons?
 - Do we switch `pages.yml` to build and publish `_site/`, and does the deployed
   site folder stay in the loop as the source of page bodies?
 - If Pages CMS: use the hosted app (app.pagescms.org); local self-hosting hit
-  GitHub App manifest bugs in pages-cms 2.1.8 (`poc/pagescms/dev/patches/`).
+  GitHub App manifest bugs in pages-cms 2.1.8 (`dev/patches/` in the standalone
+  `jonocodes/troop3-pagescms` repo).
 - If Sveltia: multi-device editing needs the GitHub backend + OAuth worker; local
   editing is same-machine only.
 
@@ -115,4 +172,5 @@ What the site actually needs — every evaluation below is measured against thes
 - `docs/ARCHIVES.md` — archived experiments and restore commands.
 - `poc/wordpress-acf/DECISIONS-AND-FINDINGS.md` — WordPress track decisions.
 - `poc/README.md` — the POC index (what each one proves, ports, how to run).
-- `poc/eleventy/README.md`, `poc/pagescms/README.md` — the two Eleventy builds.
+- `poc/eleventy/README.md`, `poc/pagescms/README.md` (a pointer to
+  `jonocodes/troop3-pagescms`) — the two Eleventy builds.

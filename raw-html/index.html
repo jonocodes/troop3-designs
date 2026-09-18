@@ -63,19 +63,19 @@
                         <h1>Cub Scouts Pack 3 Albany, CA</h1>
                         <p class="hero-subtitle">Are you ready for more s'mores, skits, badges, and outdoor fun?</p>
                         <p class="hero-text">Albany Pack 3 is back in action for 2026-2027! We're an inclusive pack welcoming all kids in Kindergarten through Fifth Grade.</p>
-                        <div class="event-card">
-                            <h3>Parent Info Event</h3>
-                            <div class="event-item">
+                        <div class="event-card" id="event-card">
+                            <h3 id="event-title">Loading…</h3>
+                            <div class="event-item" id="event-date" style="display: none;">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                                Thursday, August 21, 2025
+                                <span></span>
                             </div>
-                            <div class="event-item">
+                            <div class="event-item" id="event-time" style="display: none;">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                6:30 PM - 7:30 PM
+                                <span></span>
                             </div>
-                            <div class="event-item">
+                            <div class="event-item" id="event-location" style="display: none;">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-                                Memorial Hall, Memorial Park
+                                <span></span>
                             </div>
                         </div>
                         <div class="hero-buttons">
@@ -624,6 +624,59 @@ Parents of Lion and Tiger Scouts are also required to complete Safeguarding Yout
                 btn.classList.remove('visible');
             }
         });
+
+        const CALENDAR_API_KEY = 'AIzaSyDiqDeS5APtob3g0QOFcxZzCDmg-vqgXS0';
+        const CALENDAR_ID = 'c03aee33d8f02d3f29f0be5598de80a253718076a086472e3c81ab2e5eb90e3a@group.calendar.google.com';
+
+        (function loadNextEvent() {
+            const el = {
+                card: document.getElementById('event-card'),
+                title: document.getElementById('event-title'),
+                date: document.getElementById('event-date'),
+                time: document.getElementById('event-time'),
+                location: document.getElementById('event-location')
+            };
+            const key = CALENDAR_API_KEY.match(/^[A-Za-z0-9_-]{30,}$/) ? CALENDAR_API_KEY : null;
+            if (!el.card) return;
+            if (!key) { el.card.style.display = 'none'; return; }
+            const url = 'https://www.googleapis.com/calendar/v3/calendars/' + encodeURIComponent(CALENDAR_ID) +
+                '/events?key=' + encodeURIComponent(key) +
+                '&singleEvents=true&orderBy=startTime&maxResults=10' +
+                '&timeMin=' + encodeURIComponent(new Date().toISOString());
+
+            fetch(url)
+                .then(res => { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
+                .then(data => {
+                    const next = (data.items || []).find(e => e.status !== 'cancelled' && e.start);
+                    if (!next) { el.card.style.display = 'none'; return; }
+                    const start = new Date(next.start.dateTime || next.start.date + 'T00:00:00-07:00');
+                    const end = next.end ? new Date(next.end.dateTime || next.end.date + 'T00:00:00-07:00') : null;
+                    const allDay = !next.start.dateTime;
+                    const fmtDate = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/Los_Angeles' }).format(start);
+                    const fmtTime = (d) => new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/Los_Angeles' }).format(d);
+                    el.title.textContent = next.summary || 'Upcoming Event';
+                    el.date.querySelector('span').textContent = fmtDate;
+                    el.date.style.display = '';
+                    if (allDay) {
+                        el.time.style.display = 'none';
+                    } else {
+                        el.time.querySelector('span').textContent =
+                            end ? fmtTime(start) + ' - ' + fmtTime(end) : fmtTime(start);
+                        el.time.style.display = '';
+                    }
+                    if (next.location) {
+                        el.location.querySelector('span').textContent = next.location
+                            .split('\n')[0].trim();
+                        el.location.style.display = '';
+                    }
+                    el.card.classList.add('event-card-live');
+                    console.info('Next event loaded from Google Calendar');
+                })
+                .catch(err => {
+                    el.card.style.display = 'none';
+                    console.warn('Could not load upcoming event from Google Calendar:', err.message);
+                });
+        })();
     </script>
 </body>
 </html>

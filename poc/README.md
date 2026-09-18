@@ -115,17 +115,16 @@ cd poc && node https-proxy.js   # https://lute:8443/  and  https://lute:8443/adm
 
 Same git-backed idea as the Sveltia POC, different shape: what gets edited is not
 JSON/markdown — it's the **HTML partials themselves**, in a code editor over the
-repo. `site/` is the full design-6 site converted to an HTML-first Eleventy build
-(base layout + header/footer/scripts partials + 3 page bodies, no content model);
-`dev/` self-hosts Pages CMS (Postgres + pinned 2.1.8 clone).
+repo. The site is the full design-6 build as an HTML-first Eleventy project (base
+layout + header/footer/scripts partials + 3 page bodies, no content model); a
+`dev/` harness self-hosts Pages CMS (Postgres + pinned 2.1.8 clone).
 
-Run it:
-```bash
-cd poc/pagescms/site && npm install && npm run serve     # :8084, npm run check = smoke test
-cd poc/pagescms/dev  && docker-compose up -d && ./setup.sh
-# then, once: .pagescms/npm run setup:github-app -- --base-url http://localhost:3000
-# and:       .pagescms/npm run dev                       # :3000
-```
+> **Moved to its own repo and deployed.** This POC now lives at
+> <https://github.com/jonocodes/troop3-pagescms> (live at
+> <https://jonocodes.github.io/troop3-pagescms/>). The Eleventy site was hoisted
+> to that repo's **root** so `.pages.yml` sits where Pages CMS reads it. See
+> `poc/pagescms/README.md` for the pointer; run/teardown instructions live in the
+> standalone repo's README.
 
 Findings:
 - **Pages CMS is a server app (Next.js + Postgres), not a drop-in `/admin/` page**
@@ -153,8 +152,8 @@ Findings:
 
 Not a CMS POC — this one asks: can the site be built with shared header/footer includes
 without changing what ships? Answer: yes, with unchanged page bodies, identical URLs and
-self-contained assets. It overlaps heavily with `pagescms/site/`; it's kept as the
-templating-only comparison.
+self-contained assets. It overlaps heavily with the pagescms build (now in its own
+repo, `jonocodes/troop3-pagescms`); it's kept as the templating-only comparison.
 
 Run it:
 ```bash
@@ -180,5 +179,6 @@ in git, free hosting; **Pages CMS** = server + Postgres app state, HTML edited i
 ```bash
 docker rm -f pack3-grav
 # stop the Eleventy + Decap background processes
-cd poc/pagescms/dev && docker-compose down -v && rm -rf .pagescms
+# Pages CMS teardown now lives in the standalone repo (jonocodes/troop3-pagescms):
+#   cd dev && docker-compose down -v && rm -rf .pagescms
 ```

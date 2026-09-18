@@ -7,6 +7,7 @@ Design and platform exploration for the Pack 3 website.
   - `join.html` — standalone Join / registration page
   - `calendar.html` — standalone Pack Calendar page (Google Calendar + detailed doc embeds)
   - `styles.css` — shared styles for all pages
+  - The homepage event card loads the next upcoming event live from the public "Cubs Pack 3" Google Calendar (Calendar API v3, key in `CALENDAR_API_KEY` in `raw-html/index.html`). Shows "Loading…", then the real event; the card hides itself if the fetch fails, the key is missing/restricted, or no events are upcoming.
 - `poc/` — platform proofs-of-concept: `wordpress-acf/`, `grav/`, `sveltia/`, `pagescms/`, and `eleventy/` (templating only: shared header/footer includes).
 - `design-ideas/` — earlier mockups and React prototypes.
 - `docs/` — platform decision docs, build guides, and the `FRAMEWORK-EXPLORATION.md` running log.
